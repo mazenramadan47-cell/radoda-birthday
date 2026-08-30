@@ -1,446 +1,575 @@
 ```javascript
-/* =====================================
-   ELEMENTS
-===================================== */
+/* =========================================================
+   SCREENS
+========================================================= */
 
-const screens =
-  document.querySelectorAll(".screen");
+const screens = {
 
-const welcomeText =
-  document.getElementById("welcomeText");
+    countdown:
+        document.getElementById("countdown"),
 
-const envelope =
-  document.getElementById("envelope");
+    welcome:
+        document.getElementById("welcome"),
 
-const tapHint =
-  document.getElementById("tapHint");
+    letter:
+        document.getElementById("letter"),
 
-const continueBtn =
-  document.getElementById("continueBtn");
+    chapter:
+        document.getElementById("chapter"),
 
-const birthdayVideo =
-  document.getElementById("birthdayVideo");
+    memories:
+        document.getElementById("memories"),
 
-const music =
-  document.getElementById("music");
+    videoIntro:
+        document.getElementById("videoIntro"),
 
-const musicHint =
-  document.getElementById("musicHint");
+    video:
+        document.getElementById("videoScreen"),
 
+    final:
+        document.getElementById("final")
 
-
-/* =====================================
-   SHOW SCREEN
-===================================== */
-
-function show(id) {
-
-  screens.forEach(
-    screen => {
-
-      screen.classList.remove(
-        "active"
-      );
-
-    }
-  );
+};
 
 
-  const target =
-    document.getElementById(id);
+/* =========================================================
+   PROGRESS
+========================================================= */
 
-
-  if (target) {
-
-    target.classList.add(
-      "active"
+const progressNumber =
+    document.getElementById(
+        "progressNumber"
     );
 
-  }
+
+function setProgress(number){
+
+    progressNumber.textContent =
+        String(number).padStart(2,"0");
 
 }
 
 
+/* =========================================================
+   SHOW SCREEN
+========================================================= */
 
-/* =====================================
-   WELCOME TEXT
-===================================== */
+function show(screen, number){
 
-const welcomeMessage =
-  "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
+    Object
+        .values(screens)
+        .forEach(
+            function(item){
 
+                item.classList
+                    .remove("active");
 
-function typeWelcome() {
-
-  welcomeText.textContent = "";
-
-  let index = 0;
-
-
-  const typing =
-    setInterval(
-      () => {
-
-        welcomeText.textContent +=
-          welcomeMessage.charAt(index);
-
-        index++;
+            }
+        );
 
 
-        if (
-          index >= welcomeMessage.length
-        ) {
+    screen.classList.add("active");
 
-          clearInterval(typing);
+
+    if(number){
+
+        setProgress(number);
+
+    }
+
+}
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+const music =
+    document.getElementById("music");
+
+
+const musicControl =
+    document.getElementById("musicControl");
+
+
+const musicIcon =
+    document.getElementById("musicIcon");
+
+
+const musicStatus =
+    document.getElementById("musicStatus");
+
+
+let musicStarted = false;
+
+
+function startMusic(){
+
+    music.volume = 0.35;
+
+    music.play()
+        .then(
+            function(){
+
+                musicStarted = true;
+
+                musicIcon.textContent = "♫";
+
+                musicStatus.textContent =
+                    "Playing";
+
+            }
+        )
+        .catch(
+            function(){
+
+            }
+        );
+
+}
+
+
+musicControl.addEventListener(
+    "click",
+    function(){
+
+        if(
+            music.paused
+        ){
+
+            startMusic();
 
         }
 
-      },
-      35
-    );
+        else{
+
+            music.pause();
+
+            musicIcon.textContent =
+                "♫";
+
+            musicStatus.textContent =
+                "Music";
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   WELCOME TYPING
+========================================================= */
+
+const welcomeMessage =
+    "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
+
+
+function typeWelcome(){
+
+    const text =
+        document.getElementById(
+            "welcomeText"
+        );
+
+
+    text.textContent = "";
+
+
+    let i = 0;
+
+
+    const interval =
+        setInterval(
+            function(){
+
+                text.textContent +=
+                    welcomeMessage[i];
+
+                i++;
+
+
+                if(
+                    i >=
+                    welcomeMessage.length
+                ){
+
+                    clearInterval(
+                        interval
+                    );
+
+                }
+
+            },
+            28
+        );
 
 }
 
 
+/* =========================================================
+   SKIP COUNTDOWN
+========================================================= */
 
-/* =====================================
+document
+    .getElementById("testBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            show(
+                screens.welcome,
+                1
+            );
+
+            typeWelcome();
+
+            startMusic();
+
+        }
+    );
+
+
+/* =========================================================
+   WELCOME -> LETTER
+========================================================= */
+
+document
+    .getElementById("openBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            show(
+                screens.letter,
+                2
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+const envelope =
+    document.getElementById(
+        "envelope"
+    );
+
+
+const continueBtn =
+    document.getElementById(
+        "continueBtn"
+    );
+
+
+const tapHint =
+    document.getElementById(
+        "tapHint"
+    );
+
+
+let envelopeOpened = false;
+
+
+envelope.addEventListener(
+    "click",
+    function(){
+
+        if(envelopeOpened){
+
+            return;
+
+        }
+
+
+        envelopeOpened = true;
+
+
+        envelope.classList.add(
+            "open"
+        );
+
+
+        tapHint.textContent =
+            "A little something from me to you...";
+
+
+        setTimeout(
+            function(){
+
+                continueBtn
+                    .classList
+                    .remove("hidden");
+
+            },
+            1300
+        );
+
+    }
+);
+
+
+/* =========================================================
+   LETTER -> CHAPTER
+========================================================= */
+
+continueBtn.addEventListener(
+    "click",
+    function(){
+
+        show(
+            screens.chapter,
+            3
+        );
+
+    }
+);
+
+
+/* =========================================================
+   CHAPTER -> MEMORIES
+========================================================= */
+
+document
+    .getElementById("memoriesBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            show(
+                screens.memories,
+                4
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   MEMORIES -> VIDEO INTRO
+========================================================= */
+
+document
+    .getElementById("videoIntroBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            show(
+                screens.videoIntro,
+                5
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   VIDEO INTRO -> VIDEO
+========================================================= */
+
+document
+    .getElementById("watchBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            show(
+                screens.video,
+                5
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+const birthdayVideo =
+    document.getElementById(
+        "birthdayVideo"
+    );
+
+
+birthdayVideo.addEventListener(
+    "play",
+    function(){
+
+        music.pause();
+
+        musicStatus.textContent =
+            "Music";
+
+    }
+);
+
+
+birthdayVideo.addEventListener(
+    "ended",
+    function(){
+
+        musicStatus.textContent =
+            "Playing";
+
+        startMusic();
+
+    }
+);
+
+
+/* =========================================================
+   VIDEO -> FINAL
+========================================================= */
+
+document
+    .getElementById("finishBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            birthdayVideo.pause();
+
+            show(
+                screens.final,
+                6
+            );
+
+            startFireworks();
+
+        }
+    );
+
+
+/* =========================================================
    COUNTDOWN
-===================================== */
+========================================================= */
 
-const targetDate =
-  new Date(
-    "August 31, 2026 00:00:00"
-  ).getTime();
-
-
-let countdownFinished =
-  false;
+const target =
+    new Date(
+        "August 31, 2026 00:00:00"
+    ).getTime();
 
 
-function updateCountdown() {
+function updateCountdown(){
 
-  if (countdownFinished) {
-    return;
-  }
-
-
-  const now =
-    new Date().getTime();
+    const diff =
+        target - Date.now();
 
 
-  const difference =
-    targetDate - now;
+    if(diff <= 0){
+
+        show(
+            screens.welcome,
+            1
+        );
+
+        typeWelcome();
+
+        startMusic();
+
+        return;
+
+    }
 
 
-  if (difference <= 0) {
-
-    skipCountdown();
-
-    return;
-
-  }
+    const days =
+        Math.floor(
+            diff /
+            (1000 * 60 * 60 * 24)
+        );
 
 
-  const days =
-    Math.floor(
-      difference /
-      (1000 * 60 * 60 * 24)
-    );
+    const hours =
+        Math.floor(
+            diff /
+            (1000 * 60 * 60)
+        ) % 24;
 
 
-  const hours =
-    Math.floor(
-      (difference /
-        (1000 * 60 * 60)) % 24
-    );
+    const mins =
+        Math.floor(
+            diff /
+            (1000 * 60)
+        ) % 60;
 
 
-  const mins =
-    Math.floor(
-      (difference /
-        (1000 * 60)) % 60
-    );
+    const secs =
+        Math.floor(
+            diff / 1000
+        ) % 60;
 
 
-  const secs =
-    Math.floor(
-      (difference / 1000) % 60
-    );
+    document
+        .getElementById("days")
+        .textContent =
+        String(days)
+        .padStart(2,"0");
 
 
-  document.getElementById("days")
-    .textContent =
-    String(days).padStart(2, "0");
+    document
+        .getElementById("hours")
+        .textContent =
+        String(hours)
+        .padStart(2,"0");
 
 
-  document.getElementById("hours")
-    .textContent =
-    String(hours).padStart(2, "0");
+    document
+        .getElementById("mins")
+        .textContent =
+        String(mins)
+        .padStart(2,"0");
 
 
-  document.getElementById("mins")
-    .textContent =
-    String(mins).padStart(2, "0");
-
-
-  document.getElementById("secs")
-    .textContent =
-    String(secs).padStart(2, "0");
+    document
+        .getElementById("secs")
+        .textContent =
+        String(secs)
+        .padStart(2,"0");
 
 }
 
 
 updateCountdown();
 
+
 setInterval(
-  updateCountdown,
-  1000
+    updateCountdown,
+    1000
 );
 
 
-
-/* =====================================
-   SKIP COUNTDOWN
-===================================== */
-
-function skipCountdown() {
-
-  countdownFinished =
-    true;
-
-
-  show("welcome");
-
-
-  typeWelcome();
-
-
-  startMusic();
-
-}
-
-
-
-/* =====================================
-   MUSIC
-===================================== */
-
-function startMusic() {
-
-  if (!music) {
-    return;
-  }
-
-
-  music.volume = 0.35;
-
-
-  const playPromise =
-    music.play();
-
-
-  if (
-    playPromise !== undefined
-  ) {
-
-    playPromise.catch(
-      () => {
-
-        musicHint.classList.add(
-          "show"
-        );
-
-      }
-    );
-
-  }
-
-}
-
-
-document.addEventListener(
-  "click",
-  function () {
-
-    if (
-      countdownFinished &&
-      music.paused
-    ) {
-
-      startMusic();
-
-    }
-
-  }
-);
-
-
-
-/* =====================================
-   WELCOME → LETTER
-===================================== */
-
-document
-  .getElementById("openBtn")
-  .addEventListener(
-    "click",
-    function () {
-
-      show("letter");
-
-    }
-  );
-
-
-
-/* =====================================
-   ENVELOPE
-===================================== */
-
-envelope.addEventListener(
-  "click",
-  function () {
-
-    if (
-      envelope.classList.contains(
-        "open"
-      )
-    ) {
-
-      return;
-
-    }
-
-
-    envelope.classList.add(
-      "open"
-    );
-
-
-    tapHint.textContent =
-      "A little message for you...";
-
-
-    setTimeout(
-      function () {
-
-        continueBtn.classList.remove(
-          "hidden"
-        );
-
-      },
-      1000
-    );
-
-  }
-);
-
-
-
-/* =====================================
-   LETTER → MEMORIES
-===================================== */
-
-continueBtn.addEventListener(
-  "click",
-  function () {
-
-    show("memories");
-
-  }
-);
-
-
-
-/* =====================================
-   MEMORIES → VIDEO
-===================================== */
-
-document
-  .getElementById("videoBtn")
-  .addEventListener(
-    "click",
-    function () {
-
-      show("videoScreen");
-
-    }
-  );
-
-
-
-/* =====================================
-   VIDEO
-===================================== */
-
-birthdayVideo.addEventListener(
-  "play",
-  function () {
-
-    music.pause();
-
-  }
-);
-
-
-birthdayVideo.addEventListener(
-  "ended",
-  function () {
-
-    startMusic();
-
-  }
-);
-
-
-
-/* =====================================
-   VIDEO → FINAL
-===================================== */
-
-document
-  .getElementById("finishBtn")
-  .addEventListener(
-    "click",
-    function () {
-
-      birthdayVideo.pause();
-
-      show("final");
-
-      startFireworks();
-
-    }
-  );
-
-
-
-/* =====================================
+/* =========================================================
    FIREWORKS
-===================================== */
+========================================================= */
 
 const canvas =
-  document.getElementById(
-    "fireworks"
-  );
+    document.getElementById(
+        "fireworks"
+    );
+
 
 const ctx =
-  canvas.getContext("2d");
+    canvas.getContext("2d");
 
 
 let particles = [];
 
-let fireworksRunning =
-  false;
+
+let fireworksStarted = false;
 
 
-function resizeCanvas() {
+function resizeCanvas(){
 
-  canvas.width =
-    window.innerWidth;
+    canvas.width =
+        window.innerWidth;
 
-  canvas.height =
-    window.innerHeight;
+    canvas.height =
+        window.innerHeight;
 
 }
 
@@ -449,195 +578,168 @@ resizeCanvas();
 
 
 window.addEventListener(
-  "resize",
-  resizeCanvas
+    "resize",
+    resizeCanvas
 );
 
 
+function createFirework(){
 
-function createFirework() {
-
-  const x =
-    Math.random() *
-    canvas.width;
-
-
-  const y =
-    Math.random() *
-    canvas.height *
-    0.55;
-
-
-  for (
-    let i = 0;
-    i < 55;
-    i++
-  ) {
-
-    const angle =
-      Math.random() *
-      Math.PI *
-      2;
-
-
-    const speed =
-      Math.random() *
-      5 +
-      2;
-
-
-    particles.push({
-
-      x: x,
-
-      y: y,
-
-      vx:
-        Math.cos(angle) *
-        speed,
-
-      vy:
-        Math.sin(angle) *
-        speed,
-
-      life: 1,
-
-      decay:
+    const x =
         Math.random() *
-        0.018 +
-        0.012,
+        canvas.width;
 
-      size:
+
+    const y =
         Math.random() *
-        2 +
-        1
+        canvas.height *
+        0.55;
 
-    });
 
-  }
+    for(
+        let i = 0;
+        i < 65;
+        i++
+    ){
+
+        const angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        const speed =
+            Math.random() * 5 + 2;
+
+
+        particles.push({
+
+            x:x,
+
+            y:y,
+
+            vx:
+                Math.cos(angle) *
+                speed,
+
+            vy:
+                Math.sin(angle) *
+                speed,
+
+            life:1,
+
+            decay:
+                Math.random() *
+                .018 +
+                .012,
+
+            size:
+                Math.random() *
+                2 +
+                1
+
+        });
+
+    }
 
 }
 
 
+function animateFireworks(){
 
-function drawFireworks() {
+    if(!fireworksStarted){
 
-  if (!fireworksRunning) {
-    return;
-  }
-
-
-  ctx.fillStyle =
-    "rgba(5,3,8,0.18)";
-
-
-  ctx.fillRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-
-  if (
-    Math.random() <
-    0.045
-  ) {
-
-    createFirework();
-
-  }
-
-
-  particles.forEach(
-    particle => {
-
-      particle.x +=
-        particle.vx;
-
-      particle.y +=
-        particle.vy;
-
-      particle.vy +=
-        0.035;
-
-      particle.life -=
-        particle.decay;
-
-
-      ctx.beginPath();
-
-
-      ctx.arc(
-        particle.x,
-        particle.y,
-        particle.size,
-        0,
-        Math.PI * 2
-      );
-
-
-      ctx.fillStyle =
-        `rgba(
-          232,
-          167,
-          192,
-          ${particle.life}
-        )`;
-
-
-      ctx.fill();
+        return;
 
     }
-  );
 
 
-  particles =
-    particles.filter(
-      particle =>
-        particle.life > 0
+    ctx.fillStyle =
+        "rgba(5,3,8,.18)";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
     );
 
 
-  requestAnimationFrame(
-    drawFireworks
-  );
+    if(
+        Math.random() < .055
+    ){
+
+        createFirework();
+
+    }
+
+
+    particles.forEach(
+        function(p){
+
+            p.x += p.vx;
+
+            p.y += p.vy;
+
+            p.vy += .035;
+
+            p.life -= p.decay;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                p.x,
+                p.y,
+                p.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                "rgba(232,167,192," +
+                p.life +
+                ")";
+
+
+            ctx.fill();
+
+        }
+    );
+
+
+    particles =
+        particles.filter(
+            function(p){
+
+                return p.life > 0;
+
+            }
+        );
+
+
+    requestAnimationFrame(
+        animateFireworks
+    );
 
 }
 
 
+function startFireworks(){
 
-function startFireworks() {
+    if(fireworksStarted){
 
-  if (fireworksRunning) {
-    return;
-  }
+        return;
 
-
-  fireworksRunning =
-    true;
+    }
 
 
-  particles = [];
+    fireworksStarted = true;
 
-
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-
-  drawFireworks();
+    animateFireworks();
 
 }
-
-
-
-/* =====================================
-   START
-===================================== */
-
-show("countdown");
 ```
