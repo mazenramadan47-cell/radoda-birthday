@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Something Special ❤️</title>
+  <title>A Little Surprise ❤️</title>
 
   <style>
     * {
@@ -38,16 +39,23 @@
       padding: 20px;
     }
 
-    /* START SCREEN */
+    /* =========================
+       START SCREEN
+    ========================= */
 
     #startScreen {
       flex-direction: column;
       background:
-        radial-gradient(circle at center, #25101d 0%, #080808 45%, #000 100%);
+        radial-gradient(
+          circle at center,
+          #30121f 0%,
+          #0a0809 45%,
+          #000 100%
+        );
     }
 
     #startScreen h1 {
-      font-size: clamp(32px, 8vw, 65px);
+      font-size: clamp(34px, 8vw, 65px);
       margin: 0 0 15px;
       letter-spacing: 2px;
     }
@@ -75,7 +83,9 @@
       transform: scale(1.05);
     }
 
-    /* COUNTDOWN */
+    /* =========================
+       COUNTDOWN
+    ========================= */
 
     #countdownScreen {
       display: none;
@@ -86,12 +96,15 @@
     #countdown {
       font-size: clamp(80px, 20vw, 180px);
       font-weight: bold;
-      animation: countdownAnimation 1s ease;
     }
 
     #countdownText {
       font-size: 18px;
       opacity: 0.6;
+    }
+
+    .countdownAnimation {
+      animation: countdownAnimation 1s ease;
     }
 
     @keyframes countdownAnimation {
@@ -110,7 +123,9 @@
       }
     }
 
-    /* MEMORY SCREEN */
+    /* =========================
+       MEMORY SCREEN
+    ========================= */
 
     #memoryScreen {
       display: none;
@@ -122,6 +137,7 @@
       position: relative;
       width: min(90vw, 650px);
       height: min(72vh, 700px);
+
       display: flex;
       justify-content: center;
       align-items: center;
@@ -131,10 +147,17 @@
       max-width: 100%;
       max-height: 100%;
       object-fit: contain;
+
       border-radius: 18px;
-      box-shadow: 0 0 45px rgba(255,255,255,0.18);
+
+      box-shadow:
+        0 0 45px rgba(255,255,255,0.18);
+
       opacity: 0;
-      transition: opacity 1.2s ease;
+
+      transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
     }
 
     #memoryText {
@@ -142,18 +165,28 @@
       bottom: -45px;
       left: 0;
       right: 0;
+
       font-size: 15px;
       opacity: 0.55;
     }
 
-    /* FINAL */
+    /* =========================
+       FINAL SCREEN
+    ========================= */
 
     #finalScreen {
       display: none;
       flex-direction: column;
+
       padding: 30px;
+
       background:
-        radial-gradient(circle at center, #2a0d19 0%, #090909 50%, #000 100%);
+        radial-gradient(
+          circle at center,
+          #30101e 0%,
+          #090909 50%,
+          #000 100%
+        );
     }
 
     #finalScreen h1 {
@@ -163,19 +196,27 @@
 
     #finalScreen p {
       max-width: 600px;
+
       line-height: 1.8;
-      font-size: clamp(17px, 4vw, 23px);
+
+      font-size:
+        clamp(17px, 4vw, 23px);
+
       opacity: 0.85;
     }
 
     .heart {
       font-size: 55px;
+
       margin-bottom: 20px;
-      animation: heartbeat 1.5s infinite;
+
+      animation:
+        heartbeat 1.5s infinite;
     }
 
     @keyframes heartbeat {
-      0%, 100% {
+      0%,
+      100% {
         transform: scale(1);
       }
 
@@ -185,7 +226,8 @@
     }
 
     .fadeIn {
-      animation: fadeIn 1.5s ease forwards;
+      animation:
+        fadeIn 1.5s ease forwards;
     }
 
     @keyframes fadeIn {
@@ -204,11 +246,19 @@
 
 <body>
 
-  <!-- START -->
 
-  <div id="startScreen" class="screen">
+  <!-- =====================================
+       START SCREEN
+  ====================================== -->
 
-    <h1>Hey ❤️</h1>
+  <div
+    id="startScreen"
+    class="screen"
+  >
+
+    <h1>
+      Hey ❤️
+    </h1>
 
     <p>
       I made something special for you...
@@ -221,11 +271,18 @@
   </div>
 
 
-  <!-- COUNTDOWN -->
+  <!-- =====================================
+       COUNTDOWN SCREEN
+  ====================================== -->
 
-  <div id="countdownScreen" class="screen">
+  <div
+    id="countdownScreen"
+    class="screen"
+  >
 
-    <div id="countdown">3</div>
+    <div id="countdown">
+      3
+    </div>
 
     <div id="countdownText">
       Get ready...
@@ -234,15 +291,20 @@
   </div>
 
 
-  <!-- PHOTOS -->
+  <!-- =====================================
+       MEMORY SCREEN
+  ====================================== -->
 
-  <div id="memoryScreen" class="screen">
+  <div
+    id="memoryScreen"
+    class="screen"
+  >
 
     <div class="photo-container">
 
       <img
         id="memoryPhoto"
-        src="01.JPG"
+        src="photos/01.JPG"
         alt="Memory"
       >
 
@@ -255,22 +317,31 @@
   </div>
 
 
-  <!-- FINAL -->
+  <!-- =====================================
+       FINAL SCREEN
+  ====================================== -->
 
-  <div id="finalScreen" class="screen">
+  <div
+    id="finalScreen"
+    class="screen"
+  >
 
     <div class="heart">
       ❤️
     </div>
 
-    <h1>Happy Birthday!</h1>
+    <h1>
+      Happy Birthday!
+    </h1>
 
     <p>
       I hope this little surprise made you smile.
-      <br>
+      <br><br>
+
       Here's to all the beautiful memories we've made
       and all the ones still waiting for us.
       <br><br>
+
       ❤️
     </p>
 
@@ -279,23 +350,27 @@
 
   <script>
 
-    /* =========================
-       YOUR PHOTOS
-    ========================= */
+    /* =====================================
+       PHOTOS
+       IMPORTANT:
+       All photos are inside /photos
+    ====================================== */
 
     const photos = [
-      "01.JPG",
-      "02.JPG",
-      "03.JPG",
-      "04.JPG",
-      "05.JPG",
-      "06.JPG"
+
+      "photos/01.JPG",
+      "photos/02.JPG",
+      "photos/03.JPG",
+      "photos/04.JPG",
+      "photos/05.JPG",
+      "photos/06.JPG"
+
     ];
 
 
-    /* =========================
+    /* =====================================
        ELEMENTS
-    ========================= */
+    ====================================== */
 
     const startScreen =
       document.getElementById("startScreen");
@@ -319,130 +394,189 @@
       document.getElementById("memoryPhoto");
 
 
-    /* =========================
-       START SURPRISE
-    ========================= */
+    /* =====================================
+       START
+    ====================================== */
 
-    startButton.addEventListener("click", function () {
+    startButton.addEventListener(
+      "click",
+      function () {
 
-      startScreen.style.display = "none";
+        startScreen.style.display =
+          "none";
 
-      countdownScreen.style.display = "flex";
+        countdownScreen.style.display =
+          "flex";
 
-      startCountdown();
+        startCountdown();
 
-    });
+      }
+    );
 
 
-    /* =========================
+    /* =====================================
        COUNTDOWN
-    ========================= */
+    ====================================== */
 
     function startCountdown() {
 
       let number = 3;
 
-      countdown.textContent = number;
+      showCountdown(number);
 
-      const timer = setInterval(function () {
+      const timer =
+        setInterval(
+          function () {
 
-        number--;
+            number--;
 
-        if (number > 0) {
+            if (number > 0) {
 
-          countdown.textContent = number;
+              showCountdown(number);
 
-          countdown.style.animation = "none";
+            }
 
-          void countdown.offsetWidth;
+            else {
 
-          countdown.style.animation =
-            "countdownAnimation 1s ease";
+              clearInterval(timer);
 
-        }
+              showCountdown("❤️");
 
-        else {
+              setTimeout(
+                function () {
 
-          clearInterval(timer);
+                  countdownScreen.style.display =
+                    "none";
 
-          countdown.textContent = "❤️";
+                  startMemories();
 
-          setTimeout(function () {
+                },
+                1000
+              );
 
-            countdownScreen.style.display = "none";
+            }
 
-            startMemories();
-
-          }, 1000);
-
-        }
-
-      }, 1000);
+          },
+          1000
+        );
 
     }
 
 
-    /* =========================
-       SHOW MEMORIES
-    ========================= */
+    /* =====================================
+       COUNTDOWN ANIMATION
+    ====================================== */
+
+    function showCountdown(value) {
+
+      countdown.textContent =
+        value;
+
+      countdown.classList.remove(
+        "countdownAnimation"
+      );
+
+      void countdown.offsetWidth;
+
+      countdown.classList.add(
+        "countdownAnimation"
+      );
+
+    }
+
+
+    /* =====================================
+       MEMORIES
+    ====================================== */
 
     function startMemories() {
 
-      memoryScreen.style.display = "flex";
+      memoryScreen.style.display =
+        "flex";
 
       let currentPhoto = 0;
 
       showPhoto(currentPhoto);
 
 
-      const photoTimer = setInterval(function () {
+      const photoTimer =
+        setInterval(
+          function () {
 
-        currentPhoto++;
+            currentPhoto++;
 
-        if (currentPhoto >= photos.length) {
 
-          clearInterval(photoTimer);
+            if (
+              currentPhoto >= photos.length
+            ) {
 
-          setTimeout(function () {
+              clearInterval(photoTimer);
 
-            memoryScreen.style.display = "none";
+              setTimeout(
+                function () {
 
-            finalScreen.style.display = "flex";
+                  memoryScreen.style.display =
+                    "none";
 
-            finalScreen.classList.add("fadeIn");
+                  finalScreen.style.display =
+                    "flex";
 
-          }, 1500);
+                  finalScreen.classList.add(
+                    "fadeIn"
+                  );
 
-          return;
+                },
+                1500
+              );
 
-        }
+              return;
 
-        showPhoto(currentPhoto);
+            }
 
-      }, 4000);
+
+            showPhoto(currentPhoto);
+
+          },
+          4000
+        );
 
     }
 
 
-    /* =========================
-       PHOTO TRANSITION
-    ========================= */
+    /* =====================================
+       SHOW PHOTO
+    ====================================== */
 
     function showPhoto(index) {
 
-      photo.style.opacity = "0";
+      photo.style.opacity =
+        "0";
 
-      setTimeout(function () {
+      photo.style.transform =
+        "scale(0.96)";
 
-        photo.src = photos[index];
 
-        photo.onload = function () {
+      setTimeout(
+        function () {
 
-          photo.style.opacity = "1";
+          photo.src =
+            photos[index];
 
-        };
 
-      }, 700);
+          photo.onload =
+            function () {
+
+              photo.style.opacity =
+                "1";
+
+              photo.style.transform =
+                "scale(1)";
+
+            };
+
+        },
+        700
+      );
 
     }
 
@@ -450,3 +584,4 @@
 
 </body>
 </html>
+```
