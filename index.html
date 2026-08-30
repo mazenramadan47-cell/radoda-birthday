@@ -1,479 +1,439 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Something Special ❤️</title>
+    <title>For Radoda ❤️</title>
 
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Softer elegant fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Background -->
-    <div id="starField"></div>
-    <div class="ambient-glow glow-one"></div>
-    <div class="ambient-glow glow-two"></div>
+    <!-- BACKGROUND -->
+    <div id="stars"></div>
+    <div id="glow"></div>
+    <div id="shootingStars"></div>
 
-    <!-- Music -->
-    <audio id="bgMusic" loop>
-        <source src="assets/music.mp3" type="audio/mpeg">
+    <!-- MUSIC -->
+    <div id="musicHint">♫ Tap anywhere for music</div>
+
+    <button id="musicButton">♫</button>
+
+    <audio id="music" loop preload="auto">
+        <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicBtn" class="music-btn">♪</button>
 
+    <main>
 
-    <!-- ================= COUNTDOWN SCREEN ================= -->
+        <!-- ==================================================
+             COUNTDOWN
+        ================================================== -->
 
-    <section id="countdownScreen" class="screen active">
+        <section id="countdown" class="screen active">
 
-        <div class="countdown-content">
+            <div class="heroGlow"></div>
 
-            <div class="eyebrow">
-                SOMETHING SPECIAL
-            </div>
+            <div class="content">
 
-            <h1>
-                A little surprise<br>
-                <span>is waiting for you.</span>
-            </h1>
-
-            <!-- Date counter -->
-            <div id="dateCounter" class="date-counter">
-
-                <div class="time-box">
-                    <strong id="days">00</strong>
-                    <span>DAYS</span>
+                <div class="eyebrow">
+                    A LITTLE SURPRISE IS WAITING...
                 </div>
 
-                <div class="colon">:</div>
+                <h1>
+                    For <span>Radoda</span> <i>♥</i>
+                </h1>
 
-                <div class="time-box">
-                    <strong id="hours">00</strong>
-                    <span>HOURS</span>
-                </div>
+                <p class="subtitle">
+                    Come back when the clock strikes midnight.
+                </p>
 
-                <div class="colon">:</div>
 
-                <div class="time-box">
-                    <strong id="minutes">00</strong>
-                    <span>MINUTES</span>
-                </div>
+                <div id="timer" class="timer">
 
-                <div class="colon">:</div>
-
-                <div class="time-box">
-                    <strong id="seconds">00</strong>
-                    <span>SECONDS</span>
-                </div>
-
-            </div>
-
-
-            <!-- 10 9 8... -->
-            <div id="finalCountdown" class="final-countdown hidden">
-                <span id="count">10</span>
-            </div>
-
-
-            <button id="skipBtn" class="glass-btn">
-                Skip countdown ✦
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= WELCOME ================= -->
-
-    <section id="welcome" class="screen">
-
-        <div class="welcome-content">
-
-            <div class="big-sparkle">✦</div>
-
-            <div class="eyebrow">
-                WELCOME
-            </div>
-
-            <h1>
-                Your little<br>
-                <span>surprise.</span>
-            </h1>
-
-            <p>
-                A few memories.<br>
-                A few words.<br>
-                And something waiting for you at the end.
-            </p>
-
-            <button id="startBtn" class="main-btn">
-                Begin the journey
-                <span>→</span>
-            </button>
-
-        </div>
-
-    </section>
-
-
-    <!-- ================= GIFTS ================= -->
-
-    <section id="boxes" class="screen">
-
-        <div class="section-heading">
-
-            <div class="chapter">
-                CHAPTER I
-            </div>
-
-            <h2>
-                A few little surprises.
-            </h2>
-
-            <p>
-                Take your time.
-            </p>
-
-        </div>
-
-
-        <div class="boxes-container">
-
-            <button class="gift-box" data-gift="0">
-                <div class="box-glow"></div>
-                <div class="box-icon">🎁</div>
-                <div class="box-label">Open</div>
-            </button>
-
-            <button class="gift-box" data-gift="1">
-                <div class="box-glow"></div>
-                <div class="box-icon">💌</div>
-                <div class="box-label">Open</div>
-            </button>
-
-            <button class="gift-box" data-gift="2">
-                <div class="box-glow"></div>
-                <div class="box-icon">✦</div>
-                <div class="box-label">Open</div>
-            </button>
-
-        </div>
-
-
-        <p id="boxHint" class="hint">
-            Explore them all.
-        </p>
-
-        <button id="toMemories" class="next-btn hidden">
-            Continue →
-        </button>
-
-    </section>
-
-
-    <!-- ================= GIFT MODAL ================= -->
-
-    <div id="giftModal" class="modal">
-
-        <div class="modal-content">
-
-            <button class="close-modal">×</button>
-
-            <div class="modal-sparkle">
-                ✦
-            </div>
-
-            <div id="giftContent"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ================= MEMORIES ================= -->
-
-    <section id="memories" class="screen">
-
-        <div class="section-heading">
-
-            <div class="chapter">
-                CHAPTER II
-            </div>
-
-            <h2>
-                Little moments.
-            </h2>
-
-            <p>
-                Some moments are worth keeping forever.
-            </p>
-
-        </div>
-
-
-        <div class="memory-grid">
-
-            <div class="memory-card">
-                <div class="photo-shine"></div>
-                <img src="assets/01.JPG">
-                <div class="memory-caption">
-                    <p>A moment worth remembering.</p>
-                </div>
-            </div>
-
-
-            <div class="memory-card tall">
-                <div class="photo-shine"></div>
-                <img src="assets/02.JPG">
-                <div class="memory-caption">
-                    <p>One of my favorites.</p>
-                </div>
-            </div>
-
-
-            <div class="memory-card">
-                <div class="photo-shine"></div>
-                <img src="assets/03.JPG">
-                <div class="memory-caption">
-                    <p>That smile.</p>
-                </div>
-            </div>
-
-
-            <div class="memory-card tall">
-                <div class="photo-shine"></div>
-                <img src="assets/04.JPG">
-                <div class="memory-caption">
-                    <p>A beautiful little memory.</p>
-                </div>
-            </div>
-
-
-            <div class="memory-card">
-                <div class="photo-shine"></div>
-                <img src="assets/05.JPG">
-                <div class="memory-caption">
-                    <p>Just one of those moments.</p>
-                </div>
-            </div>
-
-
-            <div class="memory-card">
-                <div class="photo-shine"></div>
-                <img src="assets/06.JPG">
-                <div class="memory-caption">
-                    <p>And this one too. ❤️</p>
-                </div>
-            </div>
-
-        </div>
-
-
-        <button id="toLetter" class="next-btn">
-            There's more →
-        </button>
-
-    </section>
-
-
-    <!-- ================= IMAGE VIEWER ================= -->
-
-    <div id="imageViewer" class="image-viewer">
-
-        <button id="closeViewer">×</button>
-
-        <img id="viewerImage">
-
-    </div>
-
-
-    <!-- ================= LETTER ================= -->
-
-    <section id="letter" class="screen">
-
-        <div class="section-heading">
-
-            <div class="chapter">
-                CHAPTER III
-            </div>
-
-            <h2>
-                Something from me.
-            </h2>
-
-            <p>
-                Open it when you're ready.
-            </p>
-
-        </div>
-
-
-        <div id="envelope" class="envelope">
-
-            <div class="envelope-back"></div>
-
-            <div class="letter-paper">
-
-                <div class="letter-inner">
-
-                    <div class="letter-top">
-                        ✦
+                    <div class="time">
+                        <strong id="days">00</strong>
+                        <small>DAYS</small>
                     </div>
 
-                    <h3>
-                        To my favorite person,
-                    </h3>
+                    <div class="divider">:</div>
 
-                    <div class="letter-text">
-
-                        <p>
-                            Some people simply make life feel
-                            a little more beautiful.
-                        </p>
-
-                        <p>
-                            And somehow, you became one of
-                            those people for me.
-                        </p>
-
-                        <p>
-                            I hope this new chapter of your life
-                            brings you everything you've been
-                            wishing for.
-                        </p>
-
-                        <p>
-                            You deserve all the beautiful things
-                            coming your way.
-                        </p>
-
+                    <div class="time">
+                        <strong id="hours">00</strong>
+                        <small>HOURS</small>
                     </div>
 
-                    <div class="signature">
-                        With love, ❤️
+                    <div class="divider">:</div>
+
+                    <div class="time">
+                        <strong id="minutes">00</strong>
+                        <small>MINUTES</small>
+                    </div>
+
+                    <div class="divider">:</div>
+
+                    <div class="time">
+                        <strong id="seconds">00</strong>
+                        <small>SECONDS</small>
                     </div>
 
                 </div>
 
+
+                <div class="date">
+                    31 AUGUST · 12:00 AM
+                </div>
+
+
+                <!-- 10 9 8... -->
+
+                <div id="miniCountdown" class="miniCountdown hidden">
+                    <span id="miniNumber">10</span>
+                </div>
+
+
+                <button id="skipButton" class="ghostButton">
+                    Skip countdown
+                </button>
+
             </div>
 
-            <div class="envelope-front"></div>
+        </section>
 
-            <div class="heart-seal">
-                ♥
+
+        <!-- ==================================================
+             WELCOME
+        ================================================== -->
+
+        <section id="welcome" class="screen">
+
+            <div class="content center">
+
+                <div class="sparkle">✦</div>
+
+                <div class="eyebrow">
+                    IT'S FINALLY MIDNIGHT...
+                </div>
+
+                <h1>
+                    Happy Birthday
+                    <br>
+                    <span>Radoda</span> <i>♥</i>
+                </h1>
+
+                <p class="welcomeText">
+                    A tiny little surprise,
+                    made especially for you.
+                </p>
+
+                <button id="openButton" class="mainButton">
+                    Open your surprise
+                    <b>→</b>
+                </button>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <p id="openLetterHint">
-            Tap the envelope
-        </p>
+        <!-- ==================================================
+             LETTER
+        ================================================== -->
+
+        <section id="letter" class="screen">
+
+            <div class="content center">
+
+                <div class="eyebrow">
+                    A MESSAGE FOR YOU
+                </div>
+
+                <h2>
+                    Before we begin...
+                </h2>
 
 
-        <button id="toVideo" class="next-btn hidden">
-            One last thing... →
-        </button>
+                <div id="envelope" class="envelope">
 
-    </section>
+                    <div class="envelopeBack"></div>
 
 
-    <!-- ================= VIDEO ================= -->
+                    <div class="paper">
 
-    <section id="videoSection" class="screen">
+                        <div class="paperInner">
 
-        <div class="video-intro">
+                            <div class="paperDecoration">
+                                ✦
+                            </div>
 
-            <div class="chapter">
-                THE FINAL CHAPTER
+                            <h3>
+                                Dear Radoda,
+                            </h3>
+
+                            <div class="letterText">
+
+                                <p>
+                                    Before you see what I made,
+                                    I just want you to know that
+                                    this little surprise comes
+                                    straight from the heart.
+                                </p>
+
+                                <p>
+                                    Some memories are too special
+                                    to leave inside a camera roll.
+                                </p>
+
+                                <p>
+                                    So I put a few of them here,
+                                    just for you.
+                                </p>
+
+                            </div>
+
+                            <div class="signature">
+                                With love ♥
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="flap"></div>
+
+                    <div class="envelopeFront"></div>
+
+                    <div class="seal">
+                        ♥
+                    </div>
+
+                </div>
+
+
+                <p id="tapHint" class="tapHint">
+                    Tap the envelope
+                </p>
+
+
+                <button id="letterContinue" class="mainButton hidden">
+                    Keep going
+                    <b>→</b>
+                </button>
+
             </div>
 
-            <h2>
-                Ready?
-            </h2>
-
-            <p>
-                I saved the best part for last.
-            </p>
-
-        </div>
+        </section>
 
 
-        <div class="video-wrapper">
+        <!-- ==================================================
+             MEMORIES
+        ================================================== -->
 
-            <div class="video-glow"></div>
+        <section id="memories" class="screen">
 
-            <video id="mainVideo" controls playsinline>
-                <source src="assets/video.mp4" type="video/mp4">
-            </video>
+            <div class="memoryContent">
 
-        </div>
+                <div class="eyebrow">
+                    A FEW LITTLE MEMORIES
+                </div>
+
+                <h2>
+                    Moments worth keeping <i>♥</i>
+                </h2>
+
+                <p class="subtitle">
+                    Some moments deserve to stay forever.
+                </p>
 
 
-        <button id="finishBtn" class="main-btn">
-            Continue
-            <span>→</span>
-        </button>
+                <div class="gallery">
 
-    </section>
+                    <figure class="photoCard">
+                        <img src="01.JPG" alt="Memory 1">
+                        <figcaption>
+                            One of my favorite memories.
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photoCard">
+                        <img src="02.JPG" alt="Memory 2">
+                        <figcaption>
+                            Another moment I never want to forget.
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photoCard">
+                        <img src="03.JPG" alt="Memory 3">
+                        <figcaption>
+                            And then there was us...
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photoCard">
+                        <img src="04.JPG" alt="Memory 4">
+                        <figcaption>
+                            A little piece of our story.
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photoCard">
+                        <img src="05.JPG" alt="Memory 5">
+                        <figcaption>
+                            More memories, more reasons to smile.
+                        </figcaption>
+                    </figure>
+
+                    <figure class="photoCard">
+                        <img src="06.JPG" alt="Memory 6">
+                        <figcaption>
+                            And this is only the beginning. ♥
+                        </figcaption>
+                    </figure>
+
+                </div>
 
 
-    <!-- ================= FINAL ================= -->
+                <button id="videoButton" class="mainButton">
+                    There is one more thing...
+                    <b>→</b>
+                </button>
 
-    <section id="final" class="screen">
-
-        <div id="hearts"></div>
-
-        <div class="final-content">
-
-            <div class="final-spark">
-                ✦
             </div>
 
-            <div class="final-heart">
-                ❤️
-            </div>
+        </section>
 
-            <div class="eyebrow">
-                THE END
-            </div>
 
-            <h1>
-                Happy Birthday
-            </h1>
+        <!-- ==================================================
+             IMAGE VIEWER
+        ================================================== -->
 
-            <h2>
-                To someone truly special.
-            </h2>
+        <div id="imageViewer" class="imageViewer">
 
-            <p>
-                I hope this little journey made you smile.
-            </p>
-
-            <p class="final-small">
-                And maybe...
-                this is only the beginning. ✨
-            </p>
-
-            <button id="restartBtn" class="glass-btn">
-                Experience it again ↻
+            <button id="closeImage">
+                ×
             </button>
 
+            <img id="viewerImage" src="" alt="">
+
         </div>
 
-    </section>
+
+        <!-- ==================================================
+             VIDEO
+        ================================================== -->
+
+        <section id="videoScreen" class="screen">
+
+            <div class="content center">
+
+                <div class="eyebrow">
+                    MADE ESPECIALLY FOR YOU
+                </div>
+
+                <h2>
+                    I saved something special <i>♥</i>
+                </h2>
+
+                <p class="subtitle">
+                    Press play when you're ready.
+                </p>
+
+
+                <div class="videoWrap">
+
+                    <div class="videoGlow"></div>
+
+                    <video
+                        id="birthdayVideo"
+                        controls
+                        playsinline
+                        preload="metadata">
+
+                        <source
+                            src="birthday.mp4"
+                            type="video/mp4">
+
+                    </video>
+
+                </div>
+
+
+                <button id="finishButton" class="mainButton">
+                    Finish the surprise
+                    <b>✦</b>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FINAL
+        ================================================== -->
+
+        <section id="final" class="screen">
+
+            <canvas id="fireworks"></canvas>
+
+            <div class="finalContent">
+
+                <div class="sparkle">
+                    ✦
+                </div>
+
+                <div class="eyebrow">
+                    ONE LAST THING...
+                </div>
+
+                <h1>
+                    Happy Birthday,
+                    <br>
+                    <span>Radoda</span> <i>♥</i>
+                </h1>
+
+                <p class="finalText">
+
+                    I hope this little surprise
+                    made you smile.
+
+                    <br><br>
+
+                    May this year bring you beautiful
+                    moments, happy memories, and
+                    everything your heart deserves.
+
+                    <br><br>
+
+                    <b>
+                        And I hope I get to be there
+                        for many of them. ♥
+                    </b>
+
+                </p>
+
+                <div class="end">
+                    Made with love.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
     <script src="script.js"></script>
 
 </body>
 </html>
+```
