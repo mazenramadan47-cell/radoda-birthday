@@ -1,587 +1,418 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>A Little Surprise ❤️</title>
+  <title>For Radoda ❤️</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* =========================
-       START SCREEN
-    ========================= */
-
-    #startScreen {
-      flex-direction: column;
-      background:
-        radial-gradient(
-          circle at center,
-          #30121f 0%,
-          #0a0809 45%,
-          #000 100%
-        );
-    }
-
-    #startScreen h1 {
-      font-size: clamp(34px, 8vw, 65px);
-      margin: 0 0 15px;
-      letter-spacing: 2px;
-    }
-
-    #startScreen p {
-      font-size: clamp(16px, 4vw, 22px);
-      opacity: 0.75;
-      margin-bottom: 35px;
-    }
-
-    #startButton {
-      border: 1px solid rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.08);
-      color: white;
-      padding: 15px 35px;
-      border-radius: 50px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-      backdrop-filter: blur(10px);
-    }
-
-    #startButton:hover {
-      background: rgba(255,255,255,0.18);
-      transform: scale(1.05);
-    }
-
-    /* =========================
-       COUNTDOWN
-    ========================= */
-
-    #countdownScreen {
-      display: none;
-      flex-direction: column;
-      background: #000;
-    }
-
-    #countdown {
-      font-size: clamp(80px, 20vw, 180px);
-      font-weight: bold;
-    }
-
-    #countdownText {
-      font-size: 18px;
-      opacity: 0.6;
-    }
-
-    .countdownAnimation {
-      animation: countdownAnimation 1s ease;
-    }
-
-    @keyframes countdownAnimation {
-      0% {
-        transform: scale(1.5);
-        opacity: 0;
-      }
-
-      50% {
-        opacity: 1;
-      }
-
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* =========================
-       MEMORY SCREEN
-    ========================= */
-
-    #memoryScreen {
-      display: none;
-      flex-direction: column;
-      background: #000;
-    }
-
-    .photo-container {
-      position: relative;
-      width: min(90vw, 650px);
-      height: min(72vh, 700px);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    #memoryPhoto {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-
-      border-radius: 18px;
-
-      box-shadow:
-        0 0 45px rgba(255,255,255,0.18);
-
-      opacity: 0;
-
-      transition:
-        opacity 1.2s ease,
-        transform 1.2s ease;
-    }
-
-    #memoryText {
-      position: absolute;
-      bottom: -45px;
-      left: 0;
-      right: 0;
-
-      font-size: 15px;
-      opacity: 0.55;
-    }
-
-    /* =========================
-       FINAL SCREEN
-    ========================= */
-
-    #finalScreen {
-      display: none;
-      flex-direction: column;
-
-      padding: 30px;
-
-      background:
-        radial-gradient(
-          circle at center,
-          #30101e 0%,
-          #090909 50%,
-          #000 100%
-        );
-    }
-
-    #finalScreen h1 {
-      font-size: clamp(40px, 10vw, 80px);
-      margin: 0 0 20px;
-    }
-
-    #finalScreen p {
-      max-width: 600px;
-
-      line-height: 1.8;
-
-      font-size:
-        clamp(17px, 4vw, 23px);
-
-      opacity: 0.85;
-    }
-
-    .heart {
-      font-size: 55px;
-
-      margin-bottom: 20px;
-
-      animation:
-        heartbeat 1.5s infinite;
-    }
-
-    @keyframes heartbeat {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.15);
-      }
-    }
-
-    .fadeIn {
-      animation:
-        fadeIn 1.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.96);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- Background effects -->
+  <div id="stars"></div>
+  <div id="shootingStars"></div>
+  <div class="hearts"></div>
 
-  <!-- =====================================
-       START SCREEN
-  ====================================== -->
-
-  <div
-    id="startScreen"
-    class="screen"
-  >
-
-    <h1>
-      Hey ❤️
-    </h1>
-
-    <p>
-      I made something special for you...
-    </p>
-
-    <button id="startButton">
-      Open Your Surprise ✨
-    </button>
-
+  <div id="musicHint">
+    ♫ Tap anywhere for music
   </div>
 
 
-  <!-- =====================================
-       COUNTDOWN SCREEN
-  ====================================== -->
+  <main>
 
-  <div
-    id="countdownScreen"
-    class="screen"
-  >
+    <!-- =========================
+         COUNTDOWN
+    ========================== -->
 
-    <div id="countdown">
-      3
-    </div>
+    <section id="countdown" class="screen active">
 
-    <div id="countdownText">
-      Get ready...
-    </div>
+      <div class="orb"></div>
 
-  </div>
-
-
-  <!-- =====================================
-       MEMORY SCREEN
-  ====================================== -->
-
-  <div
-    id="memoryScreen"
-    class="screen"
-  >
-
-    <div class="photo-container">
-
-      <img
-        id="memoryPhoto"
-        src="photos/01.JPG"
-        alt="Memory"
-      >
-
-      <div id="memoryText">
-        A little piece of our memories ❤️
+      <div class="eyebrow">
+        A little surprise is waiting...
       </div>
 
-    </div>
+      <h1>
+        For <span>Radoda</span> <i>♥</i>
+      </h1>
 
-  </div>
+      <p class="sub">
+        Come back when the clock strikes midnight.
+      </p>
 
+      <div class="timer">
 
-  <!-- =====================================
-       FINAL SCREEN
-  ====================================== -->
+        <div>
+          <b id="days">00</b>
+          <small>DAYS</small>
+        </div>
 
-  <div
-    id="finalScreen"
-    class="screen"
-  >
+        <div>
+          <b id="hours">00</b>
+          <small>HOURS</small>
+        </div>
 
-    <div class="heart">
-      ❤️
-    </div>
+        <div>
+          <b id="mins">00</b>
+          <small>MINUTES</small>
+        </div>
 
-    <h1>
-      Happy Birthday!
-    </h1>
+        <div>
+          <b id="secs">00</b>
+          <small>SECONDS</small>
+        </div>
 
-    <p>
-      I hope this little surprise made you smile.
-      <br><br>
+      </div>
 
-      Here's to all the beautiful memories we've made
-      and all the ones still waiting for us.
-      <br><br>
+      <div class="date">
+        31 AUGUST · 12:00 AM
+      </div>
 
-      ❤️
-    </p>
+      <button id="testBtn" class="testBtn">
+        ⚡ Skip countdown — TEST
+      </button>
 
-  </div>
+    </section>
 
 
-  <script>
+    <!-- =========================
+         WELCOME
+    ========================== -->
 
-    /* =====================================
-       PHOTOS
-       IMPORTANT:
-       All photos are inside /photos
-    ====================================== */
+    <section id="welcome" class="screen">
 
-    const photos = [
+      <div class="sparkle">
+        ✦
+      </div>
 
-      "photos/01.JPG",
-      "photos/02.JPG",
-      "photos/03.JPG",
-      "photos/04.JPG",
-      "photos/05.JPG",
-      "photos/06.JPG"
+      <div class="eyebrow">
+        It's finally midnight...
+      </div>
 
-    ];
+      <h1>
+        Happy Birthday<br>
+        <span>Radoda</span> <i>♥</i>
+      </h1>
 
+      <p
+        class="sub type"
+        id="welcomeText">
+      </p>
 
-    /* =====================================
-       ELEMENTS
-    ====================================== */
+      <button id="openBtn">
+        Open your surprise
+        <strong>→</strong>
+      </button>
 
-    const startScreen =
-      document.getElementById("startScreen");
+    </section>
 
-    const countdownScreen =
-      document.getElementById("countdownScreen");
 
-    const memoryScreen =
-      document.getElementById("memoryScreen");
+    <!-- =========================
+         LETTER
+    ========================== -->
 
-    const finalScreen =
-      document.getElementById("finalScreen");
+    <section id="letter" class="screen">
 
-    const startButton =
-      document.getElementById("startButton");
+      <div class="eyebrow">
+        A message for you
+      </div>
 
-    const countdown =
-      document.getElementById("countdown");
+      <div
+        class="envelope"
+        id="envelope">
 
-    const photo =
-      document.getElementById("memoryPhoto");
+        <div class="env-back"></div>
 
+        <div class="letter-paper">
 
-    /* =====================================
-       START
-    ====================================== */
+          <p>
+            Radoda,
+          </p>
 
-    startButton.addEventListener(
-      "click",
-      function () {
+          <p>
+            Before you see what I made,
+            I just want you to know that
+            this little surprise comes from the heart.
+          </p>
 
-        startScreen.style.display =
-          "none";
+          <p>
+            Some memories are too special
+            to leave inside a camera roll.
+          </p>
 
-        countdownScreen.style.display =
-          "flex";
+          <p class="signature">
+            — With love ♥
+          </p>
 
-        startCountdown();
+        </div>
 
-      }
-    );
+        <div class="flap"></div>
 
+        <div class="env-front"></div>
 
-    /* =====================================
-       COUNTDOWN
-    ====================================== */
+      </div>
 
-    function startCountdown() {
+      <p
+        class="tapHint"
+        id="tapHint">
+        Tap the envelope
+      </p>
 
-      let number = 3;
+      <button
+        id="continueBtn"
+        class="hidden">
 
-      showCountdown(number);
+        Keep going
+        <strong>→</strong>
 
-      const timer =
-        setInterval(
-          function () {
+      </button>
 
-            number--;
+    </section>
 
-            if (number > 0) {
 
-              showCountdown(number);
+    <!-- =========================
+         MEMORIES
+    ========================== -->
 
-            }
+    <section id="memories" class="screen">
 
-            else {
+      <div class="eyebrow">
+        A few little memories
+      </div>
 
-              clearInterval(timer);
+      <h2>
+        Moments worth keeping
+        <i>♥</i>
+      </h2>
 
-              showCountdown("❤️");
+      <p class="sub">
+        Six little pieces of our story.
+      </p>
 
-              setTimeout(
-                function () {
 
-                  countdownScreen.style.display =
-                    "none";
+      <div class="gallery">
 
-                  startMemories();
+        <figure class="photo-card">
 
-                },
-                1000
-              );
+          <img
+            src="photos/01.JPG"
+            alt="Memory 1">
 
-            }
+          <figcaption>
+            One of my favorite memories.
+          </figcaption>
 
-          },
-          1000
-        );
+        </figure>
 
-    }
 
+        <figure class="photo-card">
 
-    /* =====================================
-       COUNTDOWN ANIMATION
-    ====================================== */
+          <img
+            src="photos/02.JPG"
+            alt="Memory 2">
 
-    function showCountdown(value) {
+          <figcaption>
+            Another moment I never want to forget.
+          </figcaption>
 
-      countdown.textContent =
-        value;
+        </figure>
 
-      countdown.classList.remove(
-        "countdownAnimation"
-      );
 
-      void countdown.offsetWidth;
+        <figure class="photo-card">
 
-      countdown.classList.add(
-        "countdownAnimation"
-      );
+          <img
+            src="photos/03.JPG"
+            alt="Memory 3">
 
-    }
+          <figcaption>
+            And then there was us...
+          </figcaption>
 
+        </figure>
 
-    /* =====================================
-       MEMORIES
-    ====================================== */
 
-    function startMemories() {
+        <figure class="photo-card">
 
-      memoryScreen.style.display =
-        "flex";
+          <img
+            src="photos/04.JPG"
+            alt="Memory 4">
 
-      let currentPhoto = 0;
+          <figcaption>
+            A little piece of our story.
+          </figcaption>
 
-      showPhoto(currentPhoto);
+        </figure>
 
 
-      const photoTimer =
-        setInterval(
-          function () {
+        <figure class="photo-card">
 
-            currentPhoto++;
+          <img
+            src="photos/05.JPG"
+            alt="Memory 5">
 
+          <figcaption>
+            More memories, more reasons to smile.
+          </figcaption>
 
-            if (
-              currentPhoto >= photos.length
-            ) {
+        </figure>
 
-              clearInterval(photoTimer);
 
-              setTimeout(
-                function () {
+        <figure class="photo-card">
 
-                  memoryScreen.style.display =
-                    "none";
+          <img
+            src="photos/06.JPG"
+            alt="Memory 6">
 
-                  finalScreen.style.display =
-                    "flex";
+          <figcaption>
+            And this is only the beginning. ♥
+          </figcaption>
 
-                  finalScreen.classList.add(
-                    "fadeIn"
-                  );
+        </figure>
 
-                },
-                1500
-              );
+      </div>
 
-              return;
 
-            }
+      <button id="videoBtn">
 
+        There is one more thing...
+        <strong>→</strong>
 
-            showPhoto(currentPhoto);
+      </button>
 
-          },
-          4000
-        );
+    </section>
 
-    }
 
+    <!-- =========================
+         VIDEO
+    ========================== -->
 
-    /* =====================================
-       SHOW PHOTO
-    ====================================== */
+    <section id="videoScreen" class="screen">
 
-    function showPhoto(index) {
+      <div class="eyebrow">
+        The part I made especially for you
+      </div>
 
-      photo.style.opacity =
-        "0";
+      <h2>
+        I saved something special
+        <i>♥</i>
+      </h2>
 
-      photo.style.transform =
-        "scale(0.96)";
+      <p class="sub">
+        Press play when you're ready.
+      </p>
 
 
-      setTimeout(
-        function () {
+      <div class="videoWrap">
 
-          photo.src =
-            photos[index];
+        <video
+          id="birthdayVideo"
+          controls
+          playsinline
+          preload="metadata">
 
+          <source
+            src="birthday.mp4"
+            type="video/mp4">
 
-          photo.onload =
-            function () {
+          Your browser does not support video.
 
-              photo.style.opacity =
-                "1";
+        </video>
 
-              photo.style.transform =
-                "scale(1)";
+      </div>
 
-            };
 
-        },
-        700
-      );
+      <button id="finishBtn">
 
-    }
+        Finish the surprise
+        <strong>✦</strong>
 
-  </script>
+      </button>
+
+    </section>
+
+
+    <!-- =========================
+         FINAL
+    ========================== -->
+
+    <section id="final" class="screen">
+
+      <canvas id="fireworks"></canvas>
+
+      <div class="finalContent">
+
+        <div class="sparkle">
+          ✦
+        </div>
+
+        <div class="eyebrow">
+          One last thing...
+        </div>
+
+        <h1>
+          Happy Birthday,<br>
+          <span>Radoda</span> <i>♥</i>
+        </h1>
+
+        <p class="final-text">
+
+          I hope this little surprise made you smile.
+
+          <br><br>
+
+          May this year bring you beautiful moments,
+          happy memories, and everything your heart deserves.
+
+          <br><br>
+
+          <b>
+            And I hope I get to be there for many of them. ♥
+          </b>
+
+        </p>
+
+        <div class="end">
+          Made with love.
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       MUSIC
+  ========================== -->
+
+  <audio
+    id="music"
+    loop
+    preload="auto">
+
+    <source
+      src="music.mp3"
+      type="audio/mpeg">
+
+  </audio>
+
+
+  <script src="script.js"></script>
 
 </body>
+
 </html>
 ```
