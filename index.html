@@ -1,422 +1,2053 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>For Radoda ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>For Radoda ❤️</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+
+    background: #050308;
+
+    color: #fff;
+
+    font-family:
+        "Montserrat",
+        sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(126, 47, 82, .25),
+            transparent 55%
+        );
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+
+#stars {
+
+    position: fixed;
+
+    inset: 0;
+
+    background-image:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.8) 1px,
+            transparent 1px
+        ),
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.4) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        90px 90px,
+        150px 150px;
+
+    opacity: .45;
+
+    animation:
+        starsMove 20s linear infinite;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+
+@keyframes starsMove {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-90px);
+    }
+
+}
+
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.hearts {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 2;
+}
+
+.hearts::before,
+.hearts::after {
+
+    content: "♥";
+
+    position: absolute;
+
+    bottom: -30px;
+
+    color:
+        rgba(232,167,192,.25);
+
+    font-size: 22px;
+
+    animation:
+        heartFloat 9s linear infinite;
+}
+
+.hearts::before {
+
+    left: 15%;
+}
+
+.hearts::after {
+
+    right: 15%;
+
+    animation-delay: 4s;
+}
+
+
+@keyframes heartFloat {
+
+    0% {
+
+        transform:
+            translateY(0)
+            scale(.8);
+
+        opacity: 0;
+
+    }
+
+    15% {
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translateY(-110vh)
+            scale(1.5);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 100%;
+
+    z-index: 5;
+}
+
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        scale(1.05);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease,
+        visibility .8s ease;
+
+    overflow-y: auto;
+}
+
+
+.screen.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+.eyebrow {
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    text-transform: uppercase;
+
+    color: #aaa0a7;
+
+    margin-bottom: 20px;
+}
+
+
+h1,
+h2 {
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight: 500;
+
+    margin: 0;
+}
+
+
+h1 {
+
+    font-size:
+        clamp(55px, 9vw, 105px);
+
+    line-height: .9;
+}
+
+
+h2 {
+
+    font-size:
+        clamp(40px, 6vw, 70px);
+
+    line-height: 1;
+}
+
+
+h1 span,
+h2 span {
+
+    color: #e8a7c0;
+
+    font-style: italic;
+}
+
+
+h1 i,
+h2 i {
+
+    color: #e8a7c0;
+
+    font-style: normal;
+
+    font-size: .5em;
+}
+
+
+.sub {
+
+    color: #aaa0a7;
+
+    font-size: 14px;
+
+    font-weight: 300;
+
+    margin-top: 25px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   ORB
+========================= */
+
+.orb {
+
+    position: absolute;
+
+    width: 400px;
+
+    height: 400px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(232,167,192,.16),
+            transparent 65%
+        );
+
+    animation:
+        orbPulse 5s ease-in-out infinite;
+
+    pointer-events: none;
+}
+
+
+@keyframes orbPulse {
+
+    0%,
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity: .5;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.2);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.timer {
+
+    display: flex;
+
+    gap:
+        clamp(15px,4vw,55px);
+
+    margin-top: 55px;
+}
+
+
+.timer > div {
+
+    min-width: 70px;
+}
+
+
+.timer b {
+
+    display: block;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(45px,6vw,75px);
+
+    font-weight: 400;
+
+    line-height: 1;
+}
+
+
+.timer small {
+
+    display: block;
+
+    margin-top: 8px;
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+    color: #aaa0a7;
+}
+
+
+.date {
+
+    margin-top: 35px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color:
+        rgba(255,255,255,.4);
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+
+    font-family:
+        "Montserrat",
+        sans-serif;
+
+    cursor: pointer;
+}
+
+
+.mainBtn,
+.testBtn {
+
+    margin-top: 35px;
+
+    padding:
+        14px 25px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.2);
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    color: #fff;
+
+    font-size: 12px;
+
+    letter-spacing: 1px;
+
+    transition:
+        .3s ease;
+
+    position: relative;
+
+    z-index: 20;
+}
+
+
+.mainBtn:hover,
+.testBtn:hover {
+
+    background:
+        rgba(232,167,192,.15);
+
+    border-color:
+        rgba(232,167,192,.6);
+
+    transform:
+        translateY(-3px);
+}
+
+
+.testBtn {
+
+    margin-top: 40px;
+
+    font-size: 10px;
+
+    color:
+        rgba(255,255,255,.45);
+}
+
+
+button strong {
+
+    margin-left: 8px;
+
+    color: #e8a7c0;
+}
+
+
+/* =========================
+   SPARKLE
+========================= */
+
+.sparkle {
+
+    font-size: 30px;
+
+    color: #e8a7c0;
+
+    animation:
+        sparkle 2s ease-in-out infinite;
+
+    margin-bottom: 15px;
+}
+
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+
+        transform:
+            scale(.8)
+            rotate(0deg);
+
+        opacity: .4;
+
+    }
+
+    50% {
+
+        transform:
+            scale(1.2)
+            rotate(90deg);
+
+        opacity: 1;
+
+    }
+
+}
+
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope {
+
+    position: relative;
+
+    width: 330px;
+
+    height: 220px;
+
+    margin-top: 30px;
+
+    cursor: pointer;
+
+    perspective: 1000px;
+}
+
+
+.env-back,
+.env-front,
+.flap {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 5px;
+}
+
+
+.env-back {
+
+    background:
+        linear-gradient(
+            135deg,
+            #3a2030,
+            #1d1018
+        );
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,.5);
+}
+
+
+.env-front {
+
+    background:
+        linear-gradient(
+            135deg,
+            #482538,
+            #25141e
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 55%,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    z-index: 4;
+}
+
+
+.flap {
+
+    background:
+        linear-gradient(
+            135deg,
+            #5a3047,
+            #2a1722
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 65%
+        );
+
+    transform-origin:
+        top center;
+
+    transition:
+        transform 1s ease;
+
+    z-index: 5;
+}
+
+
+.letter-paper {
+
+    position: absolute;
+
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 15px;
+
+    height: 175px;
+
+    padding: 20px;
+
+    background: #f3e8e7;
+
+    color: #38242c;
+
+    text-align: left;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+
+    line-height: 1.3;
+
+    z-index: 2;
+
+    transition:
+        transform 1s ease;
+}
+
+
+.letter-paper p {
+
+    margin:
+        0 0 8px;
+}
+
+
+.signature {
+
+    text-align: right;
+
+    font-style: italic;
+}
+
+
+.envelope.open .flap {
+
+    transform:
+        rotateX(180deg);
+}
+
+
+.envelope.open .letter-paper {
+
+    transform:
+        translateY(-125px);
+}
+
+
+.tapHint {
+
+    margin-top: 30px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+.hidden {
+
+    display: none !important;
+}
+
+
+/* =========================
+   GALLERY
+========================= */
+
+#memories {
+
+    justify-content:
+        flex-start;
+
+    padding-top: 6vh;
+}
+
+
+.gallery {
+
+    width:
+        min(1000px,95vw);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+
+    max-height: 60vh;
+
+    overflow-y: auto;
+
+    padding: 5px;
+}
+
+
+.photo-card {
+
+    margin: 0;
+
+    padding: 8px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+    border-radius: 5px;
+
+    animation:
+        cardIn .8s ease backwards;
+
+    transition:
+        transform .3s ease;
+}
+
+
+.photo-card:hover {
+
+    transform:
+        translateY(-5px)
+        rotate(-1deg);
+}
+
+
+.photo-card:nth-child(2) {
+    animation-delay: .1s;
+}
+
+.photo-card:nth-child(3) {
+    animation-delay: .2s;
+}
+
+.photo-card:nth-child(4) {
+    animation-delay: .3s;
+}
+
+.photo-card:nth-child(5) {
+    animation-delay: .4s;
+}
+
+.photo-card:nth-child(6) {
+    animation-delay: .5s;
+}
+
+
+@keyframes cardIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+.photo-card img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 190px;
+
+    object-fit: cover;
+
+    border-radius: 3px;
+}
+
+
+.photo-card figcaption {
+
+    padding:
+        10px 4px 4px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    color:
+        rgba(255,255,255,.7);
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   VIDEO
+========================= */
+
+.videoWrap {
+
+    width:
+        min(850px,90vw);
+
+    margin-top: 25px;
+
+    padding: 8px;
+
+    background:
+        rgba(255,255,255,.04);
+
+    border:
+        1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+        0 20px 80px
+        rgba(0,0,0,.6);
+}
+
+
+.videoWrap video {
+
+    display: block;
+
+    width: 100%;
+
+    max-height: 58vh;
+
+    background: #000;
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+#final {
+
+    overflow: hidden;
+}
+
+
+#fireworks {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    pointer-events: none;
+}
+
+
+.finalContent {
+
+    position: relative;
+
+    z-index: 10;
+
+    max-width: 700px;
+}
+
+
+.final-text {
+
+    margin-top: 30px;
+
+    color:
+        rgba(255,255,255,.7);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+.final-text b {
+
+    color: #fff;
+}
+
+
+.end {
+
+    margin-top: 40px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 20px;
+
+    font-style: italic;
+
+    color: #e8a7c0;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    h1 {
+        font-size: 58px;
+    }
+
+    h2 {
+        font-size: 42px;
+    }
+
+    .timer {
+        gap: 10px;
+    }
+
+    .timer > div {
+        min-width: 55px;
+    }
+
+    .timer b {
+        font-size: 42px;
+    }
+
+    .envelope {
+        transform:
+            scale(.88);
+    }
+
+    .gallery {
+        grid-template-columns:
+            repeat(2,1fr);
+
+        max-height: 58vh;
+    }
+
+    .photo-card img {
+        height: 150px;
+    }
+
+}
+
+
+/* =========================
+   SMALL PHONE
+========================= */
+
+@media (max-width: 400px) {
+
+    h1 {
+        font-size: 50px;
+    }
+
+    .timer b {
+        font-size: 35px;
+    }
+
+}
+
+</style>
+
 </head>
+
 
 <body>
 
-  <div id="stars"></div>
-  <div id="shootingStars"></div>
-  <div class="hearts"></div>
 
-  <div id="musicHint">
-    ♫ Tap anywhere for music
-  </div>
+<div id="stars"></div>
+
+<div class="hearts"></div>
 
 
-  <main>
+<main>
 
-    <!-- COUNTDOWN -->
 
-    <section id="countdown" class="screen active">
+<!-- =================================
+     COUNTDOWN
+================================= -->
 
-      <div class="orb"></div>
+<section
+    id="countdown"
+    class="screen active">
 
-      <div class="eyebrow">
+    <div class="orb"></div>
+
+    <div class="eyebrow">
         A little surprise is waiting...
-      </div>
+    </div>
 
-      <h1>
+    <h1>
         For <span>Radoda</span> <i>♥</i>
-      </h1>
+    </h1>
 
-      <p class="sub">
+    <p class="sub">
         Come back when the clock strikes midnight.
-      </p>
+    </p>
 
-      <div class="timer">
+
+    <div class="timer">
 
         <div>
-          <b id="days">00</b>
-          <small>DAYS</small>
+            <b id="days">00</b>
+            <small>DAYS</small>
         </div>
 
         <div>
-          <b id="hours">00</b>
-          <small>HOURS</small>
+            <b id="hours">00</b>
+            <small>HOURS</small>
         </div>
 
         <div>
-          <b id="mins">00</b>
-          <small>MINUTES</small>
+            <b id="mins">00</b>
+            <small>MINUTES</small>
         </div>
 
         <div>
-          <b id="secs">00</b>
-          <small>SECONDS</small>
+            <b id="secs">00</b>
+            <small>SECONDS</small>
         </div>
 
-      </div>
+    </div>
 
-      <div class="date">
+
+    <div class="date">
         31 AUGUST · 12:00 AM
-      </div>
+    </div>
 
-      <!-- TEST BUTTON -->
 
-      <button
-        id="testBtn"
+    <!--
+       IMPORTANT:
+       This button does NOT depend on script.js.
+       It directly changes the screen.
+    -->
+
+    <button
         class="testBtn"
         type="button"
-        onclick="skipCountdown()">
+        onclick="
+            document.getElementById('countdown').classList.remove('active');
+            document.getElementById('welcome').classList.add('active');
+            startWelcome();
+        ">
 
         ⚡ Skip countdown — TEST
 
-      </button>
+    </button>
 
-    </section>
+</section>
 
 
-    <!-- WELCOME -->
 
-    <section id="welcome" class="screen">
+<!-- =================================
+     WELCOME
+================================= -->
 
-      <div class="sparkle">
+<section
+    id="welcome"
+    class="screen">
+
+    <div class="sparkle">
         ✦
-      </div>
+    </div>
 
-      <div class="eyebrow">
+    <div class="eyebrow">
         It's finally midnight...
-      </div>
+    </div>
 
-      <h1>
+    <h1>
         Happy Birthday<br>
         <span>Radoda</span> <i>♥</i>
-      </h1>
+    </h1>
 
-      <p
-        class="sub type"
+    <p
+        class="sub"
         id="welcomeText">
-      </p>
+    </p>
 
-      <button
-        id="openBtn"
-        type="button">
+
+    <button
+        class="mainBtn"
+        type="button"
+        onclick="
+            showScreen('letter');
+        ">
 
         Open your surprise
         <strong>→</strong>
 
-      </button>
+    </button>
 
-    </section>
+</section>
 
 
-    <!-- LETTER -->
 
-    <section id="letter" class="screen">
+<!-- =================================
+     LETTER
+================================= -->
 
-      <div class="eyebrow">
+<section
+    id="letter"
+    class="screen">
+
+    <div class="eyebrow">
         A message for you
-      </div>
+    </div>
 
-      <div
+
+    <div
         class="envelope"
-        id="envelope">
+        id="envelope"
+        onclick="openEnvelope()">
 
         <div class="env-back"></div>
 
+
         <div class="letter-paper">
 
-          <p>
-            Radoda,
-          </p>
+            <p>
+                Radoda,
+            </p>
 
-          <p>
-            Before you see what I made,
-            I just want you to know that
-            this little surprise comes from the heart.
-          </p>
+            <p>
+                Before you see what I made,
+                I just want you to know that
+                this little surprise comes from the heart.
+            </p>
 
-          <p>
-            Some memories are too special
-            to leave inside a camera roll.
-          </p>
+            <p>
+                Some memories are too special
+                to leave inside a camera roll.
+            </p>
 
-          <p class="signature">
-            — With love ♥
-          </p>
+            <p class="signature">
+                — With love ♥
+            </p>
 
         </div>
+
 
         <div class="flap"></div>
 
         <div class="env-front"></div>
 
-      </div>
+    </div>
 
-      <p
+
+    <p
         class="tapHint"
         id="tapHint">
 
         Tap the envelope
 
-      </p>
+    </p>
 
-      <button
+
+    <button
         id="continueBtn"
-        class="hidden"
-        type="button">
+        class="mainBtn hidden"
+        type="button"
+        onclick="
+            showScreen('memories');
+        ">
 
         Keep going
         <strong>→</strong>
 
-      </button>
+    </button>
 
-    </section>
+</section>
 
 
-    <!-- MEMORIES -->
 
-    <section id="memories" class="screen">
+<!-- =================================
+     MEMORIES
+================================= -->
 
-      <div class="eyebrow">
+<section
+    id="memories"
+    class="screen">
+
+    <div class="eyebrow">
         A few little memories
-      </div>
+    </div>
 
-      <h2>
+    <h2>
         Moments worth keeping
         <i>♥</i>
-      </h2>
+    </h2>
 
-      <p class="sub">
+    <p class="sub">
         Six little pieces of our story.
-      </p>
+    </p>
 
 
-      <div class="gallery">
+    <div class="gallery">
+
 
         <figure class="photo-card">
 
-          <img
-            src="photos/01.JPG"
-            alt="Memory 1">
+            <img
+                src="photos/01.JPG"
+                alt="Memory 1">
 
-          <figcaption>
-            One of my favorite memories.
-          </figcaption>
+            <figcaption>
+                One of my favorite memories.
+            </figcaption>
 
         </figure>
 
 
         <figure class="photo-card">
 
-          <img
-            src="photos/02.JPG"
-            alt="Memory 2">
+            <img
+                src="photos/02.JPG"
+                alt="Memory 2">
 
-          <figcaption>
-            Another moment I never want to forget.
-          </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-          <img
-            src="photos/03.JPG"
-            alt="Memory 3">
-
-          <figcaption>
-            And then there was us...
-          </figcaption>
+            <figcaption>
+                Another moment I never want to forget.
+            </figcaption>
 
         </figure>
 
 
         <figure class="photo-card">
 
-          <img
-            src="photos/04.JPG"
-            alt="Memory 4">
+            <img
+                src="photos/03.JPG"
+                alt="Memory 3">
 
-          <figcaption>
-            A little piece of our story.
-          </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-          <img
-            src="photos/05.JPG"
-            alt="Memory 5">
-
-          <figcaption>
-            More memories, more reasons to smile.
-          </figcaption>
+            <figcaption>
+                And then there was us...
+            </figcaption>
 
         </figure>
 
 
         <figure class="photo-card">
 
-          <img
-            src="photos/06.JPG"
-            alt="Memory 6">
+            <img
+                src="photos/04.JPG"
+                alt="Memory 4">
 
-          <figcaption>
-            And this is only the beginning. ♥
-          </figcaption>
+            <figcaption>
+                A little piece of our story.
+            </figcaption>
 
         </figure>
 
-      </div>
+
+        <figure class="photo-card">
+
+            <img
+                src="photos/05.JPG"
+                alt="Memory 5">
+
+            <figcaption>
+                More memories, more reasons to smile.
+            </figcaption>
+
+        </figure>
 
 
-      <button
-        id="videoBtn"
-        type="button">
+        <figure class="photo-card">
+
+            <img
+                src="photos/06.JPG"
+                alt="Memory 6">
+
+            <figcaption>
+                And this is only the beginning. ♥
+            </figcaption>
+
+        </figure>
+
+
+    </div>
+
+
+    <button
+        class="mainBtn"
+        type="button"
+        onclick="
+            showScreen('videoScreen');
+        ">
 
         There is one more thing...
         <strong>→</strong>
 
-      </button>
+    </button>
 
-    </section>
+</section>
 
 
-    <!-- VIDEO -->
 
-    <section id="videoScreen" class="screen">
+<!-- =================================
+     VIDEO
+================================= -->
 
-      <div class="eyebrow">
+<section
+    id="videoScreen"
+    class="screen">
+
+    <div class="eyebrow">
         The part I made especially for you
-      </div>
+    </div>
 
-      <h2>
+    <h2>
         I saved something special
         <i>♥</i>
-      </h2>
+    </h2>
 
-      <p class="sub">
+    <p class="sub">
         Press play when you're ready.
-      </p>
+    </p>
 
 
-      <div class="videoWrap">
+    <div class="videoWrap">
 
         <video
-          id="birthdayVideo"
-          controls
-          playsinline
-          preload="metadata">
+            id="birthdayVideo"
+            controls
+            playsinline
+            preload="metadata">
 
-          <source
-            src="birthday.mp4"
-            type="video/mp4">
+            <source
+                src="birthday.mp4"
+                type="video/mp4">
 
-          Your browser does not support video.
+            Your browser does not support video.
 
         </video>
 
-      </div>
+    </div>
 
 
-      <button
-        id="finishBtn"
-        type="button">
+    <button
+        class="mainBtn"
+        type="button"
+        onclick="
+            finishSurprise();
+        ">
 
         Finish the surprise
         <strong>✦</strong>
 
-      </button>
+    </button>
 
-    </section>
+</section>
 
 
-    <!-- FINAL -->
 
-    <section id="final" class="screen">
+<!-- =================================
+     FINAL
+================================= -->
 
-      <canvas id="fireworks"></canvas>
+<section
+    id="final"
+    class="screen">
 
-      <div class="finalContent">
+    <canvas
+        id="fireworks">
+    </canvas>
+
+
+    <div class="finalContent">
 
         <div class="sparkle">
-          ✦
+            ✦
         </div>
 
         <div class="eyebrow">
-          One last thing...
+            One last thing...
         </div>
 
+
         <h1>
-          Happy Birthday,<br>
-          <span>Radoda</span> <i>♥</i>
+            Happy Birthday,<br>
+            <span>Radoda</span> <i>♥</i>
         </h1>
+
 
         <p class="final-text">
 
-          I hope this little surprise made you smile.
+            I hope this little surprise made you smile.
 
-          <br><br>
+            <br><br>
 
-          May this year bring you beautiful moments,
-          happy memories, and everything your heart deserves.
+            May this year bring you beautiful moments,
+            happy memories, and everything your heart deserves.
 
-          <br><br>
+            <br><br>
 
-          <b>
-            And I hope I get to be there for many of them. ♥
-          </b>
+            <b>
+                And I hope I get to be there for many of them. ♥
+            </b>
 
         </p>
 
+
         <div class="end">
-          Made with love.
+            Made with love.
         </div>
 
-      </div>
+    </div>
 
-    </section>
-
-  </main>
+</section>
 
 
-  <!-- MUSIC -->
+</main>
 
-  <audio
+
+
+<!-- =================================
+     MUSIC
+================================= -->
+
+<audio
     id="music"
     loop
     preload="auto">
 
     <source
-      src="music.mp3"
-      type="audio/mpeg">
+        src="music.mp3"
+        type="audio/mpeg">
 
-  </audio>
+</audio>
 
 
-  <script src="script.js"></script>
+
+<script>
+
+/* =========================
+   SCREEN FUNCTION
+========================= */
+
+function showScreen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(function(screen) {
+
+            screen.classList.remove("active");
+
+        });
+
+
+    var screen =
+        document.getElementById(id);
+
+
+    if (screen) {
+
+        screen.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================
+   WELCOME TYPING
+========================= */
+
+var welcomeMessage =
+    "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
+
+
+function startWelcome() {
+
+    var element =
+        document.getElementById("welcomeText");
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.textContent = "";
+
+
+    var index = 0;
+
+
+    var typing =
+        setInterval(function() {
+
+            element.textContent +=
+                welcomeMessage.charAt(index);
+
+
+            index++;
+
+
+            if (
+                index >=
+                welcomeMessage.length
+            ) {
+
+                clearInterval(typing);
+
+            }
+
+        }, 35);
+
+
+    startMusic();
+
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+var targetDate =
+    new Date(
+        "August 31, 2026 00:00:00"
+    ).getTime();
+
+
+function updateCountdown() {
+
+    var now =
+        new Date().getTime();
+
+
+    var difference =
+        targetDate - now;
+
+
+    if (difference <= 0) {
+
+        showScreen("welcome");
+
+        startWelcome();
+
+        return;
+
+    }
+
+
+    var days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    var hours =
+        Math.floor(
+            (difference /
+                (1000 * 60 * 60)) % 24
+        );
+
+
+    var mins =
+        Math.floor(
+            (difference /
+                (1000 * 60)) % 60
+        );
+
+
+    var secs =
+        Math.floor(
+            (difference / 1000) % 60
+        );
+
+
+    document.getElementById("days")
+        .textContent =
+        String(days).padStart(2,"0");
+
+
+    document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2,"0");
+
+
+    document.getElementById("mins")
+        .textContent =
+        String(mins).padStart(2,"0");
+
+
+    document.getElementById("secs")
+        .textContent =
+        String(secs).padStart(2,"0");
+
+}
+
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* =========================
+   MUSIC
+========================= */
+
+function startMusic() {
+
+    var music =
+        document.getElementById("music");
+
+
+    if (!music) {
+        return;
+    }
+
+
+    music.volume = .35;
+
+
+    var promise =
+        music.play();
+
+
+    if (promise) {
+
+        promise.catch(
+            function() {}
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ENVELOPE
+========================= */
+
+function openEnvelope() {
+
+    var envelope =
+        document.getElementById("envelope");
+
+
+    if (
+        envelope.classList.contains("open")
+    ) {
+
+        return;
+
+    }
+
+
+    envelope.classList.add("open");
+
+
+    document.getElementById("tapHint")
+        .textContent =
+        "A little message for you...";
+
+
+    setTimeout(
+        function() {
+
+            document
+                .getElementById("continueBtn")
+                .classList
+                .remove("hidden");
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================
+   VIDEO
+========================= */
+
+var video =
+    document.getElementById(
+        "birthdayVideo"
+    );
+
+
+video.addEventListener(
+    "play",
+    function() {
+
+        var music =
+            document.getElementById(
+                "music"
+            );
+
+        music.pause();
+
+    }
+);
+
+
+video.addEventListener(
+    "ended",
+    function() {
+
+        startMusic();
+
+    }
+);
+
+
+/* =========================
+   FINISH
+========================= */
+
+function finishSurprise() {
+
+    video.pause();
+
+    showScreen("final");
+
+    startFireworks();
+
+}
+
+
+/* =========================
+   FIREWORKS
+========================= */
+
+var canvas =
+    document.getElementById(
+        "fireworks"
+    );
+
+var ctx =
+    canvas.getContext("2d");
+
+
+var particles = [];
+
+var fireworksStarted = false;
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function createFirework() {
+
+    var x =
+        Math.random() *
+        canvas.width;
+
+
+    var y =
+        Math.random() *
+        canvas.height *
+        .55;
+
+
+    for (
+        var i = 0;
+        i < 55;
+        i++
+    ) {
+
+        var angle =
+            Math.random() *
+            Math.PI *
+            2;
+
+
+        var speed =
+            Math.random() * 5 + 2;
+
+
+        particles.push({
+
+            x: x,
+
+            y: y,
+
+            vx:
+                Math.cos(angle) *
+                speed,
+
+            vy:
+                Math.sin(angle) *
+                speed,
+
+            life: 1,
+
+            decay:
+                Math.random() *
+                .018 +
+                .012,
+
+            size:
+                Math.random() *
+                2 +
+                1
+
+        });
+
+    }
+
+}
+
+
+function animateFireworks() {
+
+    if (!fireworksStarted) {
+        return;
+    }
+
+
+    ctx.fillStyle =
+        "rgba(5,3,8,.18)";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    if (
+        Math.random() <
+        .045
+    ) {
+
+        createFirework();
+
+    }
+
+
+    particles.forEach(
+        function(particle) {
+
+            particle.x +=
+                particle.vx;
+
+            particle.y +=
+                particle.vy;
+
+            particle.vy +=
+                .035;
+
+            particle.life -=
+                particle.decay;
+
+
+            ctx.beginPath();
+
+
+            ctx.arc(
+                particle.x,
+                particle.y,
+                particle.size,
+                0,
+                Math.PI * 2
+            );
+
+
+            ctx.fillStyle =
+                "rgba(232,167,192," +
+                particle.life +
+                ")";
+
+
+            ctx.fill();
+
+        }
+    );
+
+
+    particles =
+        particles.filter(
+            function(particle) {
+
+                return particle.life > 0;
+
+            }
+        );
+
+
+    requestAnimationFrame(
+        animateFireworks
+    );
+
+}
+
+
+function startFireworks() {
+
+    if (fireworksStarted) {
+        return;
+    }
+
+
+    fireworksStarted = true;
+
+    particles = [];
+
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    animateFireworks();
+
+}
+
+</script>
 
 </body>
-
 </html>
 ```
