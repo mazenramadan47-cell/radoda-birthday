@@ -1,44 +1,61 @@
-```javascript id="9k3m1x"
-const screens = document.querySelectorAll(".screen");
+```javascript
+/* =====================================
+   ELEMENTS
+===================================== */
 
-const countdownScreen = document.getElementById("countdown");
-const welcomeScreen = document.getElementById("welcome");
-const letterScreen = document.getElementById("letter");
-const memoriesScreen = document.getElementById("memories");
-const videoScreen = document.getElementById("videoScreen");
-const finalScreen = document.getElementById("final");
+const screens =
+  document.querySelectorAll(".screen");
 
-const testBtn = document.getElementById("testBtn");
-const openBtn = document.getElementById("openBtn");
-const envelope = document.getElementById("envelope");
-const tapHint = document.getElementById("tapHint");
-const continueBtn = document.getElementById("continueBtn");
-const videoBtn = document.getElementById("videoBtn");
-const finishBtn = document.getElementById("finishBtn");
+const welcomeText =
+  document.getElementById("welcomeText");
 
-const welcomeText = document.getElementById("welcomeText");
+const envelope =
+  document.getElementById("envelope");
 
-const music = document.getElementById("music");
-const birthdayVideo = document.getElementById("birthdayVideo");
+const tapHint =
+  document.getElementById("tapHint");
 
-const musicHint = document.getElementById("musicHint");
+const continueBtn =
+  document.getElementById("continueBtn");
+
+const birthdayVideo =
+  document.getElementById("birthdayVideo");
+
+const music =
+  document.getElementById("music");
+
+const musicHint =
+  document.getElementById("musicHint");
 
 
 
 /* =====================================
-   SCREEN NAVIGATION
+   SHOW SCREEN
 ===================================== */
 
 function show(id) {
 
-  screens.forEach(screen => {
-    screen.classList.remove("active");
-  });
+  screens.forEach(
+    screen => {
 
-  const target = document.getElementById(id);
+      screen.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  const target =
+    document.getElementById(id);
+
 
   if (target) {
-    target.classList.add("active");
+
+    target.classList.add(
+      "active"
+    );
+
   }
 
 }
@@ -46,32 +63,41 @@ function show(id) {
 
 
 /* =====================================
-   WELCOME TYPING EFFECT
+   WELCOME TEXT
 ===================================== */
 
 const welcomeMessage =
   "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
 
-let typingIndex = 0;
 
 function typeWelcome() {
 
   welcomeText.textContent = "";
 
-  typingIndex = 0;
+  let index = 0;
 
-  const typing = setInterval(() => {
 
-    welcomeText.textContent +=
-      welcomeMessage.charAt(typingIndex);
+  const typing =
+    setInterval(
+      () => {
 
-    typingIndex++;
+        welcomeText.textContent +=
+          welcomeMessage.charAt(index);
 
-    if (typingIndex >= welcomeMessage.length) {
-      clearInterval(typing);
-    }
+        index++;
 
-  }, 35);
+
+        if (
+          index >= welcomeMessage.length
+        ) {
+
+          clearInterval(typing);
+
+        }
+
+      },
+      35
+    );
 
 }
 
@@ -82,13 +108,25 @@ function typeWelcome() {
 ===================================== */
 
 const targetDate =
-  new Date("August 31, 2026 00:00:00").getTime();
+  new Date(
+    "August 31, 2026 00:00:00"
+  ).getTime();
+
+
+let countdownFinished =
+  false;
 
 
 function updateCountdown() {
 
+  if (countdownFinished) {
+    return;
+  }
+
+
   const now =
     new Date().getTime();
+
 
   const difference =
     targetDate - now;
@@ -96,19 +134,7 @@ function updateCountdown() {
 
   if (difference <= 0) {
 
-    document.getElementById("days").textContent =
-      "00";
-
-    document.getElementById("hours").textContent =
-      "00";
-
-    document.getElementById("mins").textContent =
-      "00";
-
-    document.getElementById("secs").textContent =
-      "00";
-
-    showWelcome();
+    skipCountdown();
 
     return;
 
@@ -121,11 +147,13 @@ function updateCountdown() {
       (1000 * 60 * 60 * 24)
     );
 
+
   const hours =
     Math.floor(
       (difference /
         (1000 * 60 * 60)) % 24
     );
+
 
   const mins =
     Math.floor(
@@ -133,43 +161,31 @@ function updateCountdown() {
         (1000 * 60)) % 60
     );
 
+
   const secs =
     Math.floor(
       (difference / 1000) % 60
     );
 
 
-  document.getElementById("days").textContent =
+  document.getElementById("days")
+    .textContent =
     String(days).padStart(2, "0");
 
-  document.getElementById("hours").textContent =
+
+  document.getElementById("hours")
+    .textContent =
     String(hours).padStart(2, "0");
 
-  document.getElementById("mins").textContent =
+
+  document.getElementById("mins")
+    .textContent =
     String(mins).padStart(2, "0");
 
-  document.getElementById("secs").textContent =
+
+  document.getElementById("secs")
+    .textContent =
     String(secs).padStart(2, "0");
-
-}
-
-
-let countdownFinished = false;
-
-
-function showWelcome() {
-
-  if (countdownFinished) {
-    return;
-  }
-
-  countdownFinished = true;
-
-  show("welcome");
-
-  typeWelcome();
-
-  startMusic();
 
 }
 
@@ -184,23 +200,24 @@ setInterval(
 
 
 /* =====================================
-   TEST / SKIP BUTTON
+   SKIP COUNTDOWN
 ===================================== */
 
-testBtn.addEventListener(
-  "click",
-  () => {
+function skipCountdown() {
 
-    countdownFinished = true;
+  countdownFinished =
+    true;
 
-    showWelcome();
 
-    typeWelcome();
+  show("welcome");
 
-    startMusic();
 
-  }
-);
+  typeWelcome();
+
+
+  startMusic();
+
+}
 
 
 
@@ -210,20 +227,31 @@ testBtn.addEventListener(
 
 function startMusic() {
 
+  if (!music) {
+    return;
+  }
+
+
   music.volume = 0.35;
+
 
   const playPromise =
     music.play();
+
 
   if (
     playPromise !== undefined
   ) {
 
-    playPromise.catch(() => {
+    playPromise.catch(
+      () => {
 
-      musicHint.classList.add("show");
+        musicHint.classList.add(
+          "show"
+        );
 
-    });
+      }
+    );
 
   }
 
@@ -232,19 +260,18 @@ function startMusic() {
 
 document.addEventListener(
   "click",
-  () => {
+  function () {
 
     if (
-      music.paused &&
-      countdownFinished
+      countdownFinished &&
+      music.paused
     ) {
 
       startMusic();
 
     }
 
-  },
-  { once: false }
+  }
 );
 
 
@@ -253,14 +280,16 @@ document.addEventListener(
    WELCOME → LETTER
 ===================================== */
 
-openBtn.addEventListener(
-  "click",
-  () => {
+document
+  .getElementById("openBtn")
+  .addEventListener(
+    "click",
+    function () {
 
-    show("letter");
+      show("letter");
 
-  }
-);
+    }
+  );
 
 
 
@@ -270,23 +299,30 @@ openBtn.addEventListener(
 
 envelope.addEventListener(
   "click",
-  () => {
+  function () {
 
     if (
-      envelope.classList.contains("open")
+      envelope.classList.contains(
+        "open"
+      )
     ) {
+
       return;
+
     }
 
 
-    envelope.classList.add("open");
+    envelope.classList.add(
+      "open"
+    );
+
 
     tapHint.textContent =
       "A little message for you...";
 
 
     setTimeout(
-      () => {
+      function () {
 
         continueBtn.classList.remove(
           "hidden"
@@ -307,7 +343,7 @@ envelope.addEventListener(
 
 continueBtn.addEventListener(
   "click",
-  () => {
+  function () {
 
     show("memories");
 
@@ -320,14 +356,16 @@ continueBtn.addEventListener(
    MEMORIES → VIDEO
 ===================================== */
 
-videoBtn.addEventListener(
-  "click",
-  () => {
+document
+  .getElementById("videoBtn")
+  .addEventListener(
+    "click",
+    function () {
 
-    show("videoScreen");
+      show("videoScreen");
 
-  }
-);
+    }
+  );
 
 
 
@@ -337,7 +375,7 @@ videoBtn.addEventListener(
 
 birthdayVideo.addEventListener(
   "play",
-  () => {
+  function () {
 
     music.pause();
 
@@ -347,9 +385,9 @@ birthdayVideo.addEventListener(
 
 birthdayVideo.addEventListener(
   "ended",
-  () => {
+  function () {
 
-    music.play().catch(() => {});
+    startMusic();
 
   }
 );
@@ -360,18 +398,20 @@ birthdayVideo.addEventListener(
    VIDEO → FINAL
 ===================================== */
 
-finishBtn.addEventListener(
-  "click",
-  () => {
+document
+  .getElementById("finishBtn")
+  .addEventListener(
+    "click",
+    function () {
 
-    birthdayVideo.pause();
+      birthdayVideo.pause();
 
-    show("final");
+      show("final");
 
-    startFireworks();
+      startFireworks();
 
-  }
-);
+    }
+  );
 
 
 
@@ -380,7 +420,9 @@ finishBtn.addEventListener(
 ===================================== */
 
 const canvas =
-  document.getElementById("fireworks");
+  document.getElementById(
+    "fireworks"
+  );
 
 const ctx =
   canvas.getContext("2d");
@@ -388,7 +430,8 @@ const ctx =
 
 let particles = [];
 
-let fireworksRunning = false;
+let fireworksRunning =
+  false;
 
 
 function resizeCanvas() {
@@ -404,6 +447,7 @@ function resizeCanvas() {
 
 resizeCanvas();
 
+
 window.addEventListener(
   "resize",
   resizeCanvas
@@ -417,17 +461,16 @@ function createFirework() {
     Math.random() *
     canvas.width;
 
+
   const y =
     Math.random() *
     canvas.height *
     0.55;
 
-  const particleCount = 55;
-
 
   for (
     let i = 0;
-    i < particleCount;
+    i < 55;
     i++
   ) {
 
@@ -436,8 +479,11 @@ function createFirework() {
       Math.PI *
       2;
 
+
     const speed =
-      Math.random() * 5 + 2;
+      Math.random() *
+      5 +
+      2;
 
 
     particles.push({
@@ -482,7 +528,8 @@ function drawFireworks() {
 
 
   ctx.fillStyle =
-    "rgba(5, 3, 8, 0.18)";
+    "rgba(5,3,8,0.18)";
+
 
   ctx.fillRect(
     0,
@@ -493,7 +540,8 @@ function drawFireworks() {
 
 
   if (
-    Math.random() < 0.045
+    Math.random() <
+    0.045
   ) {
 
     createFirework();
@@ -519,6 +567,7 @@ function drawFireworks() {
 
       ctx.beginPath();
 
+
       ctx.arc(
         particle.x,
         particle.y,
@@ -529,7 +578,13 @@ function drawFireworks() {
 
 
       ctx.fillStyle =
-        `rgba(232, 167, 192, ${particle.life})`;
+        `rgba(
+          232,
+          167,
+          192,
+          ${particle.life}
+        )`;
+
 
       ctx.fill();
 
@@ -558,9 +613,13 @@ function startFireworks() {
     return;
   }
 
-  fireworksRunning = true;
+
+  fireworksRunning =
+    true;
+
 
   particles = [];
+
 
   ctx.clearRect(
     0,
@@ -569,6 +628,7 @@ function startFireworks() {
     canvas.height
   );
 
+
   drawFireworks();
 
 }
@@ -576,7 +636,7 @@ function startFireworks() {
 
 
 /* =====================================
-   INITIAL STATE
+   START
 ===================================== */
 
 show("countdown");
