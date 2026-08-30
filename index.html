@@ -1,503 +1,366 @@
-```html
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ar" dir="rtl">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Something Special ❤️</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 
-<title>For Radoda ❤️</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<div id="stars"></div>
-<div id="shootingStars"></div>
-<div class="hearts"></div>
+    <!-- MUSIC -->
+    <audio id="bgMusic" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
 
-<div class="music-control" id="musicControl">
-    <span id="musicIcon">♫</span>
-    <span id="musicStatus">Music</span>
-</div>
-
-<div class="progress">
-    <span id="progressNumber">01</span>
-    <span class="progressLine"></span>
-    <span>06</span>
-</div>
-
-
-<main>
-
-
-<!-- ==================================================
-     COUNTDOWN
-================================================== -->
-
-<section id="countdown" class="screen active">
-
-    <div class="orb"></div>
-
-    <div class="eyebrow">
-        A little surprise is waiting...
-    </div>
-
-    <h1>
-        For <span>Radoda</span> <i>♥</i>
-    </h1>
-
-    <p class="sub">
-        Come back when the clock strikes midnight.
-    </p>
-
-
-    <div class="timer">
-
-        <div>
-            <b id="days">00</b>
-            <small>DAYS</small>
-        </div>
-
-        <div>
-            <b id="hours">00</b>
-            <small>HOURS</small>
-        </div>
-
-        <div>
-            <b id="mins">00</b>
-            <small>MINUTES</small>
-        </div>
-
-        <div>
-            <b id="secs">00</b>
-            <small>SECONDS</small>
-        </div>
-
-    </div>
-
-
-    <div class="date">
-        31 AUGUST · 12:00 AM
-    </div>
-
-
-    <button id="testBtn" class="testBtn">
-        ⚡ Skip countdown — TEST
+    <button id="musicBtn" class="music-btn">
+        🎵
     </button>
 
-</section>
+    <!-- ================= INTRO ================= -->
 
+    <section id="intro" class="screen active">
 
+        <div class="intro-content">
 
-<!-- ==================================================
-     WELCOME
-================================================== -->
+            <span class="small-text">
+                I made something for you...
+            </span>
 
-<section id="welcome" class="screen">
+            <h1>
+                بس اصبري شوية ❤️
+            </h1>
 
-    <div class="welcomeGlow"></div>
+            <p>
+                في حاجة صغيرة مستنياكي...
+            </p>
 
-    <div class="sparkle">✦</div>
-
-    <div class="eyebrow">
-        It's finally midnight...
-    </div>
-
-    <h1>
-        Happy Birthday<br>
-        <span>Radoda</span> <i>♥</i>
-    </h1>
-
-    <p class="sub type" id="welcomeText"></p>
-
-    <button id="openBtn" class="mainBtn">
-        Begin the little journey
-        <strong>→</strong>
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     LETTER
-================================================== -->
-
-<section id="letter" class="screen">
-
-    <div class="eyebrow">
-        Chapter I · A message for you
-    </div>
-
-    <h2>
-        Before we begin...
-    </h2>
-
-    <div class="letterScene">
-
-        <div class="envelope" id="envelope">
-
-            <div class="envBack"></div>
-
-            <div class="letterPaper">
-
-                <div class="paperTop">
-                    <span>For Radoda</span>
-                    <span>♥</span>
-                </div>
-
-                <div class="paperText">
-
-                    <p class="hello">
-                        Radoda,
-                    </p>
-
-                    <p>
-                        Before you see what I made,
-                        I just want you to know that
-                        this little surprise comes from the heart.
-                    </p>
-
-                    <p>
-                        Some memories are too special
-                        to leave inside a camera roll.
-                    </p>
-
-                    <p>
-                        So tonight, I wanted to turn
-                        a few of them into something
-                        you can keep.
-                    </p>
-
-                    <p class="signature">
-                        — With love ♥
-                    </p>
-
-                </div>
-
+            <div id="countdown" class="countdown">
+                <span id="count">5</span>
             </div>
 
-            <div class="flap"></div>
-
-            <div class="envFront"></div>
+            <button id="skipBtn" class="glass-btn">
+                مش قادرة تستني؟ 👀
+            </button>
 
         </div>
 
-    </div>
+    </section>
 
 
-    <p id="tapHint" class="tapHint">
-        Tap the envelope
-    </p>
+    <!-- ================= WELCOME ================= -->
 
+    <section id="welcome" class="screen">
 
-    <button id="continueBtn" class="mainBtn hidden">
-        Turn the page
-        <strong>→</strong>
-    </button>
+        <div class="welcome-content">
 
-</section>
+            <div class="sparkle">✦</div>
 
+            <h1>
+                Welcome to<br>
+                <span>your little surprise</span>
+            </h1>
 
+            <p>
+                مش مجرد موقع...
+                <br>
+                دي شوية حاجات متجمعة عشانك ❤️
+            </p>
 
-<!-- ==================================================
-     CHAPTER
-================================================== -->
+            <button id="startBtn" class="main-btn">
+                نبدأ؟ ✨
+            </button>
 
-<section id="chapter" class="screen">
-
-    <div class="chapterNumber">
-        CHAPTER II
-    </div>
-
-    <div class="sparkle">✦</div>
-
-    <h1>
-        Our little<br>
-        <span>story.</span>
-    </h1>
-
-    <p class="sub">
-        Six moments.<br>
-        Six little pieces of something worth remembering.
-    </p>
-
-    <button id="memoriesBtn" class="mainBtn">
-        Open the album
-        <strong>→</strong>
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     MEMORIES
-================================================== -->
-
-<section id="memories" class="screen">
-
-    <div class="eyebrow">
-        Chapter III · The memories
-    </div>
-
-    <h2>
-        Moments worth keeping <i>♥</i>
-    </h2>
-
-    <p class="sub albumSubtitle">
-        Some moments deserve more than a place in the camera roll.
-    </p>
-
-
-    <div class="album">
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                01
-            </div>
-
-            <img src="photos/01.JPG" alt="Memory 1">
-
-            <figcaption>
-                One of my favorite memories.
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                02
-            </div>
-
-            <img src="photos/02.JPG" alt="Memory 2">
-
-            <figcaption>
-                Another moment I never want to forget.
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                03
-            </div>
-
-            <img src="photos/03.JPG" alt="Memory 3">
-
-            <figcaption>
-                And then there was us...
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                04
-            </div>
-
-            <img src="photos/04.JPG" alt="Memory 4">
-
-            <figcaption>
-                A little piece of our story.
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                05
-            </div>
-
-            <img src="photos/05.JPG" alt="Memory 5">
-
-            <figcaption>
-                More memories, more reasons to smile.
-            </figcaption>
-
-        </figure>
-
-
-        <figure class="photo-card">
-
-            <div class="photoNumber">
-                06
-            </div>
-
-            <img src="photos/06.JPG" alt="Memory 6">
-
-            <figcaption>
-                And this is only the beginning. ♥
-            </figcaption>
-
-        </figure>
-
-    </div>
-
-
-    <button id="videoIntroBtn" class="mainBtn">
-        There's something I saved...
-        <strong>→</strong>
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     VIDEO INTRO
-================================================== -->
-
-<section id="videoIntro" class="screen">
-
-    <div class="cinemaLine"></div>
-
-    <div class="eyebrow">
-        Chapter IV
-    </div>
-
-    <h1>
-        But I saved<br>
-        <span>the best part.</span>
-    </h1>
-
-    <p class="sub">
-        Whenever you're ready...
-    </p>
-
-    <button id="watchBtn" class="mainBtn">
-        Play our little movie
-        <strong>▶</strong>
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     VIDEO
-================================================== -->
-
-<section id="videoScreen" class="screen">
-
-    <div class="eyebrow">
-        Chapter V · Just for you
-    </div>
-
-    <h2>
-        Press play when you're ready <i>♥</i>
-    </h2>
-
-
-    <div class="videoWrap">
-
-        <video
-            id="birthdayVideo"
-            controls
-            playsinline
-            preload="metadata">
-
-            <source src="birthday.mp4" type="video/mp4">
-
-            Your browser does not support video.
-
-        </video>
-
-    </div>
-
-
-    <button id="finishBtn" class="mainBtn">
-        One last thing
-        <strong>✦</strong>
-    </button>
-
-</section>
-
-
-
-<!-- ==================================================
-     FINAL
-================================================== -->
-
-<section id="final" class="screen">
-
-    <canvas id="fireworks"></canvas>
-
-    <div class="finalContent">
-
-        <div class="sparkle">
-            ✦
         </div>
 
-        <div class="eyebrow">
-            Chapter VI · One last thing...
+    </section>
+
+
+    <!-- ================= SURPRISE BOXES ================= -->
+
+    <section id="boxes" class="screen">
+
+        <div class="section-heading">
+
+            <span>CHAPTER 01</span>
+
+            <h2>
+                عندي ليكي 3 حاجات...
+            </h2>
+
+            <p>
+                افتحيهم بالراحة 👀
+            </p>
+
         </div>
 
-        <h1>
-            Happy Birthday,<br>
-            <span>Radoda</span> <i>♥</i>
-        </h1>
+        <div class="boxes-container">
 
-        <p class="final-text">
+            <button class="gift-box" data-gift="0">
+                <div class="box-icon">🎁</div>
+                <span>أول حاجة</span>
+            </button>
 
-            I hope this little surprise
-            made you smile.
+            <button class="gift-box" data-gift="1">
+                <div class="box-icon">💌</div>
+                <span>تاني حاجة</span>
+            </button>
 
-            <br><br>
+            <button class="gift-box" data-gift="2">
+                <div class="box-icon">🎬</div>
+                <span>آخر حاجة</span>
+            </button>
 
-            May this year bring you beautiful moments,
-            happy memories, and everything your heart deserves.
+        </div>
 
-            <br><br>
-
-            <b>
-                And I hope I get to be there
-                for many more of them. ♥
-            </b>
-
+        <p id="boxHint" class="hint">
+            افتحي أول صندوق ❤️
         </p>
 
-        <div class="finalQuote">
-            "Some memories are worth making twice."
-        </div>
+        <button id="toMemories" class="next-btn hidden">
+            كملي الرحلة →
+        </button>
 
-        <div class="end">
-            Made with love.
+    </section>
+
+
+    <!-- ================= GIFT MODAL ================= -->
+
+    <div id="giftModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-modal">×</button>
+
+            <div id="giftContent"></div>
+
         </div>
 
     </div>
 
-</section>
+
+    <!-- ================= MEMORIES ================= -->
+
+    <section id="memories" class="screen">
+
+        <div class="section-heading">
+
+            <span>CHAPTER 02</span>
+
+            <h2>
+                شوية من ذكرياتنا ❤️
+            </h2>
+
+            <p>
+                اضغطي على أي صورة...
+            </p>
+
+        </div>
+
+        <div class="memory-grid">
+
+            <div class="memory-card">
+                <img src="assets/photo1.jpg">
+                <div class="memory-caption">
+                    <span>01</span>
+                    <p>أول ذكرى ✨</p>
+                </div>
+            </div>
+
+            <div class="memory-card tall">
+                <img src="assets/photo2.jpg">
+                <div class="memory-caption">
+                    <span>02</span>
+                    <p>فاكرة اليوم ده؟</p>
+                </div>
+            </div>
+
+            <div class="memory-card">
+                <img src="assets/photo3.jpg">
+                <div class="memory-caption">
+                    <span>03</span>
+                    <p>ضحكة من غير سبب 😂</p>
+                </div>
+            </div>
+
+            <div class="memory-card">
+                <img src="assets/photo4.jpg">
+                <div class="memory-caption">
+                    <span>04</span>
+                    <p>One of my favorites ❤️</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="toLetter" class="next-btn">
+            في حاجة أخيرة... 💌
+        </button>
+
+    </section>
 
 
-</main>
+    <!-- ================= IMAGE VIEWER ================= -->
+
+    <div id="imageViewer" class="image-viewer">
+
+        <button id="closeViewer">×</button>
+
+        <img id="viewerImage">
+
+    </div>
 
 
-<audio id="music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
+    <!-- ================= LETTER ================= -->
+
+    <section id="letter" class="screen">
+
+        <div class="section-heading">
+
+            <span>CHAPTER 03</span>
+
+            <h2>
+                آخر حاجة...
+            </h2>
+
+            <p>
+                دي مخصوص ليكي.
+            </p>
+
+        </div>
+
+        <div id="envelope" class="envelope">
+
+            <div class="envelope-back"></div>
+
+            <div class="letter-paper">
+
+                <div class="letter-inner">
+
+                    <h3>
+                        To my favorite person ❤️
+                    </h3>
+
+                    <p>
+                        في حاجات كتير ممكن تتقال...
+                    </p>
+
+                    <p>
+                        بس مهما كتبت، مش هعرف أوصف
+                        قد إيه وجودك فارق.
+                    </p>
+
+                    <p>
+                        فخلينا نقول إن دي مجرد
+                        بداية لحاجات أحلى كتير جاية.
+                    </p>
+
+                    <div class="signature">
+                        ❤️
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="envelope-front"></div>
+
+            <div class="heart-seal">
+                ♥
+            </div>
+
+        </div>
+
+        <p id="openLetterHint">
+            اضغطي على الظرف 💌
+        </p>
+
+        <button id="toVideo" class="next-btn hidden">
+            ولسه في حاجة أخيرة... 🎬
+        </button>
+
+    </section>
 
 
-<script src="script.js"></script>
+    <!-- ================= VIDEO ================= -->
+
+    <section id="videoSection" class="screen">
+
+        <div class="video-intro">
+
+            <span>THE LAST CHAPTER</span>
+
+            <h2>
+                جاهزة؟
+            </h2>
+
+            <p>
+                دي أحلى حاجة عندي ليكي.
+            </p>
+
+        </div>
+
+        <div class="video-wrapper">
+
+            <video id="mainVideo" controls playsinline>
+                <source src="assets/video.mp4" type="video/mp4">
+            </video>
+
+        </div>
+
+        <button id="finishBtn" class="main-btn">
+            كملي ❤️
+        </button>
+
+    </section>
+
+
+    <!-- ================= FINAL ================= -->
+
+    <section id="final" class="screen">
+
+        <div id="hearts"></div>
+
+        <div class="final-content">
+
+            <div class="final-heart">
+                ❤️
+            </div>
+
+            <h1>
+                Happy Birthday
+            </h1>
+
+            <h2>
+                يا أجمل حاجة حصلتلي
+            </h2>
+
+            <p>
+                أتمنى السنة الجديدة تكون
+                أحلى من كل اللي فات.
+            </p>
+
+            <p class="final-small">
+                And remember...
+                this is only the beginning ✨
+            </p>
+
+            <button id="restartBtn" class="glass-btn">
+                نعيد الرحلة؟ ↻
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <script src="script.js"></script>
 
 </body>
 </html>
-```
