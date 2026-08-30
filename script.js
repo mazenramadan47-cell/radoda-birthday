@@ -1,504 +1,611 @@
-document.addEventListener("DOMContentLoaded", function () {
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-    console.log("RADODA WEBSITE STARTED");
+const screens = document.querySelectorAll(".screen");
 
-    /* =========================
-       SCREEN NAVIGATION
-    ========================= */
+function showScreen(id) {
 
-    const screens = document.querySelectorAll(".screen");
-
-    function show(id) {
-        screens.forEach(function (screen) {
-            screen.classList.remove("active");
-        });
-
-        const target = document.getElementById(id);
-        if (target) {
-            target.classList.add("active");
-        }
-    }
-
-    /* =========================
-       STARS
-    ========================= */
-
-    const stars = document.getElementById("stars");
-
-    if (stars) {
-        for (let i = 0; i < 100; i++) {
-            const star = document.createElement("div");
-            star.className = "star";
-            star.style.left = Math.random() * 100 + "%";
-            star.style.top = Math.random() * 100 + "%";
-            star.style.animationDelay = Math.random() * 5 + "s";
-            stars.appendChild(star);
-        }
-    }
-
-    /* =========================
-       SHOOTING STARS
-    ========================= */
-
-    const shootingStars = document.getElementById("shootingStars");
-
-    function shootingStar() {
-        if (!shootingStars) return;
-
-        const star = document.createElement("div");
-        star.className = "shooting";
-        star.style.left = (70 + Math.random() * 25) + "%";
-        star.style.top = (Math.random() * 35) + "%";
-
-        shootingStars.appendChild(star);
-
-        setTimeout(function () {
-            star.remove();
-        }, 1300);
-    }
-
-    setInterval(shootingStar, 6000);
-
-    /* =========================
-       MUSIC
-    ========================= */
-
-    const music = document.getElementById("music");
-    const musicHint = document.getElementById("musicHint");
-    const musicButton = document.getElementById("musicButton");
-
-    function startMusic() {
-        if (!music) return;
-
-        music.volume = 0.22;
-
-        music.play()
-            .then(function () {
-                if (musicHint) {
-                    musicHint.classList.add("hide");
-                }
-            })
-            .catch(function () {
-                console.log("Music waiting for user interaction.");
-            });
-    }
-
-    document.addEventListener("click", startMusic, { once: true });
-
-    if (musicButton) {
-        musicButton.addEventListener("click", function (event) {
-            event.stopPropagation();
-
-            // FIX: guard against missing <audio> element
-            if (!music) return;
-
-            if (music.paused) {
-                music.play();
-                musicButton.textContent = "♫";
-            } else {
-                music.pause();
-                musicButton.textContent = "♪";
-            }
-        });
-    }
-
-    /* =========================
-       COUNTDOWN
-    ========================= */
-
-    const days = document.getElementById("days");
-    const hours = document.getElementById("hours");
-    const minutes = document.getElementById("minutes");
-    const seconds = document.getElementById("seconds");
-
-    const timer = document.getElementById("timer");
-    const finalCountdown = document.getElementById("finalCountdown");
-    const finalNumber = document.getElementById("finalNumber");
-
-    /*
-       August 31 2026
-       12:00 AM
-    */
-    const target = new Date(2026, 7, 31, 0, 0, 0);
-
-    let countdownFinished = false;
-    let tenStarted = false;
-
-    // FIX: small helper so we don't repeat this logic in
-    // startTenCountdown() and in the skip button handler
-    function closeFinalCountdownUI() {
-        if (finalCountdown) {
-            finalCountdown.classList.remove("show");
-        }
-        if (timer) {
-            timer.style.display = "";
-        }
-    }
-
-    function updateCountdown() {
-        if (countdownFinished) {
-            return;
-        }
-
-        const now = new Date();
-        const difference = target.getTime() - now.getTime();
-
-        if (difference <= 0) {
-            startTenCountdown();
-            return;
-        }
-
-        const total = Math.floor(difference / 1000);
-        const d = Math.floor(total / 86400);
-        const h = Math.floor((total % 86400) / 3600);
-        const m = Math.floor((total % 3600) / 60);
-        const s = total % 60;
-
-        if (days) days.textContent = String(d).padStart(2, "0");
-        if (hours) hours.textContent = String(h).padStart(2, "0");
-        if (minutes) minutes.textContent = String(m).padStart(2, "0");
-        if (seconds) seconds.textContent = String(s).padStart(2, "0");
-    }
-
-    function startTenCountdown() {
-        if (tenStarted) {
-            return;
-        }
-
-        tenStarted = true;
-
-        if (timer) {
-            timer.style.display = "none";
-        }
-
-        if (finalCountdown) {
-            finalCountdown.classList.add("show");
-        }
-
-        let number = 10;
-
-        if (finalNumber) {
-            finalNumber.textContent = number;
-        }
-
-        sparkleBurst();
-
-        const interval = setInterval(function () {
-            number--;
-
-            if (number <= 0) {
-                clearInterval(interval);
-
-                countdownFinished = true;
-
-                // FIX: hide the "10..1" overlay before switching screens,
-                // otherwise it stays visible on top of the welcome screen
-                closeFinalCountdownUI();
-
-                show("welcome");
-                startMusic();
-
-                return;
-            }
-
-            if (finalNumber) {
-                finalNumber.textContent = number;
-
-                /* Restart animation */
-                finalNumber.style.animation = "none";
-                void finalNumber.offsetWidth;
-                finalNumber.style.animation = "numberPop .9s ease";
-            }
-
-            sparkleBurst();
-
-        }, 1000);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 250);
-
-    /* =========================
-       SKIP
-    ========================= */
-
-    const skipButton = document.getElementById("skipButton");
-
-    if (skipButton) {
-        skipButton.addEventListener("click", function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            countdownFinished = true;
-            tenStarted = true; // FIX: prevent startTenCountdown from firing later
-
-            // FIX: make sure the "10..1" overlay is hidden if it was showing
-            closeFinalCountdownUI();
-
-            show("welcome");
-            startMusic();
-        });
-    }
-
-    /* =========================
-       WELCOME
-    ========================= */
-
-    const openButton = document.getElementById("openButton");
-
-    if (openButton) {
-        openButton.addEventListener("click", function () {
-            sparkleBurst();
-            show("letter");
-        });
-    }
-
-    /* =========================
-       ENVELOPE
-    ========================= */
-
-    const envelope = document.getElementById("envelope");
-    const tapHint = document.getElementById("tapHint");
-    const continueButton = document.getElementById("continueButton");
-
-    if (envelope) {
-        envelope.addEventListener("click", function () {
-            if (envelope.classList.contains("open")) {
-                return;
-            }
-
-            envelope.classList.add("open");
-
-            if (tapHint) {
-                tapHint.textContent = "✦";
-            }
-
-            sparkleBurst();
-
-            setTimeout(function () {
-                if (continueButton) {
-                    continueButton.classList.remove("hidden");
-                }
-            }, 1000);
-        });
-    }
-
-    if (continueButton) {
-        continueButton.addEventListener("click", function () {
-            show("memories");
-        });
-    }
-
-    /* =========================
-       IMAGE VIEWER
-    ========================= */
-
-    const viewer = document.getElementById("viewer");
-    const viewerImage = document.getElementById("viewerImage");
-    const closeViewer = document.getElementById("closeViewer");
-
-    document.querySelectorAll(".photo").forEach(function (photo) {
-        photo.addEventListener("click", function () {
-            const image = photo.querySelector("img");
-
-            if (image && viewer && viewerImage) {
-                viewerImage.src = image.src;
-                viewer.classList.add("show");
-            }
-        });
+    screens.forEach(screen => {
+        screen.classList.remove("active");
     });
 
-    if (closeViewer) {
-        closeViewer.addEventListener("click", function () {
-            // FIX: guard against missing viewer element
-            if (viewer) {
-                viewer.classList.remove("show");
-            }
-        });
-    }
+    const target = document.getElementById(id);
 
-    if (viewer) {
-        viewer.addEventListener("click", function (event) {
-            if (event.target === viewer) {
-                viewer.classList.remove("show");
-            }
-        });
-    }
+    setTimeout(() => {
+        target.classList.add("active");
+    }, 80);
 
-    /* =========================
-       VIDEO
-    ========================= */
+}
 
-    const videoButton = document.getElementById("videoButton");
-    const finishButton = document.getElementById("finishButton");
 
-    if (videoButton) {
-        videoButton.addEventListener("click", function () {
-            show("video");
-        });
-    }
+/* =========================================================
+   BACKGROUND PARTICLES
+========================================================= */
 
-    if (finishButton) {
-        finishButton.addEventListener("click", function () {
-            show("final");
-            setTimeout(startFireworks, 250);
-        });
-    }
+const particleContainer =
+    document.getElementById("particles");
 
-    /* =========================
-       LIGHT SPARKLE BURST
-    ========================= */
+for (let i = 0; i < 55; i++) {
 
-    function sparkleBurst() {
-        const symbols = ["✦", "✧", "⋆"];
+    const particle =
+        document.createElement("div");
 
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+    particle.className = "particle";
 
-        /* Small amount only. Soft animation. */
-        for (let i = 0; i < 7; i++) {
-            const particle = document.createElement("div");
+    particle.style.left =
+        Math.random() * 100 + "vw";
 
-            particle.textContent =
-                symbols[Math.floor(Math.random() * symbols.length)];
+    particle.style.animationDuration =
+        7 + Math.random() * 12 + "s";
 
-            particle.style.position = "fixed";
-            particle.style.left = centerX + "px";
-            particle.style.top = centerY + "px";
-            particle.style.zIndex = "99999";
-            particle.style.pointerEvents = "none";
-            particle.style.color = "rgba(255,210,225,.8)";
-            particle.style.fontSize = "12px";
+    particle.style.animationDelay =
+        Math.random() * 10 + "s";
 
-            const angle = Math.random() * Math.PI * 2;
-            const distance = 25 + Math.random() * 40;
+    particle.style.opacity =
+        .15 + Math.random() * .6;
 
-            particle.animate(
-                [
-                    {
-                        transform: "translate(-50%,-50%) scale(.2)",
-                        opacity: 0
-                    },
-                    {
-                        transform: "translate(-50%,-50%) scale(1)",
-                        opacity: .8
-                    },
-                    {
-                        transform:
-                            "translate(" +
-                            (Math.cos(angle) * distance) +
-                            "px," +
-                            (Math.sin(angle) * distance) +
-                            "px) scale(.2)",
-                        opacity: 0
-                    }
-                ],
-                {
-                    duration: 650,
-                    easing: "cubic-bezier(.22,1,.36,1)"
-                }
+    const size =
+        1 + Math.random() * 3;
+
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+
+    particleContainer.appendChild(particle);
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+let count = 5;
+
+const countElement =
+    document.getElementById("count");
+
+const countdown =
+    setInterval(() => {
+
+        count--;
+
+        if (count <= 0) {
+
+            clearInterval(countdown);
+
+            createBurst(
+                window.innerWidth / 2,
+                window.innerHeight / 2,
+                35
             );
 
-            document.body.appendChild(particle);
+            showScreen("welcome");
 
-            setTimeout(function () {
-                particle.remove();
-            }, 700);
-        }
-    }
+            startMusic();
 
-    /* =========================
-       FIREWORKS
-    ========================= */
-
-    const canvas = document.getElementById("fireworks");
-    let ctx = null;
-
-    if (canvas) {
-        ctx = canvas.getContext("2d");
-    }
-
-    let particles = [];
-    let fireworksStarted = false;
-
-    function resizeCanvas() {
-        if (!canvas) return;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-
-    function createFirework() {
-        if (!canvas || !ctx) {
             return;
+
         }
 
-        const x = .2 + Math.random() * .6;
-        const y = .15 + Math.random() * .35;
+        countElement.textContent = count;
 
-        for (let i = 0; i < 24; i++) {
-            const angle = (Math.PI * 2 * i) / 24;
-            const speed = .004 + Math.random() * .004;
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            8
+        );
 
-            particles.push({
-                x: x,
-                y: y,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                life: 1
-            });
-        }
-    }
+    }, 1000);
 
-    function animateFireworks() {
-        if (!canvas || !ctx) {
-            return;
-        }
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+/* =========================================================
+   SKIP
+========================================================= */
 
-        particles = particles.filter(function (particle) {
-            return particle.life > 0;
-        });
+document
+    .getElementById("skipBtn")
+    .addEventListener("click", () => {
 
-        particles.forEach(function (particle) {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-            particle.vy += .00008;
-            particle.life -= .015;
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            40
+        );
 
-            ctx.beginPath();
-            ctx.arc(
-                particle.x * canvas.width,
-                particle.y * canvas.height,
-                1.3,
-                0,
-                Math.PI * 2
-            );
+        showScreen("welcome");
 
-            ctx.fillStyle = "rgba(242,182,206," + particle.life + ")";
-            ctx.fill();
-        });
+        startMusic();
 
-        requestAnimationFrame(animateFireworks);
-    }
+    });
 
-    function startFireworks() {
-        if (fireworksStarted || !canvas) {
-            return;
-        }
 
-        fireworksStarted = true;
+/* =========================================================
+   START
+========================================================= */
 
-        createFirework();
-        setTimeout(createFirework, 800);
-        setTimeout(createFirework, 1600);
-        setTimeout(createFirework, 2400);
+document
+    .getElementById("startBtn")
+    .addEventListener("click", () => {
 
-        animateFireworks();
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            50
+        );
+
+        showScreen("boxes");
+
+    });
+
+
+/* =========================================================
+   MUSIC
+========================================================= */
+
+const music =
+    document.getElementById("bgMusic");
+
+const musicBtn =
+    document.getElementById("musicBtn");
+
+let musicPlaying = false;
+
+function startMusic() {
+
+    music.volume = .25;
+
+    music.play()
+        .then(() => {
+
+            musicPlaying = true;
+
+            musicBtn.textContent = "🔊";
+
+        })
+        .catch(() => {});
+
+}
+
+musicBtn.addEventListener("click", () => {
+
+    if (musicPlaying) {
+
+        music.pause();
+
+        musicPlaying = false;
+
+        musicBtn.textContent = "🔇";
+
+    } else {
+
+        music.play();
+
+        musicPlaying = true;
+
+        musicBtn.textContent = "🔊";
+
     }
 
 });
+
+
+/* =========================================================
+   GIFT CONTENT
+========================================================= */
+
+const gifts = [
+
+    `
+        <div style="font-size:65px">✨</div>
+
+        <h2 style="margin:15px 0">
+            A little reminder
+        </h2>
+
+        <p style="color:#aaa;line-height:2">
+            No matter how ordinary a day feels,
+            sometimes one person can make it
+            feel completely different.
+        </p>
+    `,
+
+    `
+        <div style="font-size:65px">💌</div>
+
+        <h2 style="margin:15px 0">
+            A tiny message
+        </h2>
+
+        <p style="color:#aaa;line-height:2">
+            You deserve more smiles,
+            more beautiful memories,
+            and a year full of moments
+            you'll never forget.
+        </p>
+    `,
+
+    `
+        <div style="font-size:65px">🌟</div>
+
+        <h2 style="margin:15px 0">
+            There's more...
+        </h2>
+
+        <p style="color:#aaa;line-height:2">
+            Keep going.
+            The best part of the surprise
+            is still waiting for you.
+        </p>
+    `
+
+];
+
+
+const giftBoxes =
+    document.querySelectorAll(".gift-box");
+
+const modal =
+    document.getElementById("giftModal");
+
+const giftContent =
+    document.getElementById("giftContent");
+
+const closeModal =
+    document.querySelector(".close-modal");
+
+let openedGifts = 0;
+
+
+/* =========================================================
+   GIFT CLICK
+========================================================= */
+
+giftBoxes.forEach(box => {
+
+    box.addEventListener("click", event => {
+
+        const rect =
+            box.getBoundingClientRect();
+
+        createBurst(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2,
+            30
+        );
+
+        if (!box.classList.contains("opened")) {
+
+            box.classList.add("opened");
+
+            openedGifts++;
+
+        }
+
+        const index =
+            box.dataset.gift;
+
+        giftContent.innerHTML =
+            gifts[index];
+
+        modal.classList.add("show");
+
+        if (openedGifts === giftBoxes.length) {
+
+            document.getElementById("boxHint")
+                .textContent =
+                "You've found them all ✨";
+
+            document
+                .getElementById("toMemories")
+                .classList.remove("hidden");
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+closeModal.addEventListener("click", () => {
+
+    modal.classList.remove("show");
+
+});
+
+
+modal.addEventListener("click", event => {
+
+    if (event.target === modal) {
+
+        modal.classList.remove("show");
+
+    }
+
+});
+
+
+/* =========================================================
+   MEMORIES
+========================================================= */
+
+document
+    .querySelectorAll(".memory-card")
+    .forEach(card => {
+
+        card.addEventListener("click", () => {
+
+            const img =
+                card.querySelector("img");
+
+            document
+                .getElementById("viewerImage")
+                .src = img.src;
+
+            document
+                .getElementById("imageViewer")
+                .classList.add("show");
+
+            createBurst(
+                window.innerWidth / 2,
+                window.innerHeight / 2,
+                25
+            );
+
+        });
+
+    });
+
+
+document
+    .getElementById("closeViewer")
+    .addEventListener("click", () => {
+
+        document
+            .getElementById("imageViewer")
+            .classList.remove("show");
+
+    });
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document
+    .getElementById("toMemories")
+    .addEventListener("click", () => {
+
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            25
+        );
+
+        showScreen("memories");
+
+    });
+
+
+document
+    .getElementById("toLetter")
+    .addEventListener("click", () => {
+
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            25
+        );
+
+        showScreen("letter");
+
+    });
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+const envelope =
+    document.getElementById("envelope");
+
+envelope.addEventListener("click", () => {
+
+    if (envelope.classList.contains("open"))
+        return;
+
+    const rect =
+        envelope.getBoundingClientRect();
+
+    createBurst(
+        rect.left + rect.width / 2,
+        rect.top + rect.height / 2,
+        45
+    );
+
+    envelope.classList.add("open");
+
+    document
+        .getElementById("openLetterHint")
+        .textContent =
+        "✨";
+
+    setTimeout(() => {
+
+        document
+            .getElementById("toVideo")
+            .classList.remove("hidden");
+
+    }, 1200);
+
+});
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+document
+    .getElementById("toVideo")
+    .addEventListener("click", () => {
+
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            30
+        );
+
+        showScreen("videoSection");
+
+    });
+
+
+document
+    .getElementById("finishBtn")
+    .addEventListener("click", () => {
+
+        showScreen("final");
+
+        setTimeout(() => {
+
+            createHeartExplosion();
+
+        }, 400);
+
+    });
+
+
+/* =========================================================
+   SPARK BURST
+========================================================= */
+
+function createBurst(x, y, amount = 20) {
+
+    const symbols = [
+        "✦",
+        "✧",
+        "✶",
+        "⋆",
+        "•"
+    ];
+
+    for (let i = 0; i < amount; i++) {
+
+        const spark =
+            document.createElement("div");
+
+        spark.className = "spark";
+
+        spark.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        spark.style.left = x + "px";
+        spark.style.top = y + "px";
+
+        const angle =
+            Math.random() * Math.PI * 2;
+
+        const distance =
+            50 + Math.random() * 130;
+
+        spark.style.setProperty(
+            "--x",
+            Math.cos(angle) * distance + "px"
+        );
+
+        spark.style.setProperty(
+            "--y",
+            Math.sin(angle) * distance + "px"
+        );
+
+        spark.style.fontSize =
+            10 + Math.random() * 18 + "px";
+
+        document.body.appendChild(spark);
+
+        setTimeout(() => {
+            spark.remove();
+        }, 1000);
+
+    }
+
+}
+
+
+/* =========================================================
+   FINAL HEART EXPLOSION
+========================================================= */
+
+function createHeartExplosion() {
+
+    const symbols = [
+        "❤️",
+        "💕",
+        "💗",
+        "✨",
+        "💖",
+        "✦"
+    ];
+
+    for (let i = 0; i < 45; i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.top =
+            100 + Math.random() * 10 + "vh";
+
+        heart.style.fontSize =
+            14 + Math.random() * 28 + "px";
+
+        heart.style.animationDuration =
+            3 + Math.random() * 4 + "s";
+
+        document
+            .getElementById("hearts")
+            .appendChild(heart);
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        }, 7500);
+
+    }
+
+}
+
+
+/* =========================================================
+   RESTART
+========================================================= */
+
+document
+    .getElementById("restartBtn")
+    .addEventListener("click", () => {
+
+        location.reload();
+
+    });
