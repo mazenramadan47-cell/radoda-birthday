@@ -1,8 +1,452 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>For Radoda ❤️</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head><body><div id="stars"></div><div id="shootingStars"></div><div class="hearts"></div><div id="musicHint">♫ Tap anywhere for music</div><main>
-<section id="countdown" class="screen active"><div class="orb"></div><div class="eyebrow">A little surprise is waiting...</div><h1>For <span>Radoda</span> <i>♥</i></h1><p class="sub">Come back when the clock strikes midnight.</p><div class="timer"><div><b id="days">00</b><small>DAYS</small></div><div><b id="hours">00</b><small>HOURS</small></div><div><b id="mins">00</b><small>MINUTES</small></div><div><b id="secs">00</b><small>SECONDS</small></div></div><div class="date">31 AUGUST · 12:00 AM</div><button id="testBtn" class="testBtn">⚡ Skip countdown — TEST</button></section>
-<section id="welcome" class="screen"><div class="sparkle">✦</div><div class="eyebrow">It's finally midnight...</div><h1>Happy Birthday<br><span>Radoda</span> <i>♥</i></h1><p class="sub type" id="welcomeText"></p><button id="openBtn">Open your surprise <strong>→</strong></button></section>
-<section id="letter" class="screen"><div class="eyebrow">A message for you</div><div class="envelope" id="envelope"><div class="env-back"></div><div class="letter-paper"><p>Radoda,</p><p>Before you see what I made, I just want you to know that this little surprise comes from the heart.</p><p>Some memories are too special to leave inside a camera roll.</p><p class="signature">— With love ♥</p></div><div class="flap"></div><div class="env-front"></div></div><p class="tapHint" id="tapHint">Tap the envelope</p><button id="continueBtn" class="hidden">Keep going <strong>→</strong></button></section>
-<section id="memories" class="screen"><div class="eyebrow">A few little memories</div><h2>Moments worth keeping <i>♥</i></h2><p class="sub">Replace the sample photos with your own.</p><div class="gallery"><figure class="photo-card"><img src="photos/01.jpg" alt="Memory 1"><figcaption>One of my favorite memories.</figcaption></figure><figure class="photo-card"><img src="photos/02.jpg" alt="Memory 2"><figcaption>Another moment I never want to forget.</figcaption></figure><figure class="photo-card"><img src="photos/03.jpg" alt="Memory 3"><figcaption>And then there was us...</figcaption></figure><figure class="photo-card"><img src="photos/04.jpg" alt="Memory 4"><figcaption>A little piece of our story.</figcaption></figure><figure class="photo-card"><img src="photos/05.jpg" alt="Memory 5"><figcaption>More memories, more reasons to smile.</figcaption></figure><figure class="photo-card"><img src="photos/06.jpg" alt="Memory 6"><figcaption>And this is only the beginning. ♥</figcaption></figure></div><button id="videoBtn">There is one more thing... <strong>→</strong></button></section>
-<section id="videoScreen" class="screen"><div class="eyebrow">The part I made especially for you</div><h2>I saved something special <i>♥</i></h2><p class="sub">Press play when you're ready.</p><div class="videoWrap"><video id="birthdayVideo" controls playsinline preload="metadata"><source src="birthday.mp4" type="video/mp4"></video></div><button id="finishBtn">Finish the surprise <strong>✦</strong></button></section>
-<section id="final" class="screen"><canvas id="fireworks"></canvas><div class="finalContent"><div class="sparkle">✦</div><div class="eyebrow">One last thing...</div><h1>Happy Birthday,<br><span>Radoda</span> <i>♥</i></h1><p class="final-text">I hope this little surprise made you smile.<br><br>May this year bring you beautiful moments, happy memories, and everything your heart deserves.<br><br><b>And I hope I get to be there for many of them. ♥</b></p><div class="end">Made with love.</div></div></section></main><audio id="music" loop preload="auto"><source src="music.mp3" type="audio/mpeg"></audio><script src="script.js"></script><script>document.getElementById("testBtn").addEventListener("click",()=>show("welcome"));</script>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Something Special ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* START SCREEN */
+
+    #startScreen {
+      flex-direction: column;
+      background:
+        radial-gradient(circle at center, #25101d 0%, #080808 45%, #000 100%);
+    }
+
+    #startScreen h1 {
+      font-size: clamp(32px, 8vw, 65px);
+      margin: 0 0 15px;
+      letter-spacing: 2px;
+    }
+
+    #startScreen p {
+      font-size: clamp(16px, 4vw, 22px);
+      opacity: 0.75;
+      margin-bottom: 35px;
+    }
+
+    #startButton {
+      border: 1px solid rgba(255,255,255,0.4);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    #startButton:hover {
+      background: rgba(255,255,255,0.18);
+      transform: scale(1.05);
+    }
+
+    /* COUNTDOWN */
+
+    #countdownScreen {
+      display: none;
+      flex-direction: column;
+      background: #000;
+    }
+
+    #countdown {
+      font-size: clamp(80px, 20vw, 180px);
+      font-weight: bold;
+      animation: countdownAnimation 1s ease;
+    }
+
+    #countdownText {
+      font-size: 18px;
+      opacity: 0.6;
+    }
+
+    @keyframes countdownAnimation {
+      0% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* MEMORY SCREEN */
+
+    #memoryScreen {
+      display: none;
+      flex-direction: column;
+      background: #000;
+    }
+
+    .photo-container {
+      position: relative;
+      width: min(90vw, 650px);
+      height: min(72vh, 700px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #memoryPhoto {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 18px;
+      box-shadow: 0 0 45px rgba(255,255,255,0.18);
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    #memoryText {
+      position: absolute;
+      bottom: -45px;
+      left: 0;
+      right: 0;
+      font-size: 15px;
+      opacity: 0.55;
+    }
+
+    /* FINAL */
+
+    #finalScreen {
+      display: none;
+      flex-direction: column;
+      padding: 30px;
+      background:
+        radial-gradient(circle at center, #2a0d19 0%, #090909 50%, #000 100%);
+    }
+
+    #finalScreen h1 {
+      font-size: clamp(40px, 10vw, 80px);
+      margin: 0 0 20px;
+    }
+
+    #finalScreen p {
+      max-width: 600px;
+      line-height: 1.8;
+      font-size: clamp(17px, 4vw, 23px);
+      opacity: 0.85;
+    }
+
+    .heart {
+      font-size: 55px;
+      margin-bottom: 20px;
+      animation: heartbeat 1.5s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    .fadeIn {
+      animation: fadeIn 1.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- START -->
+
+  <div id="startScreen" class="screen">
+
+    <h1>Hey ❤️</h1>
+
+    <p>
+      I made something special for you...
+    </p>
+
+    <button id="startButton">
+      Open Your Surprise ✨
+    </button>
+
+  </div>
+
+
+  <!-- COUNTDOWN -->
+
+  <div id="countdownScreen" class="screen">
+
+    <div id="countdown">3</div>
+
+    <div id="countdownText">
+      Get ready...
+    </div>
+
+  </div>
+
+
+  <!-- PHOTOS -->
+
+  <div id="memoryScreen" class="screen">
+
+    <div class="photo-container">
+
+      <img
+        id="memoryPhoto"
+        src="01.JPG"
+        alt="Memory"
+      >
+
+      <div id="memoryText">
+        A little piece of our memories ❤️
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FINAL -->
+
+  <div id="finalScreen" class="screen">
+
+    <div class="heart">
+      ❤️
+    </div>
+
+    <h1>Happy Birthday!</h1>
+
+    <p>
+      I hope this little surprise made you smile.
+      <br>
+      Here's to all the beautiful memories we've made
+      and all the ones still waiting for us.
+      <br><br>
+      ❤️
+    </p>
+
+  </div>
+
+
+  <script>
+
+    /* =========================
+       YOUR PHOTOS
+    ========================= */
+
+    const photos = [
+      "01.JPG",
+      "02.JPG",
+      "03.JPG",
+      "04.JPG",
+      "05.JPG",
+      "06.JPG"
+    ];
+
+
+    /* =========================
+       ELEMENTS
+    ========================= */
+
+    const startScreen =
+      document.getElementById("startScreen");
+
+    const countdownScreen =
+      document.getElementById("countdownScreen");
+
+    const memoryScreen =
+      document.getElementById("memoryScreen");
+
+    const finalScreen =
+      document.getElementById("finalScreen");
+
+    const startButton =
+      document.getElementById("startButton");
+
+    const countdown =
+      document.getElementById("countdown");
+
+    const photo =
+      document.getElementById("memoryPhoto");
+
+
+    /* =========================
+       START SURPRISE
+    ========================= */
+
+    startButton.addEventListener("click", function () {
+
+      startScreen.style.display = "none";
+
+      countdownScreen.style.display = "flex";
+
+      startCountdown();
+
+    });
+
+
+    /* =========================
+       COUNTDOWN
+    ========================= */
+
+    function startCountdown() {
+
+      let number = 3;
+
+      countdown.textContent = number;
+
+      const timer = setInterval(function () {
+
+        number--;
+
+        if (number > 0) {
+
+          countdown.textContent = number;
+
+          countdown.style.animation = "none";
+
+          void countdown.offsetWidth;
+
+          countdown.style.animation =
+            "countdownAnimation 1s ease";
+
+        }
+
+        else {
+
+          clearInterval(timer);
+
+          countdown.textContent = "❤️";
+
+          setTimeout(function () {
+
+            countdownScreen.style.display = "none";
+
+            startMemories();
+
+          }, 1000);
+
+        }
+
+      }, 1000);
+
+    }
+
+
+    /* =========================
+       SHOW MEMORIES
+    ========================= */
+
+    function startMemories() {
+
+      memoryScreen.style.display = "flex";
+
+      let currentPhoto = 0;
+
+      showPhoto(currentPhoto);
+
+
+      const photoTimer = setInterval(function () {
+
+        currentPhoto++;
+
+        if (currentPhoto >= photos.length) {
+
+          clearInterval(photoTimer);
+
+          setTimeout(function () {
+
+            memoryScreen.style.display = "none";
+
+            finalScreen.style.display = "flex";
+
+            finalScreen.classList.add("fadeIn");
+
+          }, 1500);
+
+          return;
+
+        }
+
+        showPhoto(currentPhoto);
+
+      }, 4000);
+
+    }
+
+
+    /* =========================
+       PHOTO TRANSITION
+    ========================= */
+
+    function showPhoto(index) {
+
+      photo.style.opacity = "0";
+
+      setTimeout(function () {
+
+        photo.src = photos[index];
+
+        photo.onload = function () {
+
+          photo.style.opacity = "1";
+
+        };
+
+      }, 700);
+
+    }
+
+  </script>
+
+</body>
+</html>
