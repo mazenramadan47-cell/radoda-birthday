@@ -1,164 +1,116 @@
 ```javascript
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
+    console.log("RADODA SCRIPT LOADED");
 
-    /* =====================================================
-       SCREEN NAVIGATION
-       ===================================================== */
+    /* =========================
+       SCREEN SYSTEM
+    ========================= */
 
-    const screens =
-        document.querySelectorAll(".screen");
-
+    const screens = document.querySelectorAll(".screen");
 
     function showScreen(id) {
-
-        screens.forEach(function (screen) {
+        screens.forEach(screen => {
             screen.classList.remove("active");
         });
 
+        const screen = document.getElementById(id);
 
-        const target =
-            document.getElementById(id);
-
-
-        if (target) {
-            target.classList.add("active");
+        if (screen) {
+            screen.classList.add("active");
         }
-
     }
 
 
-    /* =====================================================
+    /* =========================
        STARS
-       ===================================================== */
+    ========================= */
 
-    const starsContainer =
-        document.getElementById("stars");
+    const stars = document.getElementById("stars");
 
+    if (stars) {
 
-    for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 100; i++) {
 
-        const star =
-            document.createElement("div");
+            const star = document.createElement("div");
 
+            star.className = "star";
 
-        star.className = "star";
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
 
+            star.style.animationDelay =
+                Math.random() * 5 + "s";
 
-        star.style.left =
-            Math.random() * 100 + "%";
-
-
-        star.style.top =
-            Math.random() * 100 + "%";
-
-
-        star.style.animationDelay =
-            Math.random() * 5 + "s";
-
-
-        star.style.animationDuration =
-            3 + Math.random() * 5 + "s";
-
-
-        starsContainer.appendChild(star);
-
+            stars.appendChild(star);
+        }
     }
 
 
-    /* =====================================================
+    /* =========================
        SHOOTING STARS
-       ===================================================== */
+    ========================= */
 
-    const shootingContainer =
-        document.getElementById(
-            "shootingStars"
-        );
-
+    const shootingStars =
+        document.getElementById("shootingStars");
 
     function createShootingStar() {
 
+        if (!shootingStars) return;
+
         const star =
             document.createElement("div");
 
-
         star.className = "shooting";
-
 
         star.style.left =
             70 + Math.random() * 30 + "%";
 
-
         star.style.top =
             Math.random() * 40 + "%";
 
+        shootingStars.appendChild(star);
 
-        shootingContainer.appendChild(star);
-
-
-        setTimeout(function () {
-
+        setTimeout(() => {
             star.remove();
-
         }, 1500);
-
     }
 
-
-    setInterval(
-        createShootingStar,
-        6500
-    );
+    setInterval(createShootingStar, 6000);
 
 
-    /* =====================================================
+    /* =========================
        MUSIC
-       ===================================================== */
+    ========================= */
 
     const music =
         document.getElementById("music");
 
-
     const musicHint =
-        document.getElementById(
-            "musicHint"
-        );
-
+        document.getElementById("musicHint");
 
     let musicStarted = false;
 
-
     function startMusic() {
 
-        if (!music || musicStarted) {
-            return;
-        }
-
+        if (!music || musicStarted) return;
 
         music.volume = 0.22;
 
-
         music.play()
-            .then(function () {
+            .then(() => {
 
                 musicStarted = true;
 
-                musicHint.classList.add(
-                    "hide"
-                );
+                if (musicHint) {
+                    musicHint.classList.add("hide");
+                }
 
             })
-            .catch(function () {
-
-                /*
-                   Browser blocked autoplay.
-                   The next click will try again.
-                */
-
+            .catch(() => {
+                // Browser autoplay protection.
             });
-
     }
-
 
     document.addEventListener(
         "click",
@@ -166,48 +118,33 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =====================================================
+    /* =========================
        COUNTDOWN
-       ===================================================== */
+    ========================= */
 
     const days =
         document.getElementById("days");
 
-
     const hours =
         document.getElementById("hours");
-
 
     const minutes =
         document.getElementById("minutes");
 
-
     const seconds =
         document.getElementById("seconds");
-
 
     const timer =
         document.getElementById("timer");
 
-
     const finalCountdown =
-        document.getElementById(
-            "finalCountdown"
-        );
-
+        document.getElementById("finalCountdown");
 
     const finalNumber =
-        document.getElementById(
-            "finalNumber"
-        );
+        document.getElementById("finalNumber");
 
 
     /*
-       AUGUST = 7
-       because JavaScript months
-       start from zero.
-
-       Target:
        August 31, 2026
        12:00 AM
     */
@@ -219,43 +156,30 @@ document.addEventListener("DOMContentLoaded", function () {
             31,
             0,
             0,
-            0,
             0
         );
 
 
-    let countdownEnded = false;
-
-    let tenSecondRunning = false;
+    let countdownFinished = false;
+    let tenSecondStarted = false;
 
 
     function updateCountdown() {
 
-        if (countdownEnded) {
-            return;
-        }
+        if (countdownFinished) return;
 
-
-        const now =
-            new Date();
-
+        const now = new Date();
 
         const difference =
-            targetDate.getTime()
-            -
+            targetDate.getTime() -
             now.getTime();
 
-
-        /*
-           MIDNIGHT
-        */
 
         if (difference <= 0) {
 
             startTenSecondCountdown();
 
             return;
-
         }
 
 
@@ -273,15 +197,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const h =
             Math.floor(
-                (totalSeconds % 86400)
-                / 3600
+                (totalSeconds % 86400) / 3600
             );
 
 
         const m =
             Math.floor(
-                (totalSeconds % 3600)
-                / 60
+                (totalSeconds % 3600) / 60
             );
 
 
@@ -289,103 +211,79 @@ document.addEventListener("DOMContentLoaded", function () {
             totalSeconds % 60;
 
 
-        days.textContent =
-            String(d).padStart(
-                2,
-                "0"
-            );
+        if (days)
+            days.textContent =
+                String(d).padStart(2, "0");
 
+        if (hours)
+            hours.textContent =
+                String(h).padStart(2, "0");
 
-        hours.textContent =
-            String(h).padStart(
-                2,
-                "0"
-            );
+        if (minutes)
+            minutes.textContent =
+                String(m).padStart(2, "0");
 
-
-        minutes.textContent =
-            String(m).padStart(
-                2,
-                "0"
-            );
-
-
-        seconds.textContent =
-            String(s).padStart(
-                2,
-                "0"
-            );
-
+        if (seconds)
+            seconds.textContent =
+                String(s).padStart(2, "0");
     }
 
 
     function startTenSecondCountdown() {
 
-        if (tenSecondRunning) {
-            return;
+        if (tenSecondStarted) return;
+
+        tenSecondStarted = true;
+
+
+        if (timer) {
+            timer.style.display = "none";
         }
 
 
-        tenSecondRunning = true;
-
-
-        timer.style.display =
-            "none";
-
-
-        finalCountdown.classList.add(
-            "show"
-        );
+        if (finalCountdown) {
+            finalCountdown.classList.add("show");
+        }
 
 
         let number = 10;
 
 
-        finalNumber.textContent =
-            number;
+        if (finalNumber) {
+            finalNumber.textContent = number;
+        }
 
 
         const interval =
-            setInterval(function () {
+            setInterval(() => {
 
                 number--;
 
 
                 if (number <= 0) {
 
-                    clearInterval(
-                        interval
-                    );
+                    clearInterval(interval);
 
+                    countdownFinished = true;
 
-                    countdownEnded =
-                        true;
-
-
-                    showScreen(
-                        "welcome"
-                    );
-
+                    showScreen("welcome");
 
                     startMusic();
 
-
                     return;
-
                 }
 
 
-                finalNumber.textContent =
-                    number;
-
+                if (finalNumber) {
+                    finalNumber.textContent =
+                        number;
+                }
 
             }, 1000);
-
     }
 
 
     updateCountdown();
-
 
     setInterval(
         updateCountdown,
@@ -393,9 +291,9 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =====================================================
-       SKIP
-       ===================================================== */
+    /* =========================
+       SKIP BUTTON
+    ========================= */
 
     const skipButton =
         document.getElementById(
@@ -403,31 +301,28 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    skipButton.onclick =
-        function (event) {
+    if (skipButton) {
 
-            event.preventDefault();
+        skipButton.addEventListener(
+            "click",
+            (event) => {
 
-            event.stopPropagation();
+                event.preventDefault();
+                event.stopPropagation();
 
+                countdownFinished = true;
 
-            countdownEnded =
-                true;
+                showScreen("welcome");
 
-
-            showScreen(
-                "welcome"
-            );
-
-
-            startMusic();
-
-        };
+                startMusic();
+            }
+        );
+    }
 
 
-    /* =====================================================
-       WELCOME
-       ===================================================== */
+    /* =========================
+       WELCOME BUTTON
+    ========================= */
 
     const openButton =
         document.getElementById(
@@ -435,33 +330,33 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    openButton.onclick =
-        function () {
+    if (openButton) {
 
-            sparkleBurst();
+        openButton.addEventListener(
+            "click",
+            () => {
 
-            showScreen(
-                "letter"
-            );
+                sparkleBurst();
 
-        };
+                showScreen("letter");
+            }
+        );
+    }
 
 
-    /* =====================================================
+    /* =========================
        ENVELOPE
-       ===================================================== */
+    ========================= */
 
     const envelope =
         document.getElementById(
             "envelope"
         );
 
-
     const tapHint =
         document.getElementById(
             "tapHint"
         );
-
 
     const continueButton =
         document.getElementById(
@@ -469,69 +364,75 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    envelope.onclick =
-        function () {
+    if (envelope) {
 
-            if (
-                envelope.classList.contains(
+        envelope.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    envelope.classList.contains(
+                        "open"
+                    )
+                ) {
+                    return;
+                }
+
+
+                envelope.classList.add(
                     "open"
-                )
-            ) {
-                return;
+                );
+
+
+                if (tapHint) {
+                    tapHint.textContent = "✦";
+                }
+
+
+                sparkleBurst();
+
+
+                setTimeout(() => {
+
+                    if (continueButton) {
+
+                        continueButton.classList.remove(
+                            "hidden"
+                        );
+                    }
+
+                }, 900);
             }
+        );
+    }
 
 
-            envelope.classList.add(
-                "open"
-            );
+    if (continueButton) {
+
+        continueButton.addEventListener(
+            "click",
+            () => {
+
+                showScreen("memories");
+
+            }
+        );
+    }
 
 
-            tapHint.textContent =
-                "✦";
-
-
-            sparkleBurst();
-
-
-            setTimeout(
-                function () {
-
-                    continueButton.classList.remove(
-                        "hidden"
-                    );
-
-                },
-                900
-            );
-
-        };
-
-
-    continueButton.onclick =
-        function () {
-
-            showScreen(
-                "memories"
-            );
-
-        };
-
-
-    /* =====================================================
+    /* =========================
        IMAGE VIEWER
-       ===================================================== */
+    ========================= */
 
     const viewer =
         document.getElementById(
             "viewer"
         );
 
-
     const viewerImage =
         document.getElementById(
             "viewerImage"
         );
-
 
     const closeViewer =
         document.getElementById(
@@ -541,65 +442,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document
         .querySelectorAll(".photo")
-        .forEach(function (photo) {
+        .forEach(photo => {
 
-            photo.onclick =
-                function () {
+            photo.addEventListener(
+                "click",
+                () => {
 
-                    const img =
+                    const image =
                         photo.querySelector(
                             "img"
                         );
 
+                    if (!image || !viewer) {
+                        return;
+                    }
 
-                    viewerImage.src =
-                        img.src;
-
+                    if (viewerImage) {
+                        viewerImage.src =
+                            image.src;
+                    }
 
                     viewer.classList.add(
                         "show"
                     );
-
-                };
-
+                }
+            );
         });
 
 
-    closeViewer.onclick =
-        function () {
+    if (closeViewer) {
 
-            viewer.classList.remove(
-                "show"
-            );
-
-        };
-
-
-    viewer.onclick =
-        function (event) {
-
-            if (
-                event.target === viewer
-            ) {
+        closeViewer.addEventListener(
+            "click",
+            () => {
 
                 viewer.classList.remove(
                     "show"
                 );
-
             }
+        );
+    }
 
-        };
+
+    if (viewer) {
+
+        viewer.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target === viewer
+                ) {
+
+                    viewer.classList.remove(
+                        "show"
+                    );
+                }
+            }
+        );
+    }
 
 
-    /* =====================================================
+    /* =========================
        VIDEO
-       ===================================================== */
+    ========================= */
 
     const videoButton =
         document.getElementById(
             "videoButton"
         );
-
 
     const finishButton =
         document.getElementById(
@@ -607,35 +518,40 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    videoButton.onclick =
-        function () {
+    if (videoButton) {
 
-            showScreen(
-                "videoScreen"
-            );
+        videoButton.addEventListener(
+            "click",
+            () => {
 
-        };
-
-
-    finishButton.onclick =
-        function () {
-
-            showScreen(
-                "final"
-            );
+                showScreen(
+                    "videoScreen"
+                );
+            }
+        );
+    }
 
 
-            setTimeout(
-                startFireworks,
-                200
-            );
+    if (finishButton) {
 
-        };
+        finishButton.addEventListener(
+            "click",
+            () => {
+
+                showScreen("final");
+
+                setTimeout(
+                    startFireworks,
+                    200
+                );
+            }
+        );
+    }
 
 
-    /* =====================================================
+    /* =========================
        SPARKLE BURST
-       ===================================================== */
+    ========================= */
 
     function sparkleBurst() {
 
@@ -649,15 +565,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const x =
             window.innerWidth / 2;
 
-
         const y =
             window.innerHeight / 2;
 
 
-        for (let i = 0; i < 8; i++) {
+        for (
+            let i = 0;
+            i < 8;
+            i++
+        ) {
 
             const particle =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             particle.textContent =
@@ -672,29 +593,23 @@ document.addEventListener("DOMContentLoaded", function () {
             particle.style.position =
                 "fixed";
 
-
             particle.style.left =
                 x + "px";
-
 
             particle.style.top =
                 y + "px";
 
-
             particle.style.zIndex =
-                "9999";
-
+                "99999";
 
             particle.style.pointerEvents =
                 "none";
 
-
             particle.style.color =
-                "rgba(255,255,255,.75)";
-
+                "rgba(255,255,255,.8)";
 
             particle.style.fontSize =
-                "10px";
+                "11px";
 
 
             const angle =
@@ -712,6 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
             particle.animate(
 
                 [
+
                     {
                         transform:
                             "translate(-50%,-50%) scale(.3)",
@@ -723,7 +639,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         transform:
                             "translate(-50%,-50%) scale(1)",
 
-                        opacity: .75
+                        opacity: .8
                     },
 
                     {
@@ -738,6 +654,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         opacity: 0
                     }
+
                 ],
 
                 {
@@ -746,7 +663,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     easing:
                         "cubic-bezier(.22,1,.36,1)"
                 }
-
             );
 
 
@@ -756,22 +672,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             setTimeout(
-                function () {
-
-                    particle.remove();
-
-                },
+                () => particle.remove(),
                 800
             );
-
         }
-
     }
 
 
-    /* =====================================================
+    /* =========================
        FIREWORKS
-       ===================================================== */
+    ========================= */
 
     const canvas =
         document.getElementById(
@@ -779,26 +689,31 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    const ctx =
-        canvas.getContext("2d");
+    let ctx = null;
+
+
+    if (canvas) {
+
+        ctx =
+            canvas.getContext("2d");
+
+    }
 
 
     let particles = [];
 
-
-    let fireworksRunning =
-        false;
+    let fireworksRunning = false;
 
 
     function resizeCanvas() {
 
+        if (!canvas) return;
+
         canvas.width =
             window.innerWidth;
 
-
         canvas.height =
             window.innerHeight;
-
     }
 
 
@@ -812,6 +727,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function createFirework() {
+
+        if (!canvas || !ctx) return;
+
 
         const x =
             0.15 +
@@ -846,8 +764,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             particles.push({
 
-                x: x,
-                y: y,
+                x,
+                y,
 
                 vx:
                     Math.cos(angle) *
@@ -860,13 +778,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 life: 1
 
             });
-
         }
-
     }
 
 
     function animateFireworks() {
+
+        if (!canvas || !ctx) {
+            return;
+        }
+
 
         ctx.clearRect(
             0,
@@ -878,28 +799,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
         particles =
             particles.filter(
-                function (particle) {
-
-                    return particle.life > 0;
-
-                }
+                particle =>
+                    particle.life > 0
             );
 
 
         particles.forEach(
-            function (particle) {
+            particle => {
 
                 particle.x +=
                     particle.vx;
 
-
                 particle.y +=
                     particle.vy;
 
-
                 particle.vy +=
                     .0001;
-
 
                 particle.life -=
                     .018;
@@ -940,13 +855,15 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(
             animateFireworks
         );
-
     }
 
 
     function startFireworks() {
 
-        if (fireworksRunning) {
+        if (
+            fireworksRunning ||
+            !canvas
+        ) {
             return;
         }
 
@@ -970,7 +887,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         animateFireworks();
-
     }
 
 });
