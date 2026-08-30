@@ -1,745 +1,308 @@
-```javascript
-/* =========================================================
-   SCREENS
-========================================================= */
+const screens = document.querySelectorAll(".screen");
 
-const screens = {
+function showScreen(id) {
+    screens.forEach(screen => {
+        screen.classList.remove("active");
+    });
 
-    countdown:
-        document.getElementById("countdown"),
-
-    welcome:
-        document.getElementById("welcome"),
-
-    letter:
-        document.getElementById("letter"),
-
-    chapter:
-        document.getElementById("chapter"),
-
-    memories:
-        document.getElementById("memories"),
-
-    videoIntro:
-        document.getElementById("videoIntro"),
-
-    video:
-        document.getElementById("videoScreen"),
-
-    final:
-        document.getElementById("final")
-
-};
-
-
-/* =========================================================
-   PROGRESS
-========================================================= */
-
-const progressNumber =
-    document.getElementById(
-        "progressNumber"
-    );
-
-
-function setProgress(number){
-
-    progressNumber.textContent =
-        String(number).padStart(2,"0");
-
+    document.getElementById(id).classList.add("active");
 }
 
+/* ================= COUNTDOWN ================= */
 
-/* =========================================================
-   SHOW SCREEN
-========================================================= */
+let count = 5;
+const countElement = document.getElementById("count");
 
-function show(screen, number){
+const countdown = setInterval(() => {
 
-    Object
-        .values(screens)
-        .forEach(
-            function(item){
+    count--;
 
-                item.classList
-                    .remove("active");
+    if (count <= 0) {
 
-            }
-        );
+        clearInterval(countdown);
 
+        showScreen("welcome");
 
-    screen.classList.add("active");
+        startMusic();
 
-
-    if(number){
-
-        setProgress(number);
-
+        return;
     }
 
-}
+    countElement.textContent = count;
+
+}, 1000);
 
 
-/* =========================================================
-   MUSIC
-========================================================= */
+/* ================= SKIP ================= */
 
-const music =
-    document.getElementById("music");
+document.getElementById("skipBtn").addEventListener("click", () => {
 
+    showScreen("welcome");
 
-const musicControl =
-    document.getElementById("musicControl");
+    startMusic();
 
-
-const musicIcon =
-    document.getElementById("musicIcon");
+});
 
 
-const musicStatus =
-    document.getElementById("musicStatus");
+/* ================= START ================= */
+
+document.getElementById("startBtn").addEventListener("click", () => {
+
+    showScreen("boxes");
+
+});
 
 
-let musicStarted = false;
+/* ================= MUSIC ================= */
 
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
 
-function startMusic(){
+let musicPlaying = false;
 
-    music.volume = 0.35;
+function startMusic() {
+
+    music.volume = 0.25;
 
     music.play()
-        .then(
-            function(){
-
-                musicStarted = true;
-
-                musicIcon.textContent = "♫";
-
-                musicStatus.textContent =
-                    "Playing";
-
-            }
-        )
-        .catch(
-            function(){
-
-            }
-        );
+        .then(() => {
+            musicPlaying = true;
+            musicBtn.textContent = "🔊";
+        })
+        .catch(() => {});
 
 }
 
+musicBtn.addEventListener("click", () => {
 
-musicControl.addEventListener(
-    "click",
-    function(){
-
-        if(
-            music.paused
-        ){
-
-            startMusic();
-
-        }
-
-        else{
-
-            music.pause();
-
-            musicIcon.textContent =
-                "♫";
-
-            musicStatus.textContent =
-                "Music";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   WELCOME TYPING
-========================================================= */
-
-const welcomeMessage =
-    "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
-
-
-function typeWelcome(){
-
-    const text =
-        document.getElementById(
-            "welcomeText"
-        );
-
-
-    text.textContent = "";
-
-
-    let i = 0;
-
-
-    const interval =
-        setInterval(
-            function(){
-
-                text.textContent +=
-                    welcomeMessage[i];
-
-                i++;
-
-
-                if(
-                    i >=
-                    welcomeMessage.length
-                ){
-
-                    clearInterval(
-                        interval
-                    );
-
-                }
-
-            },
-            28
-        );
-
-}
-
-
-/* =========================================================
-   SKIP COUNTDOWN
-========================================================= */
-
-document
-    .getElementById("testBtn")
-    .addEventListener(
-        "click",
-        function(){
-
-            show(
-                screens.welcome,
-                1
-            );
-
-            typeWelcome();
-
-            startMusic();
-
-        }
-    );
-
-
-/* =========================================================
-   WELCOME -> LETTER
-========================================================= */
-
-document
-    .getElementById("openBtn")
-    .addEventListener(
-        "click",
-        function(){
-
-            show(
-                screens.letter,
-                2
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   ENVELOPE
-========================================================= */
-
-const envelope =
-    document.getElementById(
-        "envelope"
-    );
-
-
-const continueBtn =
-    document.getElementById(
-        "continueBtn"
-    );
-
-
-const tapHint =
-    document.getElementById(
-        "tapHint"
-    );
-
-
-let envelopeOpened = false;
-
-
-envelope.addEventListener(
-    "click",
-    function(){
-
-        if(envelopeOpened){
-
-            return;
-
-        }
-
-
-        envelopeOpened = true;
-
-
-        envelope.classList.add(
-            "open"
-        );
-
-
-        tapHint.textContent =
-            "A little something from me to you...";
-
-
-        setTimeout(
-            function(){
-
-                continueBtn
-                    .classList
-                    .remove("hidden");
-
-            },
-            1300
-        );
-
-    }
-);
-
-
-/* =========================================================
-   LETTER -> CHAPTER
-========================================================= */
-
-continueBtn.addEventListener(
-    "click",
-    function(){
-
-        show(
-            screens.chapter,
-            3
-        );
-
-    }
-);
-
-
-/* =========================================================
-   CHAPTER -> MEMORIES
-========================================================= */
-
-document
-    .getElementById("memoriesBtn")
-    .addEventListener(
-        "click",
-        function(){
-
-            show(
-                screens.memories,
-                4
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   MEMORIES -> VIDEO INTRO
-========================================================= */
-
-document
-    .getElementById("videoIntroBtn")
-    .addEventListener(
-        "click",
-        function(){
-
-            show(
-                screens.videoIntro,
-                5
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   VIDEO INTRO -> VIDEO
-========================================================= */
-
-document
-    .getElementById("watchBtn")
-    .addEventListener(
-        "click",
-        function(){
-
-            show(
-                screens.video,
-                5
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   VIDEO
-========================================================= */
-
-const birthdayVideo =
-    document.getElementById(
-        "birthdayVideo"
-    );
-
-
-birthdayVideo.addEventListener(
-    "play",
-    function(){
+    if (musicPlaying) {
 
         music.pause();
+        musicPlaying = false;
+        musicBtn.textContent = "🔇";
 
-        musicStatus.textContent =
-            "Music";
+    } else {
 
-    }
-);
-
-
-birthdayVideo.addEventListener(
-    "ended",
-    function(){
-
-        musicStatus.textContent =
-            "Playing";
-
-        startMusic();
+        music.play();
+        musicPlaying = true;
+        musicBtn.textContent = "🔊";
 
     }
-);
+
+});
 
 
-/* =========================================================
-   VIDEO -> FINAL
-========================================================= */
+/* ================= GIFTS ================= */
 
-document
-    .getElementById("finishBtn")
-    .addEventListener(
-        "click",
-        function(){
+const gifts = [
+    `
+        <div style="font-size:60px">📸</div>
+        <h2>أول ذكرى</h2>
+        <p style="margin-top:15px;color:#aaa;">
+            كل مرة بشوف الصورة دي بفتكر قد إيه اليوم ده كان جميل.
+        </p>
+    `,
 
-            birthdayVideo.pause();
+    `
+        <div style="font-size:60px">💌</div>
+        <h2>حاجة من قلبي</h2>
+        <p style="margin-top:15px;color:#aaa;">
+            مهما حصل ومهما الوقت عدى، في ناس وجودها بيفضل له معنى.
+        </p>
+    `,
 
-            show(
-                screens.final,
-                6
-            );
+    `
+        <div style="font-size:60px">🎬</div>
+        <h2>لسه بدري 👀</h2>
+        <p style="margin-top:15px;color:#aaa;">
+            الفيديو الكبير لسه مستنيكي في آخر الرحلة.
+        </p>
+    `
+];
 
-            startFireworks();
+const giftBoxes = document.querySelectorAll(".gift-box");
+const modal = document.getElementById("giftModal");
+const giftContent = document.getElementById("giftContent");
+const closeModal = document.querySelector(".close-modal");
+
+let openedGifts = 0;
+
+giftBoxes.forEach(box => {
+
+    box.addEventListener("click", () => {
+
+        if (!box.classList.contains("opened")) {
+
+            box.classList.add("opened");
+
+            openedGifts++;
 
         }
-    );
 
+        const index = box.dataset.gift;
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
+        giftContent.innerHTML = gifts[index];
 
-const target =
-    new Date(
-        "August 31, 2026 00:00:00"
-    ).getTime();
+        modal.classList.add("show");
 
+        if (openedGifts === giftBoxes.length) {
 
-function updateCountdown(){
+            document.getElementById("boxHint").textContent =
+                "خلصنا أول مرحلة ❤️";
 
-    const diff =
-        target - Date.now();
-
-
-    if(diff <= 0){
-
-        show(
-            screens.welcome,
-            1
-        );
-
-        typeWelcome();
-
-        startMusic();
-
-        return;
-
-    }
-
-
-    const days =
-        Math.floor(
-            diff /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    const hours =
-        Math.floor(
-            diff /
-            (1000 * 60 * 60)
-        ) % 24;
-
-
-    const mins =
-        Math.floor(
-            diff /
-            (1000 * 60)
-        ) % 60;
-
-
-    const secs =
-        Math.floor(
-            diff / 1000
-        ) % 60;
-
-
-    document
-        .getElementById("days")
-        .textContent =
-        String(days)
-        .padStart(2,"0");
-
-
-    document
-        .getElementById("hours")
-        .textContent =
-        String(hours)
-        .padStart(2,"0");
-
-
-    document
-        .getElementById("mins")
-        .textContent =
-        String(mins)
-        .padStart(2,"0");
-
-
-    document
-        .getElementById("secs")
-        .textContent =
-        String(secs)
-        .padStart(2,"0");
-
-}
-
-
-updateCountdown();
-
-
-setInterval(
-    updateCountdown,
-    1000
-);
-
-
-/* =========================================================
-   FIREWORKS
-========================================================= */
-
-const canvas =
-    document.getElementById(
-        "fireworks"
-    );
-
-
-const ctx =
-    canvas.getContext("2d");
-
-
-let particles = [];
-
-
-let fireworksStarted = false;
-
-
-function resizeCanvas(){
-
-    canvas.width =
-        window.innerWidth;
-
-    canvas.height =
-        window.innerHeight;
-
-}
-
-
-resizeCanvas();
-
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-
-function createFirework(){
-
-    const x =
-        Math.random() *
-        canvas.width;
-
-
-    const y =
-        Math.random() *
-        canvas.height *
-        0.55;
-
-
-    for(
-        let i = 0;
-        i < 65;
-        i++
-    ){
-
-        const angle =
-            Math.random() *
-            Math.PI *
-            2;
-
-
-        const speed =
-            Math.random() * 5 + 2;
-
-
-        particles.push({
-
-            x:x,
-
-            y:y,
-
-            vx:
-                Math.cos(angle) *
-                speed,
-
-            vy:
-                Math.sin(angle) *
-                speed,
-
-            life:1,
-
-            decay:
-                Math.random() *
-                .018 +
-                .012,
-
-            size:
-                Math.random() *
-                2 +
-                1
-
-        });
-
-    }
-
-}
-
-
-function animateFireworks(){
-
-    if(!fireworksStarted){
-
-        return;
-
-    }
-
-
-    ctx.fillStyle =
-        "rgba(5,3,8,.18)";
-
-
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
-
-
-    if(
-        Math.random() < .055
-    ){
-
-        createFirework();
-
-    }
-
-
-    particles.forEach(
-        function(p){
-
-            p.x += p.vx;
-
-            p.y += p.vy;
-
-            p.vy += .035;
-
-            p.life -= p.decay;
-
-
-            ctx.beginPath();
-
-
-            ctx.arc(
-                p.x,
-                p.y,
-                p.size,
-                0,
-                Math.PI * 2
-            );
-
-
-            ctx.fillStyle =
-                "rgba(232,167,192," +
-                p.life +
-                ")";
-
-
-            ctx.fill();
+            document
+                .getElementById("toMemories")
+                .classList.remove("hidden");
 
         }
-    );
+
+    });
+
+});
 
 
-    particles =
-        particles.filter(
-            function(p){
-
-                return p.life > 0;
-
-            }
-        );
+closeModal.addEventListener("click", () => {
+    modal.classList.remove("show");
+});
 
 
-    requestAnimationFrame(
-        animateFireworks
-    );
+modal.addEventListener("click", e => {
 
-}
+    if (e.target === modal) {
+        modal.classList.remove("show");
+    }
+
+});
 
 
-function startFireworks(){
+/* ================= MEMORIES ================= */
 
-    if(fireworksStarted){
+document.querySelectorAll(".memory-card").forEach(card => {
 
-        return;
+    card.addEventListener("click", () => {
+
+        const img = card.querySelector("img");
+
+        document.getElementById("viewerImage").src = img.src;
+
+        document
+            .getElementById("imageViewer")
+            .classList.add("show");
+
+    });
+
+});
+
+
+document.getElementById("closeViewer").addEventListener("click", () => {
+
+    document
+        .getElementById("imageViewer")
+        .classList.remove("show");
+
+});
+
+
+document.getElementById("toMemories").addEventListener("click", () => {
+
+    showScreen("memories");
+
+});
+
+
+document.getElementById("toLetter").addEventListener("click", () => {
+
+    showScreen("letter");
+
+});
+
+
+/* ================= LETTER ================= */
+
+const envelope = document.getElementById("envelope");
+
+envelope.addEventListener("click", () => {
+
+    if (envelope.classList.contains("open")) return;
+
+    envelope.classList.add("open");
+
+    document.getElementById("openLetterHint").textContent =
+        "❤️";
+
+    setTimeout(() => {
+
+        document
+            .getElementById("toVideo")
+            .classList.remove("hidden");
+
+    }, 1200);
+
+});
+
+
+document.getElementById("toVideo").addEventListener("click", () => {
+
+    showScreen("videoSection");
+
+});
+
+
+/* ================= VIDEO ================= */
+
+document.getElementById("finishBtn").addEventListener("click", () => {
+
+    showScreen("final");
+
+    createHearts();
+
+});
+
+
+/* ================= HEARTS ================= */
+
+function createHearts() {
+
+    const symbols = ["❤️", "💕", "💗", "✨", "💖"];
+
+    for (let i = 0; i < 35; i++) {
+
+        const heart = document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.textContent =
+            symbols[Math.floor(Math.random() * symbols.length)];
+
+        heart.style.left =
+            Math.random() * 100 + "vw";
+
+        heart.style.top =
+            100 + Math.random() * 20 + "vh";
+
+        heart.style.fontSize =
+            15 + Math.random() * 25 + "px";
+
+        heart.style.animationDuration =
+            3 + Math.random() * 4 + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+
+            heart.remove();
+
+        }, 7000);
 
     }
 
-
-    fireworksStarted = true;
-
-    animateFireworks();
-
 }
-```
+
+
+/* ================= RESTART ================= */
+
+document.getElementById("restartBtn").addEventListener("click", () => {
+
+    location.reload();
+
+});
