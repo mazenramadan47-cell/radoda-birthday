@@ -5,14 +5,6 @@
     padding: 0;
 }
 
-:root {
-    --bg: #08070b;
-    --pink: #f28aaa;
-    --pink-light: #ffb7ce;
-    --muted: #aaa7ad;
-    --line: rgba(255,255,255,.12);
-}
-
 html,
 body {
     width: 100%;
@@ -20,24 +12,31 @@ body {
 }
 
 body {
-    background: var(--bg);
-    color: white;
-    font-family: "Manrope", sans-serif;
     overflow: hidden;
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #241626 0%,
+            #100b16 45%,
+            #08070d 100%
+        );
+
+    color: #fff;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
 }
 
 
-/* ================= BACKGROUND ================= */
+/* =========================
+   BACKGROUND
+========================= */
 
-#stars,
-#shootingStars,
-#glow {
+#stars {
     position: fixed;
     inset: 0;
     pointer-events: none;
-}
-
-#stars {
     z-index: 0;
 }
 
@@ -47,128 +46,96 @@ body {
     width: 2px;
     height: 2px;
 
+    background: rgba(255,255,255,.55);
+
     border-radius: 50%;
 
-    background: white;
-
-    opacity: .15;
-
     animation:
-        twinkle
-        4s
-        ease-in-out
-        infinite;
+        twinkle 4s infinite ease-in-out;
 }
 
 @keyframes twinkle {
 
     0%,
     100% {
-        opacity: .08;
+        opacity: .15;
         transform: scale(.7);
     }
 
     50% {
-        opacity: .55;
-        transform: scale(1.3);
+        opacity: .8;
+        transform: scale(1.4);
     }
 }
 
-#glow::before,
-#glow::after {
 
-    content: "";
-
-    position: absolute;
-
-    width: 350px;
-    height: 350px;
-
-    border-radius: 50%;
-
-    filter: blur(130px);
-
-    opacity: .07;
-}
-
-#glow::before {
-    background: #e76f9b;
-    left: -150px;
-    top: -150px;
-}
-
-#glow::after {
-    background: #8060e8;
-    right: -150px;
-    bottom: -150px;
+#shootingStars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .shooting {
-
     position: absolute;
 
-    width: 70px;
+    width: 80px;
     height: 1px;
 
     background:
         linear-gradient(
             90deg,
             transparent,
-            white,
-            transparent
+            rgba(255,255,255,.8)
         );
 
-    transform: rotate(-30deg);
+    transform: rotate(-35deg);
 
     animation:
-        shooting
-        1.4s
-        linear
-        forwards;
+        shoot 1.2s linear forwards;
 }
 
-@keyframes shooting {
+@keyframes shoot {
 
     from {
         opacity: 0;
         transform:
             translate(0,0)
-            rotate(-30deg);
+            rotate(-35deg);
     }
 
     20% {
-        opacity: .6;
+        opacity: 1;
     }
 
     to {
         opacity: 0;
         transform:
-            translate(-300px,300px)
-            rotate(-30deg);
+            translate(-180px,180px)
+            rotate(-35deg);
     }
 }
 
 
-/* ================= MUSIC ================= */
+/* =========================
+   MUSIC
+========================= */
 
 #musicHint {
-
     position: fixed;
 
-    z-index: 100;
-
+    bottom: 22px;
     left: 50%;
-    bottom: 18px;
 
-    transform:
-        translateX(-50%);
+    transform: translateX(-50%);
 
-    color:
-        rgba(255,255,255,.35);
+    font-size: 12px;
 
-    font-size: 8px;
+    letter-spacing: 1px;
 
-    letter-spacing: 2px;
+    color: rgba(255,255,255,.45);
+
+    z-index: 50;
 
     transition: .5s;
 }
@@ -177,40 +144,294 @@ body {
     opacity: 0;
 }
 
+#musicButton {
+    position: fixed;
 
-/* ================= SCREEN ================= */
+    top: 20px;
+    right: 20px;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    background: rgba(255,255,255,.05);
+
+    color: white;
+
+    cursor: pointer;
+
+    z-index: 100;
+
+    backdrop-filter: blur(10px);
+}
+
+
+/* =========================
+   SCREEN
+========================= */
+
+main {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 5;
+}
 
 .screen {
 
-    position: fixed;
+    position: absolute;
 
     inset: 0;
-
-    z-index: 2;
 
     display: none;
 
     align-items: center;
     justify-content: center;
 
-    padding: 25px 16px;
+    flex-direction: column;
+
+    text-align: center;
+
+    padding: 30px;
+
+    overflow-y: auto;
 }
 
 .screen.active {
-
     display: flex;
 
     animation:
-        fadeIn
-        .6s
-        ease;
+        screenIn .7s ease;
 }
 
-@keyframes fadeIn {
+@keyframes screenIn {
 
     from {
         opacity: 0;
-        transform: scale(1.015);
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.eyebrow {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,.5);
+
+    margin-bottom: 20px;
+}
+
+h1,
+h2 {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-weight: 700;
+}
+
+h1 {
+
+    font-size:
+        clamp(48px, 8vw, 90px);
+
+    line-height: 1.05;
+}
+
+h1 span,
+h2 span {
+
+    color: #f2b6ce;
+}
+
+h1 i,
+h2 i {
+
+    font-style: normal;
+
+    color: #f29ab9;
+}
+
+h2 {
+
+    font-size:
+        clamp(34px, 5vw, 55px);
+
+    margin-bottom: 15px;
+}
+
+.subtitle {
+
+    max-width: 520px;
+
+    margin-top: 18px;
+
+    color: rgba(255,255,255,.55);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   COUNTDOWN
+========================= */
+
+.glow {
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(224,115,161,.13),
+            transparent 65%
+        );
+
+    filter: blur(20px);
+
+    pointer-events: none;
+}
+
+.timer {
+
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 42px;
+}
+
+.timeBox {
+
+    width: 90px;
+
+    padding: 18px 10px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(10px);
+}
+
+.timeBox strong {
+
+    display: block;
+
+    font-size: 32px;
+
+    font-weight: 800;
+}
+
+.timeBox span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.4);
+}
+
+.date {
+
+    margin-top: 30px;
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    color: rgba(255,255,255,.4);
+}
+
+
+/* =========================
+   10 COUNTDOWN
+========================= */
+
+#finalCountdown {
+
+    display: none;
+
+    margin-top: 35px;
+}
+
+#finalCountdown.show {
+    display: block;
+}
+
+.countLabel {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,.45);
+}
+
+#finalNumber {
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 130px;
+
+    line-height: 1;
+
+    font-weight: 700;
+
+    color: #f2b6ce;
+
+    text-shadow:
+        0 0 40px
+        rgba(242,182,206,.25);
+
+    animation:
+        numberPop .9s ease;
+}
+
+@keyframes numberPop {
+
+    from {
+        opacity: 0;
+        transform: scale(.5);
     }
 
     to {
@@ -219,229 +440,44 @@ body {
     }
 }
 
-.scroll {
-    overflow-y: auto;
-    align-items: flex-start;
-}
 
-.content {
+/* =========================
+   BUTTONS
+========================= */
 
-    width:
-        min(950px,100%);
-
-    text-align: center;
-}
-
-
-/* ================= TEXT ================= */
-
-.eyebrow {
-
-    color: var(--pink);
-
-    font-size: 9px;
-
-    font-weight: 800;
-
-    letter-spacing: 4px;
-}
-
-h1,
-h2,
-h3 {
-    font-weight: 800;
-}
-
-h1 span,
-h2 i,
-h1 i {
-    color: var(--pink);
-}
-
-h1 i,
-h2 i {
-    font-style: normal;
-}
-
-.sub {
-
-    color: var(--muted);
-
-    font-size: 13px;
-
-    line-height: 1.7;
-}
-
-
-/* ================= COUNTDOWN ================= */
-
-#countdown h1 {
-
-    margin:
-        20px 0 15px;
-
-    font-size:
-        clamp(48px,9vw,90px);
-
-    line-height: .95;
-
-    letter-spacing:
-        -5px;
-}
-
-.timer {
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    margin:
-        35px 0 18px;
-}
-
-.timeBox {
-
-    min-width: 105px;
-
-    padding:
-        16px 10px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius: 16px;
-
-    background:
-        rgba(255,255,255,.035);
-}
-
-.timeBox strong {
-
-    display: block;
-
-    font-size: 27px;
-
-    font-weight: 800;
-}
-
-.timeBox small {
-
-    display: block;
-
-    margin-top: 4px;
-
-    color: var(--muted);
-
-    font-size: 7px;
-
-    letter-spacing: 2px;
-}
-
-.colon {
-
-    color: var(--pink);
-
-    font-size: 20px;
-}
-
-.date {
-
-    color:
-        rgba(255,255,255,.4);
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    margin-bottom: 24px;
-}
-
-
-/* ================= 10 COUNTDOWN ================= */
-
-#finalCountdown {
-
-    display: none;
-
-    width: 135px;
-    height: 135px;
-
-    margin:
-        35px auto 20px;
-
-    border:
-        1px solid
-        rgba(242,138,170,.45);
-
-    border-radius: 50%;
-
-    align-items: center;
-    justify-content: center;
-
-    box-shadow:
-        0 0 50px
-        rgba(242,138,170,.1);
-
-    animation:
-        pulse
-        1s
-        infinite;
-}
-
-#finalCountdown.show {
-    display: flex;
-}
-
-#finalNumber {
-
-    font-size: 60px;
-
-    font-weight: 800;
-}
-
-@keyframes pulse {
-
-    50% {
-        transform: scale(1.05);
-    }
-}
-
-
-/* ================= BUTTONS ================= */
-
-.mainButton,
-.skipButton {
+button {
 
     font-family:
-        "Manrope",
+        "DM Sans",
         sans-serif;
-
-    font-weight: 800;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-    border-radius: 999px;
 }
 
 .mainButton {
 
-    margin-top: 28px;
+    margin-top: 32px;
 
-    padding:
-        14px 25px;
+    padding: 15px 25px;
 
-    border: none;
+    border-radius: 999px;
 
-    background: white;
+    border:
+        1px solid rgba(255,255,255,.15);
 
-    color: #111;
+    background:
+        rgba(255,255,255,.06);
 
-    font-size: 11px;
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        .3s ease;
+
+    backdrop-filter: blur(10px);
 }
 
 .mainButton:hover {
@@ -449,102 +485,93 @@ h2 i {
     transform:
         translateY(-3px);
 
-    box-shadow:
-        0 15px 40px
+    background:
         rgba(255,255,255,.12);
+
+    border-color:
+        rgba(255,255,255,.3);
 }
 
 .mainButton b {
-    margin-left: 7px;
+
+    margin-left: 10px;
 }
 
-.skipButton {
+.skip {
 
-    padding:
-        10px 20px;
+    margin-top: 20px;
 
-    background:
-        rgba(255,255,255,.035);
+    background: none;
 
-    border:
-        1px solid var(--line);
+    border: none;
 
-    color: white;
+    color: rgba(255,255,255,.3);
 
-    font-size: 10px;
+    cursor: pointer;
+
+    font-size: 11px;
+
+    text-decoration: underline;
+
+    padding: 10px;
+
+    z-index: 100;
+
+    position: relative;
 }
 
 
-/* ================= WELCOME ================= */
+/* =========================
+   SPARKLE
+========================= */
 
-.sparkle {
+.sparkleBig {
 
-    color: var(--pink);
+    font-size: 35px;
 
-    font-size: 38px;
+    color: #f2b6ce;
 
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
     animation:
-        sparkle
-        2.5s
-        ease-in-out
-        infinite;
+        sparkle 2.5s infinite ease-in-out;
 }
 
 @keyframes sparkle {
 
-    50% {
-        transform: scale(1.08);
+    0%,
+    100% {
+        opacity: .5;
+        transform: scale(.9) rotate(0);
+    }
 
-        text-shadow:
-            0 0 25px
-            rgba(242,138,170,.4);
+    50% {
+        opacity: 1;
+        transform: scale(1.15) rotate(12deg);
     }
 }
 
-#welcome h1 {
 
-    margin:
-        15px 0 22px;
-
-    font-size:
-        clamp(46px,8vw,82px);
-
-    line-height: .95;
-
-    letter-spacing:
-        -4px;
-}
-
-
-/* ================= LETTER ================= */
-
-#letter h2 {
-
-    margin:
-        10px 0 35px;
-
-    font-size:
-        clamp(30px,6vw,50px);
-}
+/* =========================
+   ENVELOPE
+========================= */
 
 .envelope {
 
     position: relative;
 
-    width:
-        min(520px,90vw);
+    width: 360px;
+    height: 240px;
 
-    height: 310px;
-
-    margin: auto;
+    margin-top: 25px;
 
     cursor: pointer;
+
+    perspective: 1000px;
 }
 
-.envelopeBack,
-.envelopeFront {
+.envBack,
+.envFront {
 
     position: absolute;
 
@@ -554,234 +581,198 @@ h2 i {
 
     background:
         linear-gradient(
-            135deg,
-            #74364f,
-            #421d2d
+            145deg,
+            #dca7bd,
+            #9b657e
         );
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.45);
 }
 
-.envelopeFront {
+.envBack {
+    z-index: 1;
+}
 
-    z-index: 5;
+.envFront {
+    z-index: 4;
 
     clip-path:
         polygon(
             0 0,
-            50% 57%,
+            50% 55%,
             100% 0,
             100% 100%,
             0 100%
         );
 }
 
-.paper {
-
-    position: absolute;
-
-    z-index: 2;
-
-    left: 5%;
-    top: 5%;
-
-    width: 90%;
-    height: 90%;
-
-    border-radius: 6px;
-
-    background: #fffaf5;
-
-    color: #29242a;
-
-    transition:
-        transform
-        .85s
-        cubic-bezier(.22,1,.36,1);
-}
-
-.paperContent {
-
-    height: 100%;
-
-    padding:
-        20px 28px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    overflow-y: auto;
-}
-
-.paperStar {
-    color: #bd5e7d;
-}
-
-.paper h3 {
-
-    margin:
-        4px 0 10px;
-
-    font-size: 21px;
-}
-
-.paper p {
-
-    margin-bottom: 8px;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-}
-
-.signature {
-
-    margin-top: auto;
-
-    text-align: right;
-
-    color: #9c4d69;
-
-    font-size: 11px;
-
-    font-weight: 800;
-}
-
 .flap {
 
     position: absolute;
-
-    z-index: 6;
 
     top: 0;
     left: 0;
 
     width: 100%;
-    height: 60%;
+    height: 100%;
 
-    background: #642d45;
+    background: #c989a5;
 
     clip-path:
         polygon(
             0 0,
-            100% 0,
-            50% 100%
+            50% 55%,
+            100% 0
         );
 
-    transform-origin:
-        top center;
+    transform-origin: top;
 
     transition:
-        transform
-        .7s
-        cubic-bezier(.22,1,.36,1);
+        transform .8s ease;
+
+    z-index: 5;
 }
 
-.seal {
+.letterPaper {
 
     position: absolute;
 
-    z-index: 7;
+    left: 20px;
+    right: 20px;
 
-    left: 50%;
-    top: 56%;
+    bottom: 15px;
+
+    min-height: 205px;
+
+    padding: 25px;
+
+    background:
+        #fffafc;
+
+    color: #513a46;
+
+    border-radius: 8px;
+
+    z-index: 2;
+
+    text-align: left;
 
     transform:
-        translate(-50%,-50%);
+        translateY(45px);
 
-    width: 50px;
-    height: 50px;
+    transition:
+        transform .9s ease;
 
-    border-radius: 50%;
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.2);
+}
 
-    display: flex;
+.letterPaper h3 {
 
-    align-items: center;
-    justify-content: center;
+    font-family:
+        "Playfair Display",
+        serif;
 
-    background: var(--pink);
+    margin-bottom: 12px;
+}
 
-    transition: .4s;
+.letterPaper p {
+
+    font-size: 11px;
+
+    line-height: 1.65;
+
+    margin-bottom: 9px;
+}
+
+.signature {
+
+    margin-top: 15px;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-weight: 700;
 }
 
 .envelope.open .flap {
 
     transform:
         rotateX(180deg);
-
-    z-index: 1;
 }
 
-.envelope.open .paper {
+.envelope.open .letterPaper {
 
     transform:
-        translateY(-185px);
-
-    z-index: 8;
-}
-
-.envelope.open .seal {
-    opacity: 0;
+        translateY(-80px);
 }
 
 .tapHint {
 
-    margin-top: 17px;
+    margin-top: 25px;
 
-    color: var(--muted);
+    color: rgba(255,255,255,.45);
 
-    font-size: 10px;
+    font-size: 11px;
+
+    letter-spacing: 1px;
+}
+
+.hidden {
+    display: none !important;
 }
 
 
-/* ================= MEMORIES ================= */
-
-.memoryContent {
-
-    width:
-        min(1000px,100%);
-
-    margin: auto;
-
-    padding:
-        40px 0 60px;
-}
-
-.memoryContent h2 {
-
-    margin:
-        10px 0;
-
-    font-size:
-        clamp(32px,6vw,55px);
-}
+/* =========================
+   GALLERY
+========================= */
 
 .gallery {
+
+    width: min(900px, 90vw);
 
     display: grid;
 
     grid-template-columns:
-        repeat(2,1fr);
+        repeat(3, 1fr);
 
-    gap: 18px;
+    gap: 15px;
 
-    margin:
-        35px 0;
+    margin-top: 25px;
 }
 
 .photo {
 
-    position: relative;
-
-    height: 300px;
+    height: 190px;
 
     overflow: hidden;
 
-    border-radius: 20px;
+    border-radius: 14px;
 
     border:
-        1px solid var(--line);
+        1px solid rgba(255,255,255,.1);
+
+    background:
+        rgba(255,255,255,.04);
 
     cursor: pointer;
+
+    transition:
+        .35s ease;
+}
+
+.photo:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.02);
+
+    border-color:
+        rgba(255,255,255,.25);
 }
 
 .photo img {
@@ -789,143 +780,115 @@ h2 i {
     width: 100%;
     height: 100%;
 
-    display: block;
-
     object-fit: cover;
 
-    transition:
-        transform
-        .7s;
-}
-
-.photo:hover img {
-    transform: scale(1.05);
-}
-
-.photo::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            transparent 40%,
-            rgba(0,0,0,.85)
-        );
-}
-
-.caption {
-
-    position: absolute;
-
-    z-index: 3;
-
-    left: 18px;
-    right: 18px;
-    bottom: 17px;
-
-    text-align: left;
-
-    font-size: 11px;
+    display: block;
 }
 
 
-/* ================= VIEWER ================= */
+/* =========================
+   VIEWER
+========================= */
 
-.viewer {
+#viewer {
 
     position: fixed;
 
     inset: 0;
-
-    z-index: 5000;
 
     display: none;
 
     align-items: center;
     justify-content: center;
 
-    padding: 20px;
-
     background:
-        rgba(0,0,0,.92);
+        rgba(5,4,8,.92);
 
-    backdrop-filter:
-        blur(15px);
+    z-index: 1000;
+
+    padding: 30px;
 }
 
-.viewer.show {
+#viewer.show {
     display: flex;
 }
 
-.viewer img {
+#viewerImage {
 
-    max-width: 95vw;
-    max-height: 90vh;
+    max-width: 90vw;
+    max-height: 85vh;
 
     object-fit: contain;
 
     border-radius: 12px;
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.7);
 }
 
 #closeViewer {
 
     position: absolute;
 
-    top: 15px;
-    right: 20px;
+    top: 20px;
+    right: 25px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
 
     border: none;
 
-    background: none;
+    background:
+        rgba(255,255,255,.08);
 
     color: white;
 
-    font-size: 40px;
+    font-size: 28px;
 
     cursor: pointer;
 }
 
 
-/* ================= VIDEO ================= */
-
-#videoScreen h2 {
-
-    margin:
-        10px 0;
-
-    font-size:
-        clamp(32px,6vw,58px);
-}
+/* =========================
+   VIDEO
+========================= */
 
 .videoContainer {
 
-    width:
-        min(900px,95vw);
+    width: min(850px, 90vw);
 
-    margin:
-        25px auto 0;
+    margin-top: 25px;
+
+    border-radius: 16px;
+
+    overflow: hidden;
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    background: black;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,.4);
 }
 
 .videoContainer video {
 
-    width: 100%;
-
     display: block;
 
-    background: black;
+    width: 100%;
 
-    border-radius: 18px;
-
-    border:
-        1px solid var(--line);
+    max-height: 60vh;
 }
 
 
-/* ================= FINAL ================= */
+/* =========================
+   FINAL
+========================= */
 
 #final {
     overflow: hidden;
@@ -947,152 +910,90 @@ h2 i {
 
     position: relative;
 
-    z-index: 5;
+    z-index: 3;
 
-    width:
-        min(720px,100%);
-
-    text-align: center;
-}
-
-#final h1 {
-
-    margin:
-        15px 0 25px;
-
-    font-size:
-        clamp(45px,8vw,82px);
-
-    line-height: .95;
-
-    letter-spacing:
-        -4px;
+    max-width: 700px;
 }
 
 .finalText {
 
-    color: var(--muted);
+    margin-top: 25px;
 
-    font-size: 13px;
+    color:
+        rgba(255,255,255,.62);
 
-    line-height: 1.8;
+    font-size: 14px;
+
+    line-height: 1.7;
 }
 
 .finalText b {
+
     color: white;
 }
 
-.made {
+.end {
 
-    margin-top: 25px;
+    margin-top: 30px;
 
-    color: var(--pink);
+    color:
+        rgba(255,255,255,.35);
 
-    font-size: 10px;
-
-    font-weight: 800;
+    font-size: 11px;
 
     letter-spacing: 2px;
 }
 
-.hidden {
-    display: none !important;
-}
 
-
-/* ================= MOBILE ================= */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 650px) {
 
-    #countdown h1 {
+    .screen {
+        padding: 20px;
+    }
 
+    h1 {
         font-size: 47px;
-
-        letter-spacing:
-            -2.5px;
     }
 
     .timer {
-        gap: 3px;
+        gap: 6px;
     }
 
     .timeBox {
-
-        min-width: 61px;
-
-        padding:
-            12px 3px;
-
-        border-radius: 11px;
+        width: 72px;
+        padding: 14px 5px;
     }
 
     .timeBox strong {
-        font-size: 18px;
-    }
-
-    .timeBox small {
-        font-size: 5px;
-        letter-spacing: 1px;
-    }
-
-    .colon {
-        font-size: 14px;
-    }
-
-    #welcome h1 {
-
-        font-size: 48px;
-
-        letter-spacing:
-            -2px;
+        font-size: 25px;
     }
 
     .envelope {
-        height: 245px;
-    }
-
-    .paperContent {
-        padding:
-            15px 18px;
-    }
-
-    .paper h3 {
-        font-size: 17px;
-    }
-
-    .paper p {
-
-        font-size: 9.5px;
-
-        line-height: 1.45;
-
-        margin-bottom: 5px;
-    }
-
-    .envelope.open .paper {
-
-        transform:
-            translateY(-145px);
+        width: 310px;
+        height: 210px;
     }
 
     .gallery {
-
         grid-template-columns:
-            1fr;
+            repeat(2, 1fr);
 
-        gap: 13px;
+        gap: 10px;
     }
 
     .photo {
-        height: 280px;
+        height: 150px;
     }
 
-    #final h1 {
+    .letterPaper {
+        padding: 20px;
+    }
 
-        font-size: 50px;
-
-        letter-spacing:
-            -2px;
+    #finalNumber {
+        font-size: 110px;
     }
 }
 ```
