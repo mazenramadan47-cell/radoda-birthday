@@ -1,35 +1,56 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>For Radoda ❤️</title>
+    <meta charset="UTF-8">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <title>For Radoda ❤️</title>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+
 </head>
 
 <body>
 
-<!-- BACKGROUND -->
+<!-- =====================================================
+     BACKGROUND
+===================================================== -->
+
 <div id="particles"></div>
 <div id="stars"></div>
 <div id="shootingStars"></div>
 
-<!-- MUSIC -->
+
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
 <audio id="bgMusic" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="./music.mp3" type="audio/mpeg">
 </audio>
 
-<button id="musicBtn" class="music-btn">♫</button>
+<button id="musicBtn" class="music-btn">
+    ♫
+</button>
 
-<!-- ================= INTRO ================= -->
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
 
 <section id="intro" class="screen active">
 
@@ -76,10 +97,15 @@
 
         </div>
 
+
         <!-- 10 → 1 -->
+
         <div id="tenCountdown" class="ten-countdown">
+
             <span id="count">10</span>
+
         </div>
+
 
         <button id="skipBtn" class="glass-btn">
             Skip the wait ✨
@@ -90,13 +116,17 @@
 </section>
 
 
-<!-- ================= WELCOME ================= -->
+<!-- =====================================================
+     WELCOME
+===================================================== -->
 
 <section id="welcome" class="screen">
 
     <div class="welcome-content">
 
-        <div class="welcome-symbol">✦</div>
+        <div class="welcome-symbol">
+            ✦
+        </div>
 
         <div class="eyebrow">
             IT'S MIDNIGHT
@@ -122,7 +152,9 @@
 </section>
 
 
-<!-- ================= GIFTS ================= -->
+<!-- =====================================================
+     GIFTS
+===================================================== -->
 
 <section id="boxes" class="screen">
 
@@ -142,48 +174,86 @@
 
     </div>
 
+
     <div class="boxes-container">
 
         <button class="gift-box" data-gift="0">
+
             <div class="box-glow"></div>
-            <div class="box-icon">🎁</div>
-            <div class="box-label">OPEN</div>
+
+            <div class="box-icon">
+                🎁
+            </div>
+
+            <div class="box-label">
+                OPEN
+            </div>
+
         </button>
+
 
         <button class="gift-box" data-gift="1">
+
             <div class="box-glow"></div>
-            <div class="box-icon">💌</div>
-            <div class="box-label">OPEN</div>
+
+            <div class="box-icon">
+                💌
+            </div>
+
+            <div class="box-label">
+                OPEN
+            </div>
+
         </button>
 
+
         <button class="gift-box" data-gift="2">
+
             <div class="box-glow"></div>
-            <div class="box-icon">✨</div>
-            <div class="box-label">OPEN</div>
+
+            <div class="box-icon">
+                ✨
+            </div>
+
+            <div class="box-label">
+                OPEN
+            </div>
+
         </button>
 
     </div>
+
 
     <p id="boxHint" class="hint">
         Explore them all ✨
     </p>
 
-    <button id="toMemories" class="next-btn hidden">
+
+    <button id="toMemories"
+            class="next-btn hidden">
+
         Continue →
+
     </button>
 
 </section>
 
 
-<!-- ================= GIFT MODAL ================= -->
+<!-- =====================================================
+     GIFT MODAL
+===================================================== -->
 
 <div id="giftModal" class="modal">
 
     <div class="modal-content">
 
-        <button class="close-modal">×</button>
+        <button class="close-modal">
+            ×
+        </button>
 
-        <div class="modal-sparkle">✦</div>
+        <div class="modal-sparkle">
+            ✦
+        </div>
 
         <div id="giftContent"></div>
 
@@ -192,7 +262,9 @@
 </div>
 
 
-<!-- ================= MEMORIES ================= -->
+<!-- =====================================================
+     MEMORIES
+===================================================== -->
 
 <section id="memories" class="screen">
 
@@ -212,53 +284,96 @@
 
     </div>
 
+
     <div class="memory-grid">
 
         <div class="memory-card">
-            <img src="01.JPG" alt="Memory 1">
+
+            <img src="./01.JPG"
+                 alt="Memory 1"
+                 loading="eager">
+
         </div>
 
-        <div class="memory-card">
-            <img src="02.JPG" alt="Memory 2">
-        </div>
 
         <div class="memory-card">
-            <img src="03.JPG" alt="Memory 3">
+
+            <img src="./02.JPG"
+                 alt="Memory 2"
+                 loading="eager">
+
         </div>
 
-        <div class="memory-card">
-            <img src="04.JPG" alt="Memory 4">
-        </div>
 
         <div class="memory-card">
-            <img src="05.JPG" alt="Memory 5">
+
+            <img src="./03.JPG"
+                 alt="Memory 3"
+                 loading="eager">
+
         </div>
 
+
         <div class="memory-card">
-            <img src="06.JPG" alt="Memory 6">
+
+            <img src="./04.JPG"
+                 alt="Memory 4"
+                 loading="eager">
+
+        </div>
+
+
+        <div class="memory-card">
+
+            <img src="./05.JPG"
+                 alt="Memory 5"
+                 loading="eager">
+
+        </div>
+
+
+        <div class="memory-card">
+
+            <img src="./06.JPG"
+                 alt="Memory 6"
+                 loading="eager">
+
         </div>
 
     </div>
 
-    <button id="toLetter" class="next-btn">
+
+    <button id="toLetter"
+            class="next-btn">
+
         There's more →
+
     </button>
 
 </section>
 
 
-<!-- ================= IMAGE VIEWER ================= -->
+<!-- =====================================================
+     IMAGE VIEWER
+===================================================== -->
 
-<div id="imageViewer" class="image-viewer">
+<div id="imageViewer"
+     class="image-viewer">
 
-    <button id="closeViewer">×</button>
+    <button id="closeViewer">
+        ×
+    </button>
 
-    <img id="viewerImage" src="" alt="Memory">
+    <img id="viewerImage"
+         src=""
+         alt="Memory">
 
 </div>
 
 
-<!-- ================= LETTER ================= -->
+<!-- =====================================================
+     LETTER
+===================================================== -->
 
 <section id="letter" class="screen">
 
@@ -278,17 +393,24 @@
 
     </div>
 
-    <div id="envelope" class="envelope">
+
+    <div id="envelope"
+         class="envelope">
 
         <div class="envelope-back"></div>
+
 
         <div class="letter-paper">
 
             <div class="letter-inner">
 
-                <div class="letter-top">✦</div>
+                <div class="letter-top">
+                    ✦
+                </div>
 
-                <h3>Dear Radoda,</h3>
+                <h3>
+                    Dear Radoda,
+                </h3>
 
                 <p>
                     I wanted to make something a little different
@@ -318,7 +440,9 @@
 
         </div>
 
+
         <div class="envelope-front"></div>
+
 
         <div class="heart-seal">
             ♥
@@ -326,20 +450,28 @@
 
     </div>
 
+
     <p id="openLetterHint">
         Tap the envelope
     </p>
 
-    <button id="toVideo" class="next-btn hidden">
+
+    <button id="toVideo"
+            class="next-btn hidden">
+
         One last thing... →
+
     </button>
 
 </section>
 
 
-<!-- ================= VIDEO ================= -->
+<!-- =====================================================
+     VIDEO
+===================================================== -->
 
-<section id="videoSection" class="screen">
+<section id="videoSection"
+         class="screen">
 
     <div class="video-intro">
 
@@ -357,13 +489,22 @@
 
     </div>
 
+
     <div class="video-wrapper">
 
         <div class="video-glow"></div>
 
-        <video id="mainVideo" controls playsinline preload="metadata">
+        <!-- IMPORTANT:
+             Your actual GitHub file is birthday.mp4
+        -->
 
-            <source src="video.mp4" type="video/mp4">
+        <video id="mainVideo"
+               controls
+               playsinline
+               preload="metadata">
+
+            <source src="./birthday.mp4"
+                    type="video/mp4">
 
             Your browser does not support video playback.
 
@@ -371,23 +512,33 @@
 
     </div>
 
-    <button id="finishBtn" class="main-btn">
+
+    <button id="finishBtn"
+            class="main-btn">
+
         Finish the surprise
         <span>✦</span>
+
     </button>
 
 </section>
 
 
-<!-- ================= FINAL ================= -->
+<!-- =====================================================
+     FINAL
+===================================================== -->
 
-<section id="final" class="screen">
+<section id="final"
+         class="screen">
 
     <div id="hearts"></div>
 
+
     <div class="final-content">
 
-        <div class="final-spark">✦</div>
+        <div class="final-spark">
+            ✦
+        </div>
 
         <div class="final-heart">
             ❤️
@@ -419,8 +570,11 @@
             Made with love.
         </div>
 
-        <button id="restartBtn" class="glass-btn">
+        <button id="restartBtn"
+                class="glass-btn">
+
             Experience it again ↻
+
         </button>
 
     </div>
@@ -428,8 +582,7 @@
 </section>
 
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
 
 </body>
 </html>
-```
