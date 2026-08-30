@@ -1,6 +1,7 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -15,9 +16,9 @@
 
 <style>
 
-/* =========================
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 * {
     box-sizing: border-box;
@@ -36,17 +37,15 @@ body {
 
     color: #fff;
 
-    font-family:
-        "Montserrat",
-        sans-serif;
+    font-family: "Montserrat", sans-serif;
 
     overflow: hidden;
 }
 
 
-/* =========================
+/* =====================================================
    BACKGROUND
-========================= */
+===================================================== */
 
 body::before {
 
@@ -59,7 +58,7 @@ body::before {
     background:
         radial-gradient(
             circle at center,
-            rgba(126, 47, 82, .25),
+            rgba(126,47,82,.25),
             transparent 55%
         );
 
@@ -117,9 +116,9 @@ body::before {
 }
 
 
-/* =========================
+/* =====================================================
    FLOATING HEARTS
-========================= */
+===================================================== */
 
 .hearts {
 
@@ -131,6 +130,7 @@ body::before {
 
     z-index: 2;
 }
+
 
 .hearts::before,
 .hearts::after {
@@ -150,10 +150,12 @@ body::before {
         heartFloat 9s linear infinite;
 }
 
+
 .hearts::before {
 
     left: 15%;
 }
+
 
 .hearts::after {
 
@@ -194,9 +196,9 @@ body::before {
 }
 
 
-/* =========================
+/* =====================================================
    MAIN
-========================= */
+===================================================== */
 
 main {
 
@@ -210,9 +212,9 @@ main {
 }
 
 
-/* =========================
+/* =====================================================
    SCREENS
-========================= */
+===================================================== */
 
 .screen {
 
@@ -263,9 +265,9 @@ main {
 }
 
 
-/* =========================
+/* =====================================================
    TYPOGRAPHY
-========================= */
+===================================================== */
 
 .eyebrow {
 
@@ -297,7 +299,7 @@ h2 {
 h1 {
 
     font-size:
-        clamp(55px, 9vw, 105px);
+        clamp(55px,9vw,105px);
 
     line-height: .9;
 }
@@ -306,7 +308,7 @@ h1 {
 h2 {
 
     font-size:
-        clamp(40px, 6vw, 70px);
+        clamp(40px,6vw,70px);
 
     line-height: 1;
 }
@@ -346,9 +348,9 @@ h2 i {
 }
 
 
-/* =========================
+/* =====================================================
    ORB
-========================= */
+===================================================== */
 
 .orb {
 
@@ -379,8 +381,7 @@ h2 i {
     0%,
     100% {
 
-        transform:
-            scale(1);
+        transform: scale(1);
 
         opacity: .5;
 
@@ -388,8 +389,7 @@ h2 i {
 
     50% {
 
-        transform:
-            scale(1.2);
+        transform: scale(1.2);
 
         opacity: 1;
 
@@ -398,9 +398,9 @@ h2 i {
 }
 
 
-/* =========================
+/* =====================================================
    COUNTDOWN
-========================= */
+===================================================== */
 
 .timer {
 
@@ -463,9 +463,9 @@ h2 i {
 }
 
 
-/* =========================
+/* =====================================================
    BUTTONS
-========================= */
+===================================================== */
 
 button {
 
@@ -542,9 +542,9 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    SPARKLE
-========================= */
+===================================================== */
 
 .sparkle {
 
@@ -585,9 +585,15 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    ENVELOPE
-========================= */
+===================================================== */
+
+#letter {
+
+    overflow: hidden;
+}
+
 
 .envelope {
 
@@ -597,27 +603,25 @@ button strong {
 
     height: 220px;
 
-    margin-top: 30px;
+    margin-top: 40px;
 
     cursor: pointer;
 
     perspective: 1000px;
+
+    z-index: 20;
 }
 
 
-.env-back,
-.env-front,
-.flap {
+/* BACK */
+
+.env-back {
 
     position: absolute;
 
     inset: 0;
 
-    border-radius: 5px;
-}
-
-
-.env-back {
+    border-radius: 6px;
 
     background:
         linear-gradient(
@@ -627,12 +631,91 @@ button strong {
         );
 
     box-shadow:
-        0 20px 70px
-        rgba(0,0,0,.5);
+        0 25px 80px
+        rgba(0,0,0,.6);
+
+    z-index: 1;
 }
 
 
+/* LETTER PAPER */
+
+.letter-paper {
+
+    position: absolute;
+
+    left: 18px;
+
+    right: 18px;
+
+    bottom: 12px;
+
+    height: 185px;
+
+    padding: 22px 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff7f3,
+            #eadbd8
+        );
+
+    color: #38242c;
+
+    border-radius: 3px;
+
+    text-align: left;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 16px;
+
+    line-height: 1.35;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.25);
+
+    z-index: 2;
+
+    transition:
+        transform 1.1s
+        cubic-bezier(.2,.8,.2,1);
+
+}
+
+
+.letter-paper p {
+
+    margin:
+        0 0 10px;
+}
+
+
+.signature {
+
+    text-align: right;
+
+    margin-top: 15px !important;
+
+    font-style: italic;
+
+    color: #6e4658;
+}
+
+
+/* FRONT OF ENVELOPE */
+
 .env-front {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 6px;
 
     background:
         linear-gradient(
@@ -644,17 +727,25 @@ button strong {
     clip-path:
         polygon(
             0 0,
-            50% 55%,
+            50% 57%,
             100% 0,
             100% 100%,
             0 100%
         );
 
     z-index: 4;
+
+    pointer-events: none;
 }
 
 
+/* FLAP */
+
 .flap {
+
+    position: absolute;
+
+    inset: 0;
 
     background:
         linear-gradient(
@@ -667,86 +758,47 @@ button strong {
         polygon(
             0 0,
             100% 0,
-            50% 65%
+            50% 67%
         );
 
     transform-origin:
         top center;
 
     transition:
-        transform 1s ease;
+        transform 1s
+        cubic-bezier(.2,.8,.2,1);
 
     z-index: 5;
+
+    pointer-events: none;
 }
 
 
-.letter-paper {
-
-    position: absolute;
-
-    left: 20px;
-
-    right: 20px;
-
-    bottom: 15px;
-
-    height: 175px;
-
-    padding: 20px;
-
-    background: #f3e8e7;
-
-    color: #38242c;
-
-    text-align: left;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 15px;
-
-    line-height: 1.3;
-
-    z-index: 2;
-
-    transition:
-        transform 1s ease;
-}
-
-
-.letter-paper p {
-
-    margin:
-        0 0 8px;
-}
-
-
-.signature {
-
-    text-align: right;
-
-    font-style: italic;
-}
-
+/* OPEN */
 
 .envelope.open .flap {
 
     transform:
         rotateX(180deg);
+
 }
 
 
 .envelope.open .letter-paper {
 
     transform:
-        translateY(-125px);
+        translateY(-155px);
+
 }
 
 
+/* =====================================================
+   LETTER BUTTON
+===================================================== */
+
 .tapHint {
 
-    margin-top: 30px;
+    margin-top: 32px;
 
     color:
         rgba(255,255,255,.45);
@@ -754,6 +806,8 @@ button strong {
     font-size: 10px;
 
     letter-spacing: 2px;
+
+    transition: opacity .3s;
 }
 
 
@@ -763,9 +817,9 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    GALLERY
-========================= */
+===================================================== */
 
 #memories {
 
@@ -790,7 +844,7 @@ button strong {
 
     margin-top: 25px;
 
-    max-height: 60vh;
+    max-height: 58vh;
 
     overflow-y: auto;
 
@@ -903,9 +957,9 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    VIDEO
-========================= */
+===================================================== */
 
 .videoWrap {
 
@@ -941,9 +995,9 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    FINAL
-========================= */
+===================================================== */
 
 #final {
 
@@ -1010,9 +1064,9 @@ button strong {
 }
 
 
-/* =========================
+/* =====================================================
    MOBILE
-========================= */
+===================================================== */
 
 @media (max-width: 700px) {
 
@@ -1037,11 +1091,15 @@ button strong {
     }
 
     .envelope {
+
         transform:
             scale(.88);
+
+        margin-top: 20px;
     }
 
     .gallery {
+
         grid-template-columns:
             repeat(2,1fr);
 
@@ -1049,15 +1107,17 @@ button strong {
     }
 
     .photo-card img {
+
         height: 150px;
+
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    SMALL PHONE
-========================= */
+===================================================== */
 
 @media (max-width: 400px) {
 
@@ -1067,6 +1127,10 @@ button strong {
 
     .timer b {
         font-size: 35px;
+    }
+
+    .envelope {
+        transform: scale(.78);
     }
 
 }
@@ -1087,9 +1151,9 @@ button strong {
 <main>
 
 
-<!-- =================================
+<!-- =====================================================
      COUNTDOWN
-================================= -->
+===================================================== -->
 
 <section
     id="countdown"
@@ -1140,11 +1204,7 @@ button strong {
     </div>
 
 
-    <!--
-       IMPORTANT:
-       This button does NOT depend on script.js.
-       It directly changes the screen.
-    -->
+    <!-- DIRECT SKIP -->
 
     <button
         class="testBtn"
@@ -1163,9 +1223,9 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      WELCOME
-================================= -->
+===================================================== -->
 
 <section
     id="welcome"
@@ -1206,9 +1266,9 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      LETTER
-================================= -->
+===================================================== -->
 
 <section
     id="letter"
@@ -1223,6 +1283,7 @@ button strong {
         class="envelope"
         id="envelope"
         onclick="openEnvelope()">
+
 
         <div class="env-back"></div>
 
@@ -1253,7 +1314,9 @@ button strong {
 
         <div class="flap"></div>
 
+
         <div class="env-front"></div>
+
 
     </div>
 
@@ -1284,9 +1347,9 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      MEMORIES
-================================= -->
+===================================================== -->
 
 <section
     id="memories"
@@ -1296,10 +1359,12 @@ button strong {
         A few little memories
     </div>
 
+
     <h2>
         Moments worth keeping
         <i>♥</i>
     </h2>
+
 
     <p class="sub">
         Six little pieces of our story.
@@ -1406,9 +1471,9 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      VIDEO
-================================= -->
+===================================================== -->
 
 <section
     id="videoScreen"
@@ -1418,10 +1483,12 @@ button strong {
         The part I made especially for you
     </div>
 
+
     <h2>
         I saved something special
         <i>♥</i>
     </h2>
+
 
     <p class="sub">
         Press play when you're ready.
@@ -1463,13 +1530,14 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      FINAL
-================================= -->
+===================================================== -->
 
 <section
     id="final"
     class="screen">
+
 
     <canvas
         id="fireworks">
@@ -1478,9 +1546,11 @@ button strong {
 
     <div class="finalContent">
 
+
         <div class="sparkle">
             ✦
         </div>
+
 
         <div class="eyebrow">
             One last thing...
@@ -1515,6 +1585,7 @@ button strong {
             Made with love.
         </div>
 
+
     </div>
 
 </section>
@@ -1524,9 +1595,9 @@ button strong {
 
 
 
-<!-- =================================
+<!-- =====================================================
      MUSIC
-================================= -->
+===================================================== -->
 
 <audio
     id="music"
@@ -1543,9 +1614,9 @@ button strong {
 
 <script>
 
-/* =========================
-   SCREEN FUNCTION
-========================= */
+/* =====================================================
+   SCREEN NAVIGATION
+===================================================== */
 
 function showScreen(id) {
 
@@ -1571,12 +1642,15 @@ function showScreen(id) {
 }
 
 
-/* =========================
-   WELCOME TYPING
-========================= */
+/* =====================================================
+   WELCOME MESSAGE
+===================================================== */
 
 var welcomeMessage =
     "Tonight is all about you. I hope you're ready for a little journey through some memories... ❤️";
+
+
+var typingTimer = null;
 
 
 function startWelcome() {
@@ -1590,13 +1664,20 @@ function startWelcome() {
     }
 
 
+    if (typingTimer) {
+
+        clearInterval(typingTimer);
+
+    }
+
+
     element.textContent = "";
 
 
     var index = 0;
 
 
-    var typing =
+    typingTimer =
         setInterval(function() {
 
             element.textContent +=
@@ -1611,7 +1692,9 @@ function startWelcome() {
                 welcomeMessage.length
             ) {
 
-                clearInterval(typing);
+                clearInterval(typingTimer);
+
+                typingTimer = null;
 
             }
 
@@ -1623,9 +1706,9 @@ function startWelcome() {
 }
 
 
-/* =========================
+/* =====================================================
    COUNTDOWN
-========================= */
+===================================================== */
 
 var targetDate =
     new Date(
@@ -1705,15 +1788,16 @@ function updateCountdown() {
 
 updateCountdown();
 
+
 setInterval(
     updateCountdown,
     1000
 );
 
 
-/* =========================
+/* =====================================================
    MUSIC
-========================= */
+===================================================== */
 
 function startMusic() {
 
@@ -1744,9 +1828,9 @@ function startMusic() {
 }
 
 
-/* =========================
+/* =====================================================
    ENVELOPE
-========================= */
+===================================================== */
 
 function openEnvelope() {
 
@@ -1780,15 +1864,15 @@ function openEnvelope() {
                 .remove("hidden");
 
         },
-        1000
+        1100
     );
 
 }
 
 
-/* =========================
+/* =====================================================
    VIDEO
-========================= */
+===================================================== */
 
 var video =
     document.getElementById(
@@ -1821,9 +1905,9 @@ video.addEventListener(
 );
 
 
-/* =========================
+/* =====================================================
    FINISH
-========================= */
+===================================================== */
 
 function finishSurprise() {
 
@@ -1836,14 +1920,15 @@ function finishSurprise() {
 }
 
 
-/* =========================
+/* =====================================================
    FIREWORKS
-========================= */
+===================================================== */
 
 var canvas =
     document.getElementById(
         "fireworks"
     );
+
 
 var ctx =
     canvas.getContext("2d");
@@ -1851,7 +1936,9 @@ var ctx =
 
 var particles = [];
 
-var fireworksStarted = false;
+
+var fireworksStarted =
+    false;
 
 
 function resizeCanvas() {
@@ -2031,6 +2118,7 @@ function startFireworks() {
 
     fireworksStarted = true;
 
+
     particles = [];
 
 
@@ -2048,6 +2136,8 @@ function startFireworks() {
 
 </script>
 
+
 </body>
+
 </html>
 ```
