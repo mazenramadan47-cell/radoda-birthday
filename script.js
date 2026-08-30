@@ -5,28 +5,46 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+
     /* =====================================================
        SCREEN NAVIGATION
     ===================================================== */
 
-    const screens = document.querySelectorAll(".screen");
+    const screens =
+        document.querySelectorAll(".screen");
+
 
     function showScreen(id) {
 
         screens.forEach(screen => {
+
             screen.classList.remove("active");
+
         });
 
-        const target = document.getElementById(id);
+
+        const target =
+            document.getElementById(id);
+
 
         if (!target) {
-            console.error("Screen not found:", id);
+
+            console.error(
+                "Screen not found:",
+                id
+            );
+
             return;
+
         }
 
+
         requestAnimationFrame(() => {
+
             target.classList.add("active");
+
         });
+
     }
 
 
@@ -34,36 +52,58 @@ document.addEventListener("DOMContentLoaded", () => {
        BACKGROUND STARS
     ===================================================== */
 
-    const stars = document.getElementById("stars");
+    const stars =
+        document.getElementById("stars");
+
 
     if (stars) {
 
-        for (let i = 0; i < 80; i++) {
+        for (
+            let i = 0;
+            i < 80;
+            i++
+        ) {
 
-            const star = document.createElement("span");
+            const star =
+                document.createElement("span");
 
-            star.className = "star";
+
+            star.className =
+                "star";
+
 
             star.style.left =
                 Math.random() * 100 + "vw";
 
+
             star.style.top =
                 Math.random() * 100 + "vh";
+
 
             star.style.animationDelay =
                 Math.random() * 5 + "s";
 
+
             star.style.animationDuration =
                 3 + Math.random() * 5 + "s";
+
 
             const size =
                 1 + Math.random() * 2.5;
 
-            star.style.width = size + "px";
-            star.style.height = size + "px";
+
+            star.style.width =
+                size + "px";
+
+
+            star.style.height =
+                size + "px";
+
 
             stars.appendChild(star);
+
         }
+
     }
 
 
@@ -74,26 +114,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const particleContainer =
         document.getElementById("particles");
 
+
     if (particleContainer) {
 
-        for (let i = 0; i < 30; i++) {
+        for (
+            let i = 0;
+            i < 30;
+            i++
+        ) {
 
             const particle =
                 document.createElement("span");
 
-            particle.className = "particle";
+
+            particle.className =
+                "particle";
+
 
             particle.style.left =
                 Math.random() * 100 + "vw";
 
+
             particle.style.animationDelay =
                 Math.random() * 10 + "s";
+
 
             particle.style.animationDuration =
                 8 + Math.random() * 12 + "s";
 
-            particleContainer.appendChild(particle);
+
+            particleContainer.appendChild(
+                particle
+            );
+
         }
+
     }
 
 
@@ -102,31 +157,55 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const shootingContainer =
-        document.getElementById("shootingStars");
+        document.getElementById(
+            "shootingStars"
+        );
+
 
     function createShootingStar() {
 
-        if (!shootingContainer) return;
+        if (!shootingContainer)
+            return;
+
 
         const star =
             document.createElement("span");
 
-        star.className = "shooting-star";
+
+        star.className =
+            "shooting-star";
+
 
         star.style.left =
             65 + Math.random() * 30 + "vw";
 
+
         star.style.top =
             Math.random() * 35 + "vh";
 
-        shootingContainer.appendChild(star);
+
+        shootingContainer.appendChild(
+            star
+        );
+
 
         setTimeout(() => {
+
             star.remove();
+
         }, 1400);
+
     }
 
-    setInterval(createShootingStar, 6500);
+
+    if (shootingContainer) {
+
+        setInterval(
+            createShootingStar,
+            6500
+        );
+
+    }
 
 
     /* =====================================================
@@ -134,136 +213,215 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const music =
-        document.getElementById("bgMusic");
+        document.getElementById(
+            "bgMusic"
+        );
+
 
     const musicBtn =
-        document.getElementById("musicBtn");
+        document.getElementById(
+            "musicBtn"
+        );
+
 
     function startMusic() {
 
-        if (!music) return;
+        if (!music)
+            return;
 
-        music.volume = 0.22;
+
+        music.volume =
+            0.22;
+
 
         music.play()
             .then(() => {
 
                 if (musicBtn) {
-                    musicBtn.textContent = "♫";
+
+                    musicBtn.textContent =
+                        "♫";
+
                 }
 
             })
             .catch(() => {
-                console.log("Music waiting for user interaction.");
+
+                /*
+                   Browser autoplay protection.
+                   Music will still work when
+                   the user clicks the music button.
+                */
+
             });
+
     }
 
 
     if (musicBtn) {
 
-        musicBtn.addEventListener("click", event => {
+        musicBtn.addEventListener(
+            "click",
+            event => {
 
-            event.stopPropagation();
+                event.stopPropagation();
 
-            if (!music) return;
 
-            if (music.paused) {
+                if (!music)
+                    return;
 
-                music.volume = 0.22;
 
-                music.play()
-                    .then(() => {
+                if (music.paused) {
 
-                        musicBtn.textContent = "♫";
+                    music.volume =
+                        0.22;
 
-                    })
-                    .catch(() => {});
 
-            } else {
+                    music.play()
+                        .then(() => {
 
-                music.pause();
+                            musicBtn.textContent =
+                                "♫";
 
-                musicBtn.textContent = "♪";
+                        })
+                        .catch(() => {});
+
+
+                } else {
+
+                    music.pause();
+
+                    musicBtn.textContent =
+                        "♪";
+
+                }
+
             }
+        );
 
-        });
     }
 
 
     /* =====================================================
        COUNTDOWN
-       31 AUGUST 2026 - 12:00 AM
+       
+       TARGET:
+       31 AUGUST 2026
+       12:00 AM
+       EGYPT TIME (+03:00)
     ===================================================== */
 
     const daysElement =
-        document.getElementById("days");
+        document.getElementById(
+            "days"
+        );
+
 
     const hoursElement =
-        document.getElementById("hours");
+        document.getElementById(
+            "hours"
+        );
+
 
     const minutesElement =
-        document.getElementById("minutes");
+        document.getElementById(
+            "minutes"
+        );
+
 
     const secondsElement =
-        document.getElementById("seconds");
+        document.getElementById(
+            "seconds"
+        );
+
 
     const timerElement =
-        document.querySelector(".timer");
+        document.querySelector(
+            ".timer"
+        );
+
 
     const tenCountdown =
-        document.getElementById("tenCountdown");
+        document.getElementById(
+            "tenCountdown"
+        );
+
 
     const countElement =
-        document.getElementById("count");
+        document.getElementById(
+            "count"
+        );
+
 
     const skipBtn =
-        document.getElementById("skipBtn");
+        document.getElementById(
+            "skipBtn"
+        );
 
 
     /*
-       JavaScript months start from 0.
+       IMPORTANT
 
-       7 = August
+       Using an explicit +03:00 offset
+       makes midnight Cairo time fixed.
 
-       Target:
-       31 August 2026
-       00:00:00
+       This avoids different results if
+       someone's computer timezone differs.
     */
 
     const target =
-        new Date(2026, 7, 31, 0, 0, 0, 0);
+        new Date(
+            "2026-08-31T00:00:00+03:00"
+        );
 
 
-    let countdownFinished = false;
-    let tenStarted = false;
+    let countdownFinished =
+        false;
+
+
+    let tenStarted =
+        false;
 
 
     function updateCountdown() {
 
-        if (countdownFinished || tenStarted) {
+        if (
+            countdownFinished ||
+            tenStarted
+        ) {
+
             return;
+
         }
 
-        const now = new Date();
+
+        const now =
+            Date.now();
+
 
         const difference =
-            target.getTime() - now.getTime();
+            target.getTime() - now;
 
 
         /* =================================================
-           TARGET REACHED
+           MIDNIGHT REACHED
         ================================================= */
 
-        if (difference <= 0) {
+        if (
+            difference <= 0
+        ) {
 
             startTenCountdown();
 
             return;
+
         }
 
 
         const totalSeconds =
-            Math.floor(difference / 1000);
+            Math.floor(
+                difference / 1000
+            );
 
 
         const days =
@@ -274,13 +432,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const hours =
             Math.floor(
-                (totalSeconds % 86400) / 3600
+                (totalSeconds % 86400)
+                / 3600
             );
 
 
         const minutes =
             Math.floor(
-                (totalSeconds % 3600) / 60
+                (totalSeconds % 3600)
+                / 60
             );
 
 
@@ -289,61 +449,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (daysElement) {
+
             daysElement.textContent =
-                String(days).padStart(2, "0");
+                String(days).padStart(
+                    2,
+                    "0"
+                );
+
         }
 
 
         if (hoursElement) {
+
             hoursElement.textContent =
-                String(hours).padStart(2, "0");
+                String(hours).padStart(
+                    2,
+                    "0"
+                );
+
         }
 
 
         if (minutesElement) {
+
             minutesElement.textContent =
-                String(minutes).padStart(2, "0");
+                String(minutes).padStart(
+                    2,
+                    "0"
+                );
+
         }
 
 
         if (secondsElement) {
+
             secondsElement.textContent =
-                String(seconds).padStart(2, "0");
+                String(seconds).padStart(
+                    2,
+                    "0"
+                );
+
         }
+
     }
 
 
     /* =====================================================
-       10 → 1
+       10 → 1 COUNTDOWN
     ===================================================== */
 
     function startTenCountdown() {
 
-        if (tenStarted) return;
+        if (tenStarted)
+            return;
 
-        tenStarted = true;
+
+        tenStarted =
+            true;
 
 
         if (timerElement) {
-            timerElement.classList.add("hide");
+
+            timerElement.classList.add(
+                "hide"
+            );
+
         }
 
 
         if (skipBtn) {
-            skipBtn.classList.add("hidden");
+
+            skipBtn.classList.add(
+                "hidden"
+            );
+
         }
 
 
         if (tenCountdown) {
-            tenCountdown.classList.add("show");
+
+            tenCountdown.classList.add(
+                "show"
+            );
+
         }
 
 
-        let number = 10;
+        let number =
+            10;
 
 
         if (countElement) {
-            countElement.textContent = number;
+
+            countElement.textContent =
+                number;
+
         }
 
 
@@ -360,19 +560,35 @@ document.addEventListener("DOMContentLoaded", () => {
                 number--;
 
 
-                if (number <= 0) {
+                if (
+                    number <= 0
+                ) {
 
-                    clearInterval(interval);
+                    clearInterval(
+                        interval
+                    );
 
-                    countdownFinished = true;
+
+                    countdownFinished =
+                        true;
+
 
                     if (tenCountdown) {
-                        tenCountdown.classList.remove("show");
+
+                        tenCountdown.classList.remove(
+                            "show"
+                        );
+
                     }
 
-                    showScreen("welcome");
+
+                    showScreen(
+                        "welcome"
+                    );
+
 
                     startMusic();
+
 
                     createBurst(
                         window.innerWidth / 2,
@@ -380,12 +596,17 @@ document.addEventListener("DOMContentLoaded", () => {
                         16
                     );
 
+
                     return;
+
                 }
 
 
                 if (countElement) {
-                    countElement.textContent = number;
+
+                    countElement.textContent =
+                        number;
+
                 }
 
 
@@ -395,44 +616,79 @@ document.addEventListener("DOMContentLoaded", () => {
                     5
                 );
 
+
             }, 1000);
+
     }
 
 
     updateCountdown();
 
-    setInterval(updateCountdown, 250);
+
+    setInterval(
+        updateCountdown,
+        250
+    );
 
 
     /* =====================================================
-       SKIP COUNTDOWN
+       SKIP
     ===================================================== */
 
     if (skipBtn) {
 
-        skipBtn.addEventListener("click", event => {
+        skipBtn.addEventListener(
+            "click",
+            event => {
 
-            event.preventDefault();
-            event.stopPropagation();
+                event.preventDefault();
 
-            countdownFinished = true;
-            tenStarted = true;
+                event.stopPropagation();
 
-            if (timerElement) {
-                timerElement.classList.add("hide");
+
+                countdownFinished =
+                    true;
+
+
+                tenStarted =
+                    true;
+
+
+                if (timerElement) {
+
+                    timerElement.classList.add(
+                        "hide"
+                    );
+
+                }
+
+
+                if (tenCountdown) {
+
+                    tenCountdown.classList.remove(
+                        "show"
+                    );
+
+                }
+
+
+                startMusic();
+
+
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    12
+                );
+
+
+                showScreen(
+                    "welcome"
+                );
+
             }
+        );
 
-            startMusic();
-
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                12
-            );
-
-            showScreen("welcome");
-
-        });
     }
 
 
@@ -441,22 +697,31 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const startBtn =
-        document.getElementById("startBtn");
+        document.getElementById(
+            "startBtn"
+        );
 
 
     if (startBtn) {
 
-        startBtn.addEventListener("click", () => {
+        startBtn.addEventListener(
+            "click",
+            () => {
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                10
-            );
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    10
+                );
 
-            showScreen("boxes");
 
-        });
+                showScreen(
+                    "boxes"
+                );
+
+            }
+        );
+
     }
 
 
@@ -467,9 +732,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const gifts = [
 
         `
-            <div class="gift-modal-icon">🎁</div>
+            <div class="gift-modal-icon">
+                🎁
+            </div>
 
-            <h2>A little reminder</h2>
+            <h2>
+                A little reminder
+            </h2>
 
             <p>
                 No matter how ordinary a day feels,
@@ -478,10 +747,15 @@ document.addEventListener("DOMContentLoaded", () => {
             </p>
         `,
 
-        `
-            <div class="gift-modal-icon">💌</div>
 
-            <h2>A tiny message</h2>
+        `
+            <div class="gift-modal-icon">
+                💌
+            </div>
+
+            <h2>
+                A tiny message
+            </h2>
 
             <p>
                 You deserve more smiles,
@@ -491,99 +765,153 @@ document.addEventListener("DOMContentLoaded", () => {
             </p>
         `,
 
-        `
-            <div class="gift-modal-icon">✨</div>
 
-            <h2>Keep going...</h2>
+        `
+            <div class="gift-modal-icon">
+                ✨
+            </div>
+
+            <h2>
+                Keep going...
+            </h2>
 
             <p>
                 The best part of the surprise
                 is still waiting for you.
             </p>
         `
+
     ];
 
 
     const giftBoxes =
-        document.querySelectorAll(".gift-box");
+        document.querySelectorAll(
+            ".gift-box"
+        );
+
 
     const giftModal =
-        document.getElementById("giftModal");
+        document.getElementById(
+            "giftModal"
+        );
+
 
     const giftContent =
-        document.getElementById("giftContent");
+        document.getElementById(
+            "giftContent"
+        );
+
 
     const closeModal =
-        document.querySelector(".close-modal");
+        document.querySelector(
+            ".close-modal"
+        );
 
-    let openedGifts = 0;
+
+    let openedGifts =
+        0;
 
 
     giftBoxes.forEach(box => {
 
-        box.addEventListener("click", () => {
+        box.addEventListener(
+            "click",
+            () => {
 
-            const rect =
-                box.getBoundingClientRect();
-
-            createBurst(
-                rect.left + rect.width / 2,
-                rect.top + rect.height / 2,
-                8
-            );
+                const rect =
+                    box.getBoundingClientRect();
 
 
-            if (!box.classList.contains("opened")) {
+                createBurst(
+                    rect.left +
+                    rect.width / 2,
 
-                box.classList.add("opened");
+                    rect.top +
+                    rect.height / 2,
 
-                openedGifts++;
-            }
-
-
-            const index =
-                Number(box.dataset.gift);
-
-
-            if (
-                giftContent &&
-                gifts[index]
-            ) {
-
-                giftContent.innerHTML =
-                    gifts[index];
-            }
+                    8
+                );
 
 
-            if (giftModal) {
-                giftModal.classList.add("show");
-            }
+                if (
+                    !box.classList.contains(
+                        "opened"
+                    )
+                ) {
+
+                    box.classList.add(
+                        "opened"
+                    );
 
 
-            if (
-                openedGifts ===
-                giftBoxes.length
-            ) {
+                    openedGifts += 1;
 
-                const hint =
-                    document.getElementById("boxHint");
-
-                const next =
-                    document.getElementById("toMemories");
-
-
-                if (hint) {
-                    hint.textContent =
-                        "You've found them all ✨";
                 }
 
 
-                if (next) {
-                    next.classList.remove("hidden");
-                }
-            }
+                const index =
+                    Number(
+                        box.dataset.gift
+                    );
 
-        });
+
+                if (
+                    giftContent &&
+                    gifts[index]
+                ) {
+
+                    giftContent.innerHTML =
+                        gifts[index];
+
+                }
+
+
+                if (giftModal) {
+
+                    giftModal.classList.add(
+                        "show"
+                    );
+
+                }
+
+
+                if (
+                    openedGifts ===
+                    giftBoxes.length
+                ) {
+
+                    const hint =
+                        document.getElementById(
+                            "boxHint"
+                        );
+
+
+                    const next =
+                        document.getElementById(
+                            "toMemories"
+                        );
+
+
+                    if (hint) {
+
+                        hint.textContent =
+                            "You've found them all ✨";
+
+                    }
+
+
+                    if (next) {
+
+                        next.classList.remove(
+                            "hidden"
+                        );
+
+                    }
+
+                }
+
+            }
+        );
 
     });
 
@@ -594,28 +922,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (closeModal) {
 
-        closeModal.addEventListener("click", () => {
+        closeModal.addEventListener(
+            "click",
+            () => {
 
-            if (giftModal) {
-                giftModal.classList.remove("show");
+                if (giftModal) {
+
+                    giftModal.classList.remove(
+                        "show"
+                    );
+
+                }
+
             }
-
-        });
+        );
 
     }
 
 
     if (giftModal) {
 
-        giftModal.addEventListener("click", event => {
+        giftModal.addEventListener(
+            "click",
+            event => {
 
-            if (event.target === giftModal) {
+                if (
+                    event.target ===
+                    giftModal
+                ) {
 
-                giftModal.classList.remove("show");
+                    giftModal.classList.remove(
+                        "show"
+                    );
+
+                }
 
             }
-
-        });
+        );
 
     }
 
@@ -625,78 +968,115 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const viewer =
-        document.getElementById("imageViewer");
+        document.getElementById(
+            "imageViewer"
+        );
+
 
     const viewerImage =
-        document.getElementById("viewerImage");
+        document.getElementById(
+            "viewerImage"
+        );
+
 
     const closeViewer =
-        document.getElementById("closeViewer");
+        document.getElementById(
+            "closeViewer"
+        );
 
 
-    const memoryCards =
-        document.querySelectorAll(".memory-card");
+    document
+        .querySelectorAll(
+            ".memory-card"
+        )
+        .forEach(card => {
 
 
-    memoryCards.forEach(card => {
-
-        const img =
-            card.querySelector("img");
-
-
-        /* Image error detection */
-
-        if (img) {
-
-            img.addEventListener("error", () => {
-
-                console.error(
-                    "Image failed to load:",
-                    img.getAttribute("src")
+            const img =
+                card.querySelector(
+                    "img"
                 );
 
-                card.classList.add("image-error");
 
-            });
+            /*
+               Detect image loading.
+            */
 
-            img.addEventListener("load", () => {
+            if (img) {
 
-                card.classList.add("image-loaded");
+                img.addEventListener(
+                    "error",
+                    () => {
 
-            });
+                        console.error(
+                            "Image failed:",
+                            img.getAttribute(
+                                "src"
+                            )
+                        );
 
-        }
+
+                        card.classList.add(
+                            "image-error"
+                        );
+
+                    }
+                );
 
 
-        card.addEventListener("click", () => {
+                img.addEventListener(
+                    "load",
+                    () => {
 
-            if (!img || !viewer || !viewerImage) {
-                return;
+                        card.classList.add(
+                            "image-loaded"
+                        );
+
+                    }
+                );
+
             }
 
 
             /*
-               Use the exact current image source.
-               This works correctly on GitHub Pages.
+               Open image viewer.
             */
 
-            viewerImage.src =
-                img.currentSrc ||
-                img.src;
+            card.addEventListener(
+                "click",
+                () => {
+
+                    if (
+                        !img ||
+                        !viewer ||
+                        !viewerImage
+                    ) {
+
+                        return;
+
+                    }
 
 
-            viewer.classList.add("show");
+                    viewerImage.src =
+                        img.currentSrc ||
+                        img.src;
 
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                7
+                    viewer.classList.add(
+                        "show"
+                    );
+
+
+                    createBurst(
+                        window.innerWidth / 2,
+                        window.innerHeight / 2,
+                        7
+                    );
+
+                }
             );
 
         });
-
-    });
 
 
     /* =====================================================
@@ -705,28 +1085,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (closeViewer) {
 
-        closeViewer.addEventListener("click", () => {
+        closeViewer.addEventListener(
+            "click",
+            () => {
 
-            if (viewer) {
-                viewer.classList.remove("show");
+                if (viewer) {
+
+                    viewer.classList.remove(
+                        "show"
+                    );
+
+                }
+
             }
-
-        });
+        );
 
     }
 
 
     if (viewer) {
 
-        viewer.addEventListener("click", event => {
+        viewer.addEventListener(
+            "click",
+            event => {
 
-            if (event.target === viewer) {
+                if (
+                    event.target ===
+                    viewer
+                ) {
 
-                viewer.classList.remove("show");
+                    viewer.classList.remove(
+                        "show"
+                    );
+
+                }
 
             }
-
-        });
+        );
 
     }
 
@@ -736,42 +1131,59 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const toMemories =
-        document.getElementById("toMemories");
+        document.getElementById(
+            "toMemories"
+        );
+
 
     const toLetter =
-        document.getElementById("toLetter");
+        document.getElementById(
+            "toLetter"
+        );
 
 
     if (toMemories) {
 
-        toMemories.addEventListener("click", () => {
+        toMemories.addEventListener(
+            "click",
+            () => {
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                8
-            );
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    8
+                );
 
-            showScreen("memories");
 
-        });
+                showScreen(
+                    "memories"
+                );
+
+            }
+        );
 
     }
 
 
     if (toLetter) {
 
-        toLetter.addEventListener("click", () => {
+        toLetter.addEventListener(
+            "click",
+            () => {
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                8
-            );
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    8
+                );
 
-            showScreen("letter");
 
-        });
+                showScreen(
+                    "letter"
+                );
+
+            }
+        );
 
     }
 
@@ -781,61 +1193,82 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const envelope =
-        document.getElementById("envelope");
+        document.getElementById(
+            "envelope"
+        );
+
 
     const openLetterHint =
-        document.getElementById("openLetterHint");
+        document.getElementById(
+            "openLetterHint"
+        );
+
 
     const toVideo =
-        document.getElementById("toVideo");
+        document.getElementById(
+            "toVideo"
+        );
 
 
     if (envelope) {
 
-        envelope.addEventListener("click", () => {
+        envelope.addEventListener(
+            "click",
+            () => {
 
-            if (
-                envelope.classList.contains("open")
-            ) {
-                return;
-            }
+                if (
+                    envelope.classList.contains(
+                        "open"
+                    )
+                ) {
 
-
-            const rect =
-                envelope.getBoundingClientRect();
-
-
-            createBurst(
-                rect.left + rect.width / 2,
-                rect.top + rect.height / 2,
-                8
-            );
-
-
-            envelope.classList.add("open");
-
-
-            if (openLetterHint) {
-
-                openLetterHint.textContent =
-                    "✦";
-
-            }
-
-
-            setTimeout(() => {
-
-                if (toVideo) {
-
-                    toVideo.classList.remove(
-                        "hidden"
-                    );
+                    return;
 
                 }
 
-            }, 1000);
 
-        });
+                const rect =
+                    envelope.getBoundingClientRect();
+
+
+                createBurst(
+                    rect.left +
+                    rect.width / 2,
+
+                    rect.top +
+                    rect.height / 2,
+
+                    8
+                );
+
+
+                envelope.classList.add(
+                    "open"
+                );
+
+
+                if (openLetterHint) {
+
+                    openLetterHint.textContent =
+                        "✦";
+
+                }
+
+
+                setTimeout(() => {
+
+                    if (toVideo) {
+
+                        toVideo.classList.remove(
+                            "hidden"
+                        );
+
+                    }
+
+                }, 1000);
+
+            }
+        );
 
     }
 
@@ -845,7 +1278,9 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const mainVideo =
-        document.getElementById("mainVideo");
+        document.getElementById(
+            "mainVideo"
+        );
 
 
     if (mainVideo) {
@@ -855,7 +1290,7 @@ document.addEventListener("DOMContentLoaded", () => {
             () => {
 
                 console.error(
-                    "Video failed to load. Check birthday.mp4 filename."
+                    "Video failed to load. Check birthday.mp4 and its codec."
                 );
 
             }
@@ -866,17 +1301,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (toVideo) {
 
-        toVideo.addEventListener("click", () => {
+        toVideo.addEventListener(
+            "click",
+            () => {
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                8
-            );
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    8
+                );
 
-            showScreen("videoSection");
 
-        });
+                showScreen(
+                    "videoSection"
+                );
+
+            }
+        );
 
     }
 
@@ -886,23 +1327,29 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const finishBtn =
-        document.getElementById("finishBtn");
+        document.getElementById(
+            "finishBtn"
+        );
 
 
     if (finishBtn) {
 
-        finishBtn.addEventListener("click", () => {
+        finishBtn.addEventListener(
+            "click",
+            () => {
 
-            showScreen("final");
+                showScreen(
+                    "final"
+                );
 
 
-            setTimeout(() => {
+                setTimeout(
+                    createHeartExplosion,
+                    300
+                );
 
-                createHeartExplosion();
-
-            }, 300);
-
-        });
+            }
+        );
 
     }
 
@@ -931,7 +1378,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const spark =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             spark.className =
@@ -949,6 +1398,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             spark.style.left =
                 x + "px";
+
 
             spark.style.top =
                 y + "px";
@@ -1012,10 +1462,13 @@ document.addEventListener("DOMContentLoaded", () => {
     function createHeartExplosion() {
 
         const container =
-            document.getElementById("hearts");
+            document.getElementById(
+                "hearts"
+            );
 
 
-        if (!container) return;
+        if (!container)
+            return;
 
 
         const symbols = [
@@ -1034,7 +1487,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const heart =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             heart.className =
@@ -1098,16 +1553,21 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     const restartBtn =
-        document.getElementById("restartBtn");
+        document.getElementById(
+            "restartBtn"
+        );
 
 
     if (restartBtn) {
 
-        restartBtn.addEventListener("click", () => {
+        restartBtn.addEventListener(
+            "click",
+            () => {
 
-            window.location.reload();
+                location.reload();
 
-        });
+            }
+        );
 
     }
 
