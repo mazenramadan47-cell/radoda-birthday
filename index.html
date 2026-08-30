@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Something Special ❤️</title>
+
+    <title>A Little Surprise ❤️</title>
 
     <link rel="stylesheet" href="style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
+    <!-- PARTICLES -->
+    <div id="particles"></div>
 
     <!-- MUSIC -->
     <audio id="bgMusic" loop>
         <source src="assets/music.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicBtn" class="music-btn">
-        🎵
-    </button>
+    <button id="musicBtn" class="music-btn">🎵</button>
 
     <!-- ================= INTRO ================= -->
 
@@ -29,24 +32,29 @@
 
         <div class="intro-content">
 
-            <span class="small-text">
-                I made something for you...
-            </span>
+            <div class="eyebrow">
+                SOMETHING SPECIAL
+            </div>
 
             <h1>
-                بس اصبري شوية ❤️
+                I made something<br>
+                <span>just for you.</span>
             </h1>
 
             <p>
-                في حاجة صغيرة مستنياكي...
+                Take a breath...
+                <br>
+                and let the surprise begin.
             </p>
 
-            <div id="countdown" class="countdown">
-                <span id="count">5</span>
+            <div class="countdown-wrap">
+                <div id="countdown" class="countdown">
+                    <span id="count">5</span>
+                </div>
             </div>
 
             <button id="skipBtn" class="glass-btn">
-                مش قادرة تستني؟ 👀
+                Skip the wait ✨
             </button>
 
         </div>
@@ -58,23 +66,32 @@
 
     <section id="welcome" class="screen">
 
+        <div class="stars-bg"></div>
+
         <div class="welcome-content">
 
-            <div class="sparkle">✦</div>
+            <div class="welcome-symbol">
+                ✦
+            </div>
+
+            <div class="eyebrow">
+                WELCOME
+            </div>
 
             <h1>
-                Welcome to<br>
-                <span>your little surprise</span>
+                Your little<br>
+                <span>surprise.</span>
             </h1>
 
             <p>
-                مش مجرد موقع...
-                <br>
-                دي شوية حاجات متجمعة عشانك ❤️
+                A few memories.<br>
+                A few words.<br>
+                And something waiting for you at the end.
             </p>
 
             <button id="startBtn" class="main-btn">
-                نبدأ؟ ✨
+                Begin the journey
+                <span>→</span>
             </button>
 
         </div>
@@ -82,20 +99,22 @@
     </section>
 
 
-    <!-- ================= SURPRISE BOXES ================= -->
+    <!-- ================= GIFTS ================= -->
 
     <section id="boxes" class="screen">
 
         <div class="section-heading">
 
-            <span>CHAPTER 01</span>
+            <div class="chapter">
+                CHAPTER I
+            </div>
 
             <h2>
-                عندي ليكي 3 حاجات...
+                A few little surprises.
             </h2>
 
             <p>
-                افتحيهم بالراحة 👀
+                There might be something hiding inside...
             </p>
 
         </div>
@@ -103,28 +122,57 @@
         <div class="boxes-container">
 
             <button class="gift-box" data-gift="0">
-                <div class="box-icon">🎁</div>
-                <span>أول حاجة</span>
+
+                <div class="box-glow"></div>
+
+                <div class="box-icon">
+                    🎁
+                </div>
+
+                <div class="box-label">
+                    Open
+                </div>
+
             </button>
+
 
             <button class="gift-box" data-gift="1">
-                <div class="box-icon">💌</div>
-                <span>تاني حاجة</span>
+
+                <div class="box-glow"></div>
+
+                <div class="box-icon">
+                    💌
+                </div>
+
+                <div class="box-label">
+                    Open
+                </div>
+
             </button>
 
+
             <button class="gift-box" data-gift="2">
-                <div class="box-icon">🎬</div>
-                <span>آخر حاجة</span>
+
+                <div class="box-glow"></div>
+
+                <div class="box-icon">
+                    ✨
+                </div>
+
+                <div class="box-label">
+                    Open
+                </div>
+
             </button>
 
         </div>
 
         <p id="boxHint" class="hint">
-            افتحي أول صندوق ❤️
+            Explore them all ✨
         </p>
 
         <button id="toMemories" class="next-btn hidden">
-            كملي الرحلة →
+            Continue →
         </button>
 
     </section>
@@ -136,7 +184,13 @@
 
         <div class="modal-content">
 
-            <button class="close-modal">×</button>
+            <button class="close-modal">
+                ×
+            </button>
+
+            <div class="modal-sparkle">
+                ✦
+            </div>
 
             <div id="giftContent"></div>
 
@@ -151,56 +205,87 @@
 
         <div class="section-heading">
 
-            <span>CHAPTER 02</span>
+            <div class="chapter">
+                CHAPTER II
+            </div>
 
             <h2>
-                شوية من ذكرياتنا ❤️
+                Little moments.
             </h2>
 
             <p>
-                اضغطي على أي صورة...
+                Some moments are worth keeping forever.
             </p>
 
         </div>
 
+
         <div class="memory-grid">
 
             <div class="memory-card">
+
+                <div class="photo-shine"></div>
+
                 <img src="assets/photo1.jpg">
+
                 <div class="memory-caption">
-                    <span>01</span>
-                    <p>أول ذكرى ✨</p>
+                    <p>
+                        A moment worth remembering.
+                    </p>
                 </div>
+
             </div>
+
 
             <div class="memory-card tall">
+
+                <div class="photo-shine"></div>
+
                 <img src="assets/photo2.jpg">
+
                 <div class="memory-caption">
-                    <span>02</span>
-                    <p>فاكرة اليوم ده؟</p>
+                    <p>
+                        One of my favorites.
+                    </p>
                 </div>
+
             </div>
 
+
             <div class="memory-card">
+
+                <div class="photo-shine"></div>
+
                 <img src="assets/photo3.jpg">
+
                 <div class="memory-caption">
-                    <span>03</span>
-                    <p>ضحكة من غير سبب 😂</p>
+                    <p>
+                        That smile.
+                    </p>
                 </div>
+
             </div>
 
+
             <div class="memory-card">
+
+                <div class="photo-shine"></div>
+
                 <img src="assets/photo4.jpg">
+
                 <div class="memory-caption">
-                    <span>04</span>
-                    <p>One of my favorites ❤️</p>
+                    <p>
+                        Just us.
+                    </p>
                 </div>
+
             </div>
 
         </div>
 
+
         <button id="toLetter" class="next-btn">
-            في حاجة أخيرة... 💌
+            There's more →
         </button>
 
     </section>
@@ -210,7 +295,11 @@
 
     <div id="imageViewer" class="image-viewer">
 
-        <button id="closeViewer">×</button>
+        <div class="viewer-stars"></div>
+
+        <button id="closeViewer">
+            ×
+        </button>
 
         <img id="viewerImage">
 
@@ -223,17 +312,20 @@
 
         <div class="section-heading">
 
-            <span>CHAPTER 03</span>
+            <div class="chapter">
+                CHAPTER III
+            </div>
 
             <h2>
-                آخر حاجة...
+                Something from me.
             </h2>
 
             <p>
-                دي مخصوص ليكي.
+                Open it when you're ready.
             </p>
 
         </div>
+
 
         <div id="envelope" class="envelope">
 
@@ -243,26 +335,33 @@
 
                 <div class="letter-inner">
 
+                    <div class="letter-top">
+                        ✦
+                    </div>
+
                     <h3>
-                        To my favorite person ❤️
+                        To my favorite person,
                     </h3>
 
                     <p>
-                        في حاجات كتير ممكن تتقال...
+                        Some people simply make life feel a little more beautiful.
                     </p>
 
                     <p>
-                        بس مهما كتبت، مش هعرف أوصف
-                        قد إيه وجودك فارق.
+                        And somehow, you became one of those people for me.
                     </p>
 
                     <p>
-                        فخلينا نقول إن دي مجرد
-                        بداية لحاجات أحلى كتير جاية.
+                        I hope this new chapter of your life brings you
+                        everything you've been wishing for.
+                    </p>
+
+                    <p>
+                        You deserve all the beautiful things coming your way.
                     </p>
 
                     <div class="signature">
-                        ❤️
+                        With love, ❤️
                     </div>
 
                 </div>
@@ -277,12 +376,14 @@
 
         </div>
 
+
         <p id="openLetterHint">
-            اضغطي على الظرف 💌
+            Tap the envelope
         </p>
 
+
         <button id="toVideo" class="next-btn hidden">
-            ولسه في حاجة أخيرة... 🎬
+            One last thing... →
         </button>
 
     </section>
@@ -294,28 +395,40 @@
 
         <div class="video-intro">
 
-            <span>THE LAST CHAPTER</span>
+            <div class="chapter">
+                THE FINAL CHAPTER
+            </div>
 
             <h2>
-                جاهزة؟
+                Ready?
             </h2>
 
             <p>
-                دي أحلى حاجة عندي ليكي.
+                I saved the best part for last.
             </p>
 
         </div>
 
+
         <div class="video-wrapper">
 
+            <div class="video-glow"></div>
+
             <video id="mainVideo" controls playsinline>
-                <source src="assets/video.mp4" type="video/mp4">
+
+                <source
+                    src="assets/video.mp4"
+                    type="video/mp4"
+                >
+
             </video>
 
         </div>
 
+
         <button id="finishBtn" class="main-btn">
-            كملي ❤️
+            Continue
+            <span>→</span>
         </button>
 
     </section>
@@ -329,8 +442,16 @@
 
         <div class="final-content">
 
+            <div class="final-spark">
+                ✦
+            </div>
+
             <div class="final-heart">
                 ❤️
+            </div>
+
+            <div class="eyebrow">
+                THE END
             </div>
 
             <h1>
@@ -338,21 +459,20 @@
             </h1>
 
             <h2>
-                يا أجمل حاجة حصلتلي
+                To someone truly special.
             </h2>
 
             <p>
-                أتمنى السنة الجديدة تكون
-                أحلى من كل اللي فات.
+                I hope this little journey made you smile.
             </p>
 
             <p class="final-small">
-                And remember...
-                this is only the beginning ✨
+                And maybe...
+                this is only the beginning. ✨
             </p>
 
             <button id="restartBtn" class="glass-btn">
-                نعيد الرحلة؟ ↻
+                Experience it again ↻
             </button>
 
         </div>
