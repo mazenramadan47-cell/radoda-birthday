@@ -4,57 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>A Little Surprise ❤️</title>
+    <title>Something Special ❤️</title>
 
     <link rel="stylesheet" href="style.css">
 
+    <!-- Softer elegant fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- PARTICLES -->
-    <div id="particles"></div>
+    <!-- Background -->
+    <div id="starField"></div>
+    <div class="ambient-glow glow-one"></div>
+    <div class="ambient-glow glow-two"></div>
 
-    <!-- MUSIC -->
+    <!-- Music -->
     <audio id="bgMusic" loop>
         <source src="assets/music.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicBtn" class="music-btn">🎵</button>
+    <button id="musicBtn" class="music-btn">♪</button>
 
-    <!-- ================= INTRO ================= -->
 
-    <section id="intro" class="screen active">
+    <!-- ================= COUNTDOWN SCREEN ================= -->
 
-        <div class="intro-content">
+    <section id="countdownScreen" class="screen active">
+
+        <div class="countdown-content">
 
             <div class="eyebrow">
                 SOMETHING SPECIAL
             </div>
 
             <h1>
-                I made something<br>
-                <span>just for you.</span>
+                A little surprise<br>
+                <span>is waiting for you.</span>
             </h1>
 
-            <p>
-                Take a breath...
-                <br>
-                and let the surprise begin.
-            </p>
+            <!-- Date counter -->
+            <div id="dateCounter" class="date-counter">
 
-            <div class="countdown-wrap">
-                <div id="countdown" class="countdown">
-                    <span id="count">5</span>
+                <div class="time-box">
+                    <strong id="days">00</strong>
+                    <span>DAYS</span>
                 </div>
+
+                <div class="colon">:</div>
+
+                <div class="time-box">
+                    <strong id="hours">00</strong>
+                    <span>HOURS</span>
+                </div>
+
+                <div class="colon">:</div>
+
+                <div class="time-box">
+                    <strong id="minutes">00</strong>
+                    <span>MINUTES</span>
+                </div>
+
+                <div class="colon">:</div>
+
+                <div class="time-box">
+                    <strong id="seconds">00</strong>
+                    <span>SECONDS</span>
+                </div>
+
             </div>
 
+
+            <!-- 10 9 8... -->
+            <div id="finalCountdown" class="final-countdown hidden">
+                <span id="count">10</span>
+            </div>
+
+
             <button id="skipBtn" class="glass-btn">
-                Skip the wait ✨
+                Skip countdown ✦
             </button>
 
         </div>
@@ -66,13 +96,9 @@
 
     <section id="welcome" class="screen">
 
-        <div class="stars-bg"></div>
-
         <div class="welcome-content">
 
-            <div class="welcome-symbol">
-                ✦
-            </div>
+            <div class="big-sparkle">✦</div>
 
             <div class="eyebrow">
                 WELCOME
@@ -114,61 +140,37 @@
             </h2>
 
             <p>
-                There might be something hiding inside...
+                Take your time.
             </p>
 
         </div>
 
+
         <div class="boxes-container">
 
             <button class="gift-box" data-gift="0">
-
                 <div class="box-glow"></div>
-
-                <div class="box-icon">
-                    🎁
-                </div>
-
-                <div class="box-label">
-                    Open
-                </div>
-
+                <div class="box-icon">🎁</div>
+                <div class="box-label">Open</div>
             </button>
-
 
             <button class="gift-box" data-gift="1">
-
                 <div class="box-glow"></div>
-
-                <div class="box-icon">
-                    💌
-                </div>
-
-                <div class="box-label">
-                    Open
-                </div>
-
+                <div class="box-icon">💌</div>
+                <div class="box-label">Open</div>
             </button>
 
-
             <button class="gift-box" data-gift="2">
-
                 <div class="box-glow"></div>
-
-                <div class="box-icon">
-                    ✨
-                </div>
-
-                <div class="box-label">
-                    Open
-                </div>
-
+                <div class="box-icon">✦</div>
+                <div class="box-label">Open</div>
             </button>
 
         </div>
 
+
         <p id="boxHint" class="hint">
-            Explore them all ✨
+            Explore them all.
         </p>
 
         <button id="toMemories" class="next-btn hidden">
@@ -184,9 +186,7 @@
 
         <div class="modal-content">
 
-            <button class="close-modal">
-                ×
-            </button>
+            <button class="close-modal">×</button>
 
             <div class="modal-sparkle">
                 ✦
@@ -223,62 +223,56 @@
         <div class="memory-grid">
 
             <div class="memory-card">
-
                 <div class="photo-shine"></div>
-
-                <img src="assets/photo1.jpg">
-
+                <img src="assets/01.JPG">
                 <div class="memory-caption">
-                    <p>
-                        A moment worth remembering.
-                    </p>
+                    <p>A moment worth remembering.</p>
                 </div>
-
             </div>
 
 
             <div class="memory-card tall">
-
                 <div class="photo-shine"></div>
-
-                <img src="assets/photo2.jpg">
-
+                <img src="assets/02.JPG">
                 <div class="memory-caption">
-                    <p>
-                        One of my favorites.
-                    </p>
+                    <p>One of my favorites.</p>
                 </div>
-
             </div>
 
 
             <div class="memory-card">
-
                 <div class="photo-shine"></div>
-
-                <img src="assets/photo3.jpg">
-
+                <img src="assets/03.JPG">
                 <div class="memory-caption">
-                    <p>
-                        That smile.
-                    </p>
+                    <p>That smile.</p>
                 </div>
+            </div>
 
+
+            <div class="memory-card tall">
+                <div class="photo-shine"></div>
+                <img src="assets/04.JPG">
+                <div class="memory-caption">
+                    <p>A beautiful little memory.</p>
+                </div>
             </div>
 
 
             <div class="memory-card">
-
                 <div class="photo-shine"></div>
-
-                <img src="assets/photo4.jpg">
-
+                <img src="assets/05.JPG">
                 <div class="memory-caption">
-                    <p>
-                        Just us.
-                    </p>
+                    <p>Just one of those moments.</p>
                 </div>
+            </div>
 
+
+            <div class="memory-card">
+                <div class="photo-shine"></div>
+                <img src="assets/06.JPG">
+                <div class="memory-caption">
+                    <p>And this one too. ❤️</p>
+                </div>
             </div>
 
         </div>
@@ -295,11 +289,7 @@
 
     <div id="imageViewer" class="image-viewer">
 
-        <div class="viewer-stars"></div>
-
-        <button id="closeViewer">
-            ×
-        </button>
+        <button id="closeViewer">×</button>
 
         <img id="viewerImage">
 
@@ -343,22 +333,30 @@
                         To my favorite person,
                     </h3>
 
-                    <p>
-                        Some people simply make life feel a little more beautiful.
-                    </p>
+                    <div class="letter-text">
 
-                    <p>
-                        And somehow, you became one of those people for me.
-                    </p>
+                        <p>
+                            Some people simply make life feel
+                            a little more beautiful.
+                        </p>
 
-                    <p>
-                        I hope this new chapter of your life brings you
-                        everything you've been wishing for.
-                    </p>
+                        <p>
+                            And somehow, you became one of
+                            those people for me.
+                        </p>
 
-                    <p>
-                        You deserve all the beautiful things coming your way.
-                    </p>
+                        <p>
+                            I hope this new chapter of your life
+                            brings you everything you've been
+                            wishing for.
+                        </p>
+
+                        <p>
+                            You deserve all the beautiful things
+                            coming your way.
+                        </p>
+
+                    </div>
 
                     <div class="signature">
                         With love, ❤️
@@ -415,12 +413,7 @@
             <div class="video-glow"></div>
 
             <video id="mainVideo" controls playsinline>
-
-                <source
-                    src="assets/video.mp4"
-                    type="video/mp4"
-                >
-
+                <source src="assets/video.mp4" type="video/mp4">
             </video>
 
         </div>
