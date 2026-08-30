@@ -1,11 +1,12 @@
-/* =====================================================
-   SCREEN SYSTEM
-===================================================== */
+```javascript
+/* ==================================================
+   SCREEN NAVIGATION
+================================================== */
 
 const screens =
     document.querySelectorAll(".screen");
 
-function showScreen(id) {
+function show(id) {
 
     screens.forEach(screen => {
         screen.classList.remove("active");
@@ -17,18 +18,18 @@ function showScreen(id) {
             .getElementById(id)
             .classList.add("active");
 
-    }, 80);
+    }, 60);
 }
 
 
-/* =====================================================
-   STAR FIELD
-===================================================== */
+/* ==================================================
+   STARS
+================================================== */
 
-const starField =
-    document.getElementById("starField");
+const stars =
+    document.getElementById("stars");
 
-for (let i = 0; i < 85; i++) {
+for (let i = 0; i < 100; i++) {
 
     const star =
         document.createElement("div");
@@ -42,7 +43,7 @@ for (let i = 0; i < 85; i++) {
         Math.random() * 100 + "%";
 
     const size =
-        1 + Math.random() * 2.5;
+        1 + Math.random() * 2;
 
     star.style.width =
         size + "px";
@@ -54,86 +55,147 @@ for (let i = 0; i < 85; i++) {
         2.5 + Math.random() * 5 + "s";
 
     star.style.animationDelay =
-        Math.random() * 6 + "s";
+        Math.random() * 5 + "s";
 
-    starField.appendChild(star);
+    stars.appendChild(star);
 }
 
 
-/* =====================================================
+/* ==================================================
+   SHOOTING STARS
+================================================== */
+
+function shootingStar() {
+
+    const container =
+        document.getElementById(
+            "shootingStars"
+        );
+
+    const star =
+        document.createElement("div");
+
+    star.className = "shooting";
+
+    star.style.left =
+        70 + Math.random() * 30 + "%";
+
+    star.style.top =
+        Math.random() * 40 + "%";
+
+    container.appendChild(star);
+
+    setTimeout(() => {
+        star.remove();
+    }, 1500);
+}
+
+setInterval(
+    shootingStar,
+    6500
+);
+
+
+/* ==================================================
    MUSIC
-===================================================== */
+================================================== */
 
 const music =
-    document.getElementById("bgMusic");
+    document.getElementById("music");
 
-const musicBtn =
-    document.getElementById("musicBtn");
+const musicButton =
+    document.getElementById("musicButton");
 
-let musicPlaying = false;
+const musicHint =
+    document.getElementById("musicHint");
+
+let musicStarted = false;
 
 function startMusic() {
 
-    music.volume = 0.22;
+    if (musicStarted)
+        return;
+
+    music.volume = .22;
 
     music.play()
         .then(() => {
 
-            musicPlaying = true;
+            musicStarted = true;
 
-            musicBtn.textContent = "♫";
+            musicHint.classList.add(
+                "hide"
+            );
+
+            musicButton.textContent =
+                "♫";
 
         })
         .catch(() => {});
 
 }
 
-musicBtn.addEventListener("click", () => {
+document.addEventListener(
+    "click",
+    () => {
 
-    if (musicPlaying) {
+        startMusic();
 
-        music.pause();
+    },
+    {
+        once: true
+    }
+);
 
-        musicPlaying = false;
 
-        musicBtn.textContent = "♪";
+musicButton.addEventListener(
+    "click",
+    event => {
 
-    } else {
+        event.stopPropagation();
 
-        music.play();
+        if (music.paused) {
 
-        musicPlaying = true;
+            music.play();
 
-        musicBtn.textContent = "♫";
+            musicButton.textContent =
+                "♫";
+
+        } else {
+
+            music.pause();
+
+            musicButton.textContent =
+                "♪";
+
+        }
 
     }
+);
 
-});
 
+/* ==================================================
+   COUNTDOWN
+================================================== */
 
-/* =====================================================
-   REAL DATE COUNTDOWN
-   August 31 — 12:00 AM
-===================================================== */
+/*
+    IMPORTANT:
 
-const dateCounter =
-    document.getElementById("dateCounter");
+    The target is August 31 at 00:00
+    using the user's local device time.
+*/
 
-const finalCountdown =
-    document.getElementById("finalCountdown");
+function getNextAugust31() {
 
-const countElement =
-    document.getElementById("count");
+    const now =
+        new Date();
 
-let finalCountdownStarted = false;
-
-function getTargetDate() {
-
-    const now = new Date();
+    let year =
+        now.getFullYear();
 
     let target =
         new Date(
-            now.getFullYear(),
+            year,
             7,
             31,
             0,
@@ -142,16 +204,11 @@ function getTargetDate() {
             0
         );
 
-    /*
-        If August 31 has already passed,
-        use next year's August 31.
-    */
-
     if (now >= target) {
 
         target =
             new Date(
-                now.getFullYear() + 1,
+                year + 1,
                 7,
                 31,
                 0,
@@ -166,12 +223,42 @@ function getTargetDate() {
 }
 
 const targetDate =
-    getTargetDate();
+    getNextAugust31();
 
 
-function updateDateCounter() {
+const days =
+    document.getElementById("days");
 
-    if (finalCountdownStarted)
+const hours =
+    document.getElementById("hours");
+
+const minutes =
+    document.getElementById("minutes");
+
+const seconds =
+    document.getElementById("seconds");
+
+const timer =
+    document.getElementById("timer");
+
+const miniCountdown =
+    document.getElementById(
+        "miniCountdown"
+    );
+
+const miniNumber =
+    document.getElementById(
+        "miniNumber"
+    );
+
+
+let finalCountdownRunning =
+    false;
+
+
+function updateTimer() {
+
+    if (finalCountdownRunning)
         return;
 
     const now =
@@ -181,447 +268,348 @@ function updateDateCounter() {
         targetDate - now;
 
 
-    /*
-        When August 31 reaches 00:00
-    */
-
     if (difference <= 0) {
 
-        startFinalCountdown();
+        beginFinalCountdown();
 
         return;
     }
 
 
-    const days =
+    const totalSeconds =
         Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
-
-    const hours =
-        Math.floor(
-            (difference /
-                (1000 * 60 * 60)) %
-                24
-        );
-
-    const minutes =
-        Math.floor(
-            (difference /
-                (1000 * 60)) %
-                60
-        );
-
-    const seconds =
-        Math.floor(
-            (difference /
-                1000) %
-                60
+            difference / 1000
         );
 
 
-    document.getElementById("days")
-        .textContent =
-        String(days).padStart(2, "0");
+    const d =
+        Math.floor(
+            totalSeconds / 86400
+        );
 
-    document.getElementById("hours")
-        .textContent =
-        String(hours).padStart(2, "0");
+    const h =
+        Math.floor(
+            (totalSeconds % 86400)
+            / 3600
+        );
 
-    document.getElementById("minutes")
-        .textContent =
-        String(minutes).padStart(2, "0");
+    const m =
+        Math.floor(
+            (totalSeconds % 3600)
+            / 60
+        );
 
-    document.getElementById("seconds")
-        .textContent =
-        String(seconds).padStart(2, "0");
+    const s =
+        totalSeconds % 60;
 
+
+    days.textContent =
+        String(d).padStart(2,"0");
+
+    hours.textContent =
+        String(h).padStart(2,"0");
+
+    minutes.textContent =
+        String(m).padStart(2,"0");
+
+    seconds.textContent =
+        String(s).padStart(2,"0");
 }
 
 
-updateDateCounter();
+function beginFinalCountdown() {
 
-setInterval(
-    updateDateCounter,
-    1000
-);
-
-
-/* =====================================================
-   10 → 1 COUNTDOWN
-===================================================== */
-
-function startFinalCountdown() {
-
-    if (finalCountdownStarted)
+    if (finalCountdownRunning)
         return;
 
-    finalCountdownStarted = true;
+    finalCountdownRunning = true;
 
-    dateCounter.classList.add("hidden");
 
-    finalCountdown.classList.remove("hidden");
+    timer.classList.add(
+        "hidden"
+    );
+
+
+    miniCountdown.classList.remove(
+        "hidden"
+    );
+
 
     let number = 10;
 
-    countElement.textContent =
+    miniNumber.textContent =
         number;
 
-    startMusic();
 
-
-    const timer =
+    const interval =
         setInterval(() => {
 
             number--;
 
             if (number <= 0) {
 
-                clearInterval(timer);
+                clearInterval(interval);
 
-                createBurst(
+                smallBurst(
                     window.innerWidth / 2,
-                    window.innerHeight / 2,
-                    12
+                    window.innerHeight / 2
                 );
 
-                showScreen("welcome");
+                show("welcome");
+
+                startMusic();
 
                 return;
             }
 
-            countElement.textContent =
+            miniNumber.textContent =
                 number;
 
         }, 1000);
-
 }
 
 
-/* =====================================================
+updateTimer();
+
+setInterval(
+    updateTimer,
+    1000
+);
+
+
+/* ==================================================
    SKIP
-===================================================== */
+================================================== */
 
 document
-    .getElementById("skipBtn")
-    .addEventListener("click", () => {
+    .getElementById("skipButton")
+    .addEventListener(
+        "click",
+        () => {
 
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            8
-        );
+            smallBurst(
+                window.innerWidth / 2,
+                window.innerHeight / 2
+            );
 
-        showScreen("welcome");
+            startMusic();
 
-        startMusic();
-
-    });
-
-
-/* =====================================================
-   START
-===================================================== */
-
-document
-    .getElementById("startBtn")
-    .addEventListener("click", () => {
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            10
-        );
-
-        showScreen("boxes");
-
-    });
-
-
-/* =====================================================
-   GIFT CONTENT
-===================================================== */
-
-const gifts = [
-
-    `
-        <div style="font-size:60px">✨</div>
-
-        <h2 style="margin:12px 0">
-            A little reminder
-        </h2>
-
-        <p style="color:#aaa;line-height:1.9">
-            Some people have a way of making
-            ordinary days feel a little more special.
-        </p>
-    `,
-
-    `
-        <div style="font-size:60px">💌</div>
-
-        <h2 style="margin:12px 0">
-            A tiny message
-        </h2>
-
-        <p style="color:#aaa;line-height:1.9">
-            You deserve more smiles,
-            beautiful memories,
-            and a year full of moments
-            worth remembering.
-        </p>
-    `,
-
-    `
-        <div style="font-size:60px">✦</div>
-
-        <h2 style="margin:12px 0">
-            Keep going...
-        </h2>
-
-        <p style="color:#aaa;line-height:1.9">
-            There is still a little something
-            waiting for you at the end.
-        </p>
-    `
-
-];
-
-
-const giftBoxes =
-    document.querySelectorAll(".gift-box");
-
-const modal =
-    document.getElementById("giftModal");
-
-const giftContent =
-    document.getElementById("giftContent");
-
-const closeModal =
-    document.querySelector(".close-modal");
-
-let openedGifts = 0;
-
-
-giftBoxes.forEach(box => {
-
-    box.addEventListener("click", () => {
-
-        const rect =
-            box.getBoundingClientRect();
-
-        /*
-            MUCH lighter burst
-        */
-
-        createBurst(
-            rect.left + rect.width / 2,
-            rect.top + rect.height / 2,
-            7
-        );
-
-
-        if (!box.classList.contains("opened")) {
-
-            box.classList.add("opened");
-
-            openedGifts++;
+            show("welcome");
 
         }
-
-
-        const index =
-            box.dataset.gift;
-
-        giftContent.innerHTML =
-            gifts[index];
-
-        modal.classList.add("show");
-
-
-        if (openedGifts === giftBoxes.length) {
-
-            document
-                .getElementById("boxHint")
-                .textContent =
-                "You've found them all ✨";
-
-            document
-                .getElementById("toMemories")
-                .classList.remove("hidden");
-
-        }
-
-    });
-
-});
-
-
-closeModal.addEventListener(
-    "click",
-    () => {
-
-        modal.classList.remove("show");
-
-    }
-);
-
-
-modal.addEventListener(
-    "click",
-    event => {
-
-        if (event.target === modal) {
-
-            modal.classList.remove("show");
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   MEMORIES
-===================================================== */
-
-document
-    .querySelectorAll(".memory-card")
-    .forEach(card => {
-
-        card.addEventListener("click", () => {
-
-            const img =
-                card.querySelector("img");
-
-            document
-                .getElementById("viewerImage")
-                .src = img.src;
-
-            document
-                .getElementById("imageViewer")
-                .classList.add("show");
-
-        });
-
-    });
-
-
-document
-    .getElementById("closeViewer")
-    .addEventListener("click", () => {
-
-        document
-            .getElementById("imageViewer")
-            .classList.remove("show");
-
-    });
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-document
-    .getElementById("toMemories")
-    .addEventListener("click", () => {
-
-        showScreen("memories");
-
-    });
-
-
-document
-    .getElementById("toLetter")
-    .addEventListener("click", () => {
-
-        showScreen("letter");
-
-    });
-
-
-/* =====================================================
-   ENVELOPE
-===================================================== */
-
-const envelope =
-    document.getElementById("envelope");
-
-envelope.addEventListener("click", () => {
-
-    if (
-        envelope.classList.contains("open")
-    )
-        return;
-
-
-    const rect =
-        envelope.getBoundingClientRect();
-
-
-    createBurst(
-        rect.left + rect.width / 2,
-        rect.top + rect.height / 2,
-        8
     );
 
 
-    envelope.classList.add("open");
-
-
-    document
-        .getElementById("openLetterHint")
-        .textContent =
-        "✦";
-
-
-    setTimeout(() => {
-
-        document
-            .getElementById("toVideo")
-            .classList.remove("hidden");
-
-    }, 1200);
-
-});
-
-
-/* =====================================================
-   VIDEO
-===================================================== */
+/* ==================================================
+   WELCOME
+================================================== */
 
 document
-    .getElementById("toVideo")
-    .addEventListener("click", () => {
+    .getElementById("openButton")
+    .addEventListener(
+        "click",
+        () => {
 
-        showScreen("videoSection");
+            smallBurst(
+                window.innerWidth / 2,
+                window.innerHeight / 2
+            );
 
-    });
+            show("letter");
+
+        }
+    );
+
+
+/* ==================================================
+   ENVELOPE
+================================================== */
+
+const envelope =
+    document.getElementById(
+        "envelope"
+    );
+
+const tapHint =
+    document.getElementById(
+        "tapHint"
+    );
+
+const letterContinue =
+    document.getElementById(
+        "letterContinue"
+    );
+
+
+envelope.addEventListener(
+    "click",
+    () => {
+
+        if (
+            envelope.classList.contains(
+                "open"
+            )
+        ) return;
+
+
+        const rect =
+            envelope.getBoundingClientRect();
+
+
+        smallBurst(
+            rect.left +
+                rect.width / 2,
+
+            rect.top +
+                rect.height / 2
+        );
+
+
+        envelope.classList.add(
+            "open"
+        );
+
+
+        tapHint.textContent =
+            "✦";
+
+
+        setTimeout(() => {
+
+            letterContinue.classList.remove(
+                "hidden"
+            );
+
+        }, 1200);
+
+    }
+);
+
+
+letterContinue.addEventListener(
+    "click",
+    () => {
+
+        show("memories");
+
+    }
+);
+
+
+/* ==================================================
+   PHOTO VIEWER
+================================================== */
+
+const viewer =
+    document.getElementById(
+        "imageViewer"
+    );
+
+const viewerImage =
+    document.getElementById(
+        "viewerImage"
+    );
 
 
 document
-    .getElementById("finishBtn")
-    .addEventListener("click", () => {
+    .querySelectorAll(".photoCard")
+    .forEach(card => {
 
-        showScreen("final");
+        card.addEventListener(
+            "click",
+            () => {
 
-        setTimeout(
-            createHeartExplosion,
-            350
+                const image =
+                    card.querySelector(
+                        "img"
+                    );
+
+                viewerImage.src =
+                    image.src;
+
+                viewer.classList.add(
+                    "show"
+                );
+
+            }
         );
 
     });
 
 
-/* =====================================================
-   LIGHT SPARK BURST
-===================================================== */
+document
+    .getElementById("closeImage")
+    .addEventListener(
+        "click",
+        () => {
 
-function createBurst(
+            viewer.classList.remove(
+                "show"
+            );
+
+        }
+    );
+
+
+viewer.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === viewer
+        ) {
+
+            viewer.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   VIDEO
+================================================== */
+
+document
+    .getElementById("videoButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            show("videoScreen");
+
+        }
+    );
+
+
+document
+    .getElementById("finishButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            show("final");
+
+            setTimeout(
+                startFireworks,
+                300
+            );
+
+        }
+    );
+
+
+/* ==================================================
+   LIGHT BURST
+   intentionally subtle
+================================================== */
+
+function smallBurst(
     x,
-    y,
-    amount = 7
+    y
 ) {
 
     const symbols = [
@@ -633,29 +621,16 @@ function createBurst(
 
     for (
         let i = 0;
-        i < amount;
+        i < 9;
         i++
     ) {
 
-        const spark =
-            document.createElement("div");
+        const particle =
+            document.createElement(
+                "div"
+            );
 
-        spark.style.position =
-            "fixed";
-
-        spark.style.left =
-            x + "px";
-
-        spark.style.top =
-            y + "px";
-
-        spark.style.zIndex =
-            "6000";
-
-        spark.style.pointerEvents =
-            "none";
-
-        spark.textContent =
+        particle.textContent =
             symbols[
                 Math.floor(
                     Math.random() *
@@ -663,47 +638,78 @@ function createBurst(
                 )
             ];
 
-        spark.style.color =
-            "rgba(255,255,255,.75)";
+        particle.style.position =
+            "fixed";
 
-        spark.style.fontSize =
-            8 + Math.random() * 8 + "px";
+        particle.style.left =
+            x + "px";
+
+        particle.style.top =
+            y + "px";
+
+        particle.style.zIndex =
+            "9999";
+
+        particle.style.pointerEvents =
+            "none";
+
+        particle.style.color =
+            "rgba(255,255,255,.8)";
+
+        particle.style.fontSize =
+            8 +
+            Math.random() * 7 +
+            "px";
 
 
         const angle =
             Math.random() *
-            Math.PI * 2;
+            Math.PI *
+            2;
 
         const distance =
-            30 + Math.random() * 55;
+            25 +
+            Math.random() *
+            50;
 
 
-        spark.animate(
+        particle.animate(
             [
                 {
                     transform:
                         "translate(-50%,-50%) scale(.5)",
+
                     opacity: 0
                 },
+
                 {
                     transform:
                         "translate(-50%,-50%) scale(1)",
-                    opacity: .8,
-                    offset: .2
+
+                    opacity: .8
                 },
+
                 {
                     transform:
                         `translate(
-                            calc(-50% + ${Math.cos(angle) * distance}px),
-                            calc(-50% + ${Math.sin(angle) * distance}px)
-                        )
-                        scale(.5)`,
+                            calc(-50% + ${
+                                Math.cos(angle) *
+                                distance
+                            }px),
+                            calc(-50% + ${
+                                Math.sin(angle) *
+                                distance
+                            }px)
+                        ) scale(.4)`,
+
                     opacity: 0
                 }
             ],
             {
                 duration:
-                    650 + Math.random() * 250,
+                    650 +
+                    Math.random() *
+                    250,
 
                 easing:
                     "cubic-bezier(.22,1,.36,1)"
@@ -711,87 +717,202 @@ function createBurst(
         );
 
 
-        document.body.appendChild(spark);
+        document.body.appendChild(
+            particle
+        );
 
 
         setTimeout(() => {
 
-            spark.remove();
+            particle.remove();
 
         }, 1000);
 
     }
-
 }
 
 
-/* =====================================================
-   FINAL HEARTS
-===================================================== */
+/* ==================================================
+   SOFT FIREWORKS
+================================================== */
 
-function createHeartExplosion() {
+const canvas =
+    document.getElementById(
+        "fireworks"
+    );
 
-    const symbols = [
-        "❤️",
-        "💕",
-        "✨",
-        "✦"
-    ];
+const ctx =
+    canvas.getContext("2d");
 
-
-    for (let i = 0; i < 28; i++) {
-
-        const heart =
-            document.createElement("div");
-
-        heart.className =
-            "heart";
-
-        heart.textContent =
-            symbols[
-                Math.floor(
-                    Math.random() *
-                    symbols.length
-                )
-            ];
-
-        heart.style.left =
-            Math.random() * 100 + "vw";
-
-        heart.style.top =
-            100 + Math.random() * 10 + "vh";
-
-        heart.style.fontSize =
-            13 + Math.random() * 20 + "px";
-
-        heart.style.animationDuration =
-            4 + Math.random() * 3 + "s";
+let fireworksStarted =
+    false;
 
 
-        document
-            .getElementById("hearts")
-            .appendChild(heart);
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+}
+
+resizeCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
 
 
-        setTimeout(() => {
+function startFireworks() {
 
-            heart.remove();
+    if (fireworksStarted)
+        return;
 
-        }, 7500);
+    fireworksStarted = true;
+
+    /*
+        Only occasional small bursts.
+        Not the giant explosion from before.
+    */
+
+    createFirework();
+
+    setTimeout(
+        createFirework,
+        900
+    );
+
+    setTimeout(
+        createFirework,
+        1900
+    );
+
+    animateFireworks();
+}
+
+
+let particles = [];
+
+
+function createFirework() {
+
+    const x =
+        15 +
+        Math.random() * 70;
+
+    const y =
+        15 +
+        Math.random() * 45;
+
+
+    for (
+        let i = 0;
+        i < 24;
+        i++
+    ) {
+
+        const angle =
+            (
+                Math.PI * 2
+            ) *
+            i /
+            24;
+
+        const speed =
+            1.1 +
+            Math.random() *
+            1.4;
+
+
+        particles.push({
+
+            x,
+            y,
+
+            vx:
+                Math.cos(angle) *
+                speed,
+
+            vy:
+                Math.sin(angle) *
+                speed,
+
+            life: 1
+
+        });
 
     }
-
 }
 
 
-/* =====================================================
-   RESTART
-===================================================== */
+function animateFireworks() {
 
-document
-    .getElementById("restartBtn")
-    .addEventListener("click", () => {
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-        location.reload();
 
-    });
+    particles =
+        particles.filter(
+            particle =>
+                particle.life > 0
+        );
+
+
+    particles.forEach(
+        particle => {
+
+            particle.x +=
+                particle.vx;
+
+            particle.y +=
+                particle.vy;
+
+            particle.vy +=
+                .018;
+
+            particle.life -=
+                .018;
+
+
+            ctx.beginPath();
+
+            ctx.arc(
+                particle.x *
+                    canvas.width /
+                    100,
+
+                particle.y *
+                    canvas.height /
+                    100,
+
+                1.2,
+
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle =
+                `rgba(
+                    255,
+                    170,
+                    200,
+                    ${particle.life}
+                )`;
+
+            ctx.fill();
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateFireworks
+    );
+}
+```
