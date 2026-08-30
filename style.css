@@ -4,590 +4,985 @@
     padding: 0;
 }
 
+:root {
+    --bg: #08070b;
+    --surface: rgba(255,255,255,.055);
+    --border: rgba(255,255,255,.14);
+    --text: #fff;
+    --muted: #aaa5ad;
+    --pink: #ff78a8;
+    --pink-soft: rgba(255,120,168,.2);
+}
+
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Cairo", sans-serif;
     overflow: hidden;
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            #241626 0%,
-            #100b16 45%,
-            #08070d 100%
-        );
-
-    color: #fff;
-
-    font-family:
-        "DM Sans",
-        sans-serif;
 }
 
 
-/* =========================
-   BACKGROUND
-========================= */
+/* ================= PARTICLES ================= */
 
-#stars {
+#particles {
     position: fixed;
     inset: 0;
-    pointer-events: none;
     z-index: 0;
-}
-
-.star {
-    position: absolute;
-
-    width: 2px;
-    height: 2px;
-
-    background: rgba(255,255,255,.55);
-
-    border-radius: 50%;
-
-    animation:
-        twinkle 4s infinite ease-in-out;
-}
-
-@keyframes twinkle {
-
-    0%,
-    100% {
-        opacity: .15;
-        transform: scale(.7);
-    }
-
-    50% {
-        opacity: .8;
-        transform: scale(1.4);
-    }
-}
-
-
-#shootingStars {
-    position: fixed;
-    inset: 0;
     pointer-events: none;
-    z-index: 1;
+    overflow: hidden;
 }
 
-.shooting {
+.particle {
     position: absolute;
-
-    width: 80px;
-    height: 1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.8)
-        );
-
-    transform: rotate(-35deg);
-
-    animation:
-        shoot 1.2s linear forwards;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    opacity: .5;
+    animation: particleFloat linear infinite;
 }
 
-@keyframes shoot {
+@keyframes particleFloat {
 
     from {
+        transform: translateY(110vh);
         opacity: 0;
-        transform:
-            translate(0,0)
-            rotate(-35deg);
     }
 
-    20% {
-        opacity: 1;
+    15% {
+        opacity: .6;
+    }
+
+    85% {
+        opacity: .6;
     }
 
     to {
+        transform: translateY(-10vh);
         opacity: 0;
-        transform:
-            translate(-180px,180px)
-            rotate(-35deg);
     }
+
 }
 
 
-/* =========================
-   MUSIC
-========================= */
-
-#musicHint {
-    position: fixed;
-
-    bottom: 22px;
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    font-size: 12px;
-
-    letter-spacing: 1px;
-
-    color: rgba(255,255,255,.45);
-
-    z-index: 50;
-
-    transition: .5s;
-
-    /* FIX: without this, the hint (fixed + z-index:50) still sits
-       above normal-flow buttons like .mainButton and can swallow
-       clicks intended for them, even after it's visually hidden
-       via opacity:0 in the .hide state below. */
-    pointer-events: none;
-}
-
-#musicHint.hide {
-    opacity: 0;
-}
-
-#musicButton {
-    position: fixed;
-
-    top: 20px;
-    right: 20px;
-
-    width: 42px;
-    height: 42px;
-
-    border-radius: 50%;
-
-    border: 1px solid rgba(255,255,255,.15);
-
-    background: rgba(255,255,255,.05);
-
-    color: white;
-
-    cursor: pointer;
-
-    z-index: 100;
-
-    backdrop-filter: blur(10px);
-}
-
-
-/* =========================
-   SCREEN
-========================= */
-
-main {
-    position: relative;
-
-    width: 100%;
-    height: 100%;
-
-    z-index: 5;
-}
+/* ================= SCREENS ================= */
 
 .screen {
-
-    position: absolute;
-
+    position: fixed;
     inset: 0;
+    z-index: 2;
+
+    min-height: 100vh;
+
+    padding: 40px 20px;
 
     display: none;
 
-    align-items: center;
-    justify-content: center;
-
-    flex-direction: column;
-
-    text-align: center;
-
-    padding: 30px;
+    opacity: 0;
 
     overflow-y: auto;
+
+    scrollbar-width: none;
+}
+
+.screen::-webkit-scrollbar {
+    display: none;
 }
 
 .screen.active {
     display: flex;
-
-    animation:
-        screenIn .7s ease;
+    opacity: 1;
+    animation: cinematicIn .9s cubic-bezier(.22,1,.36,1);
 }
 
-@keyframes screenIn {
+@keyframes cinematicIn {
 
     from {
         opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* =========================
-   TEXT
-========================= */
-
-.eyebrow {
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    color: rgba(255,255,255,.5);
-
-    margin-bottom: 20px;
-}
-
-h1,
-h2 {
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-weight: 700;
-}
-
-h1 {
-
-    font-size:
-        clamp(48px, 8vw, 90px);
-
-    line-height: 1.05;
-}
-
-h1 span,
-h2 span {
-
-    color: #f2b6ce;
-}
-
-h1 i,
-h2 i {
-
-    font-style: normal;
-
-    color: #f29ab9;
-}
-
-h2 {
-
-    font-size:
-        clamp(34px, 5vw, 55px);
-
-    margin-bottom: 15px;
-}
-
-.subtitle {
-
-    max-width: 520px;
-
-    margin-top: 18px;
-
-    color: rgba(255,255,255,.55);
-
-    font-size: 14px;
-
-    line-height: 1.7;
-}
-
-
-/* =========================
-   COUNTDOWN
-========================= */
-
-.glow {
-
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(224,115,161,.13),
-            transparent 65%
-        );
-
-    filter: blur(20px);
-
-    pointer-events: none;
-
-    /* FIX: keep the decorative glow behind the text/buttons in this
-       screen. Without a z-index, this absolutely-positioned element
-       paints above the normal-flow heading/timer/date text. */
-    z-index: -1;
-}
-
-.timer {
-
-    display: flex;
-
-    gap: 12px;
-
-    margin-top: 42px;
-}
-
-.timeBox {
-
-    width: 90px;
-
-    padding: 18px 10px;
-
-    border-radius: 16px;
-
-    background:
-        rgba(255,255,255,.035);
-
-    border:
-        1px solid rgba(255,255,255,.08);
-
-    backdrop-filter: blur(10px);
-}
-
-.timeBox strong {
-
-    display: block;
-
-    font-size: 32px;
-
-    font-weight: 800;
-}
-
-.timeBox span {
-
-    display: block;
-
-    margin-top: 5px;
-
-    font-size: 8px;
-
-    letter-spacing: 2px;
-
-    color: rgba(255,255,255,.4);
-}
-
-.date {
-
-    margin-top: 30px;
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    color: rgba(255,255,255,.4);
-}
-
-
-/* =========================
-   10 COUNTDOWN
-========================= */
-
-#finalCountdown {
-
-    display: none;
-
-    margin-top: 35px;
-}
-
-#finalCountdown.show {
-    display: block;
-}
-
-.countLabel {
-
-    font-size: 11px;
-
-    letter-spacing: 3px;
-
-    text-transform: uppercase;
-
-    color: rgba(255,255,255,.45);
-}
-
-#finalNumber {
-
-    font-family:
-        "Playfair Display",
-        serif;
-
-    font-size: 130px;
-
-    line-height: 1;
-
-    font-weight: 700;
-
-    color: #f2b6ce;
-
-    text-shadow:
-        0 0 40px
-        rgba(242,182,206,.25);
-
-    animation:
-        numberPop .9s ease;
-}
-
-@keyframes numberPop {
-
-    from {
-        opacity: 0;
-        transform: scale(.5);
+        transform: scale(1.04);
+        filter: blur(8px);
     }
 
     to {
         opacity: 1;
         transform: scale(1);
+        filter: blur(0);
     }
+
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* ================= BACKGROUND ================= */
 
-button {
+#intro,
+#welcome,
+#final {
 
-    font-family:
-        "DM Sans",
-        sans-serif;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255,100,160,.14),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 20% 80%,
+            rgba(130,90,255,.08),
+            transparent 30%
+        ),
+        var(--bg);
 }
 
-.mainButton {
 
-    margin-top: 32px;
+/* ================= TYPOGRAPHY ================= */
 
-    padding: 15px 25px;
+.eyebrow,
+.chapter {
+
+    font-size: 10px;
+
+    letter-spacing: 5px;
+
+    color: var(--pink);
+
+    font-weight: 600;
+}
+
+h1,
+h2,
+h3 {
+
+    font-family: "Playfair Display", serif;
+
+}
+
+.intro-content h1 {
+
+    font-size: clamp(45px, 8vw, 82px);
+
+    line-height: 1.05;
+
+    margin: 25px 0;
+
+}
+
+.intro-content h1 span,
+.welcome-content h1 span {
+
+    color: var(--pink);
+
+}
+
+.intro-content p,
+.welcome-content p {
+
+    color: var(--muted);
+
+    line-height: 2;
+
+}
+
+
+/* ================= COUNTDOWN ================= */
+
+.countdown-wrap {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin: 35px 0;
+
+}
+
+.countdown {
+
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    font-family: "Playfair Display", serif;
+
+    font-size: 48px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 0 0 10px rgba(255,255,255,.015),
+        0 0 50px rgba(255,100,160,.1);
+
+    animation: countdownPulse 1s infinite;
+
+}
+
+@keyframes countdownPulse {
+
+    50% {
+        transform: scale(1.06);
+        box-shadow:
+            0 0 0 18px rgba(255,255,255,.01),
+            0 0 70px rgba(255,100,160,.2);
+    }
+
+}
+
+
+/* ================= BUTTONS ================= */
+
+.main-btn,
+.glass-btn,
+.next-btn {
+
+    position: relative;
 
     border-radius: 999px;
 
-    border:
-        1px solid rgba(255,255,255,.15);
+    padding: 14px 28px;
 
-    background:
-        rgba(255,255,255,.06);
+    font-family: inherit;
 
-    color: white;
+    transition: .35s;
 
-    font-size: 13px;
+}
+
+.main-btn {
+
+    margin-top: 30px;
+
+    background: white;
+
+    color: #111;
+
+    border: none;
 
     font-weight: 700;
 
-    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(255,255,255,.08);
 
-    transition:
-        .3s ease;
-
-    backdrop-filter: blur(10px);
-
-    /* FIX: guarantee these buttons stay above fixed overlays
-       like #musicHint even if the browser's default stacking
-       order would otherwise put a fixed element on top. */
-    position: relative;
-    z-index: 10;
 }
 
-.mainButton:hover {
-
-    transform:
-        translateY(-3px);
-
-    background:
-        rgba(255,255,255,.12);
-
-    border-color:
-        rgba(255,255,255,.3);
-}
-
-.mainButton b {
+.main-btn span {
 
     margin-left: 10px;
+
+    transition: .3s;
+
 }
 
-.skip {
+.main-btn:hover span {
 
-    margin-top: 20px;
+    margin-left: 16px;
+
+}
+
+.main-btn:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 20px 50px rgba(255,255,255,.15);
+
+}
+
+.glass-btn,
+.next-btn {
+
+    background: rgba(255,255,255,.045);
+
+    color: white;
+
+    border: 1px solid var(--border);
+
+    backdrop-filter: blur(12px);
+
+}
+
+.glass-btn:hover,
+.next-btn:hover {
+
+    transform: translateY(-4px);
+
+    background: rgba(255,255,255,.1);
+
+    border-color: rgba(255,255,255,.3);
+
+}
+
+.next-btn {
+
+    margin-top: 35px;
+
+}
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* ================= MUSIC ================= */
+
+.music-btn {
+
+    position: fixed;
+
+    z-index: 5000;
+
+    top: 20px;
+
+    left: 20px;
+
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--border);
+
+    background: rgba(0,0,0,.3);
+
+    backdrop-filter: blur(12px);
+
+    color: white;
+
+    transition: .3s;
+
+}
+
+.music-btn:hover {
+
+    transform: rotate(15deg) scale(1.08);
+
+}
+
+
+/* ================= WELCOME ================= */
+
+#welcome {
+
+    overflow: hidden;
+
+}
+
+.welcome-content {
+
+    position: relative;
+
+    z-index: 3;
+
+}
+
+.welcome-symbol {
+
+    font-size: 55px;
+
+    color: var(--pink);
+
+    animation:
+        symbolFloat 3s ease-in-out infinite,
+        sparkleGlow 2s infinite;
+
+}
+
+@keyframes symbolFloat {
+
+    50% {
+        transform: translateY(-12px) rotate(5deg);
+    }
+
+}
+
+@keyframes sparkleGlow {
+
+    50% {
+        text-shadow:
+            0 0 15px var(--pink),
+            0 0 40px var(--pink);
+    }
+
+}
+
+.welcome-content h1 {
+
+    font-size: clamp(50px, 9vw, 90px);
+
+    line-height: .95;
+
+    margin: 20px 0;
+
+}
+
+
+/* ================= SECTION ================= */
+
+#boxes,
+#memories,
+#letter {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.section-heading {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+
+}
+
+.section-heading h2 {
+
+    font-size: clamp(35px, 6vw, 60px);
+
+    margin: 12px 0;
+
+}
+
+.section-heading p {
+
+    color: var(--muted);
+
+}
+
+
+/* ================= GIFTS ================= */
+
+.boxes-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+
+}
+
+.gift-box {
+
+    position: relative;
+
+    width: 180px;
+
+    height: 190px;
+
+    border-radius: 25px;
+
+    border: 1px solid var(--border);
+
+    background: var(--surface);
+
+    color: white;
+
+    overflow: hidden;
+
+    backdrop-filter: blur(15px);
+
+    transition:
+        transform .5s cubic-bezier(.22,1,.36,1),
+        border-color .3s;
+
+}
+
+.gift-box::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -100%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.12),
+            transparent 35%
+        );
+
+    transition: .6s;
+
+}
+
+.gift-box:hover {
+
+    transform:
+        translateY(-12px)
+        rotate(-2deg);
+
+    border-color:
+        rgba(255,255,255,.35);
+
+}
+
+.gift-box:hover::before {
+
+    transform: translate(25%,25%);
+
+}
+
+.box-glow {
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    left: 50%;
+    top: 40%;
+
+    transform: translate(-50%,-50%);
+
+    background: var(--pink-soft);
+
+    filter: blur(35px);
+
+    opacity: .5;
+
+}
+
+.box-icon {
+
+    position: relative;
+
+    font-size: 65px;
+
+    z-index: 2;
+
+    transition: .4s;
+
+}
+
+.gift-box:hover .box-icon {
+
+    transform:
+        scale(1.15)
+        rotate(8deg);
+
+}
+
+.box-label {
+
+    position: relative;
+
+    z-index: 2;
+
+    margin-top: 10px;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: var(--muted);
+
+}
+
+.gift-box.opened {
+
+    opacity: .45;
+
+    transform: scale(.93);
+
+}
+
+
+/* ================= SPARK BURST ================= */
+
+.spark {
+
+    position: fixed;
+
+    z-index: 6000;
+
+    pointer-events: none;
+
+    font-size: 20px;
+
+    animation:
+        sparkExplode .9s ease-out forwards;
+
+}
+
+@keyframes sparkExplode {
+
+    0% {
+
+        transform:
+            translate(0,0)
+            scale(.2)
+            rotate(0);
+
+        opacity: 1;
+
+    }
+
+    100% {
+
+        transform:
+            translate(var(--x),var(--y))
+            scale(1.5)
+            rotate(180deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* ================= MODAL ================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4000;
+
+    display: none;
+
+    place-items: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,.78);
+
+    backdrop-filter: blur(15px);
+
+}
+
+.modal.show {
+
+    display: grid;
+
+}
+
+.modal-content {
+
+    position: relative;
+
+    width: min(500px, 95vw);
+
+    padding: 50px 35px;
+
+    text-align: center;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(35,25,34,.98),
+            rgba(14,12,18,.98)
+        );
+
+    border: 1px solid var(--border);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.5);
+
+    animation: modalPop .6s cubic-bezier(.22,1,.36,1);
+
+}
+
+@keyframes modalPop {
+
+    from {
+
+        transform:
+            scale(.7)
+            rotate(-3deg);
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        transform:
+            scale(1)
+            rotate(0);
+
+        opacity: 1;
+
+    }
+
+}
+
+.close-modal {
+
+    position: absolute;
+
+    top: 15px;
+
+    left: 18px;
 
     background: none;
 
     border: none;
 
-    color: rgba(255,255,255,.3);
+    color: white;
 
-    cursor: pointer;
+    font-size: 28px;
 
-    font-size: 11px;
-
-    text-decoration: underline;
-
-    padding: 10px;
-
-    z-index: 100;
-
-    position: relative;
 }
 
+.modal-sparkle {
 
-/* =========================
-   SPARKLE
-========================= */
+    font-size: 50px;
 
-.sparkleBig {
+    color: var(--pink);
 
-    font-size: 35px;
-
-    color: #f2b6ce;
+    animation: sparkleGlow 1.5s infinite;
 
     margin-bottom: 15px;
 
-    animation:
-        sparkle 2.5s infinite ease-in-out;
 }
 
-@keyframes sparkle {
 
-    0%,
-    100% {
-        opacity: .5;
-        transform: scale(.9) rotate(0);
+/* ================= MEMORIES ================= */
+
+.memory-grid {
+
+    width: min(900px, 100%);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+}
+
+.memory-card {
+
+    position: relative;
+
+    height: 260px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    cursor: pointer;
+
+    background: #111;
+
+}
+
+.memory-card.tall {
+
+    height: 340px;
+
+}
+
+.memory-card img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: 1s cubic-bezier(.22,1,.36,1);
+
+}
+
+.memory-card:hover img {
+
+    transform: scale(1.08);
+
+}
+
+.memory-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            transparent 40%,
+            rgba(0,0,0,.85)
+        );
+
+}
+
+.photo-shine {
+
+    position: absolute;
+
+    z-index: 3;
+
+    width: 40%;
+
+    height: 150%;
+
+    top: -30%;
+
+    left: -100%;
+
+    transform: rotate(20deg);
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.18),
+            transparent
+        );
+
+    transition: 1s;
+
+}
+
+.memory-card:hover .photo-shine {
+
+    left: 150%;
+
+}
+
+.memory-caption {
+
+    position: absolute;
+
+    z-index: 4;
+
+    bottom: 18px;
+
+    left: 20px;
+
+}
+
+.memory-caption p {
+
+    font-size: 13px;
+
+}
+
+
+/* ================= IMAGE VIEWER ================= */
+
+.image-viewer {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 7000;
+
+    display: none;
+
+    place-items: center;
+
+    padding: 30px;
+
+    background: rgba(0,0,0,.92);
+
+    backdrop-filter: blur(15px);
+
+}
+
+.image-viewer.show {
+
+    display: grid;
+
+    animation: viewerIn .4s ease;
+
+}
+
+@keyframes viewerIn {
+
+    from {
+        opacity: 0;
     }
 
-    50% {
+    to {
         opacity: 1;
-        transform: scale(1.15) rotate(12deg);
     }
+
+}
+
+.image-viewer img {
+
+    max-width: 92%;
+
+    max-height: 88vh;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.6);
+
+}
+
+#closeViewer {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 30px;
+
+    border: none;
+
+    background: none;
+
+    color: white;
+
+    font-size: 38px;
+
 }
 
 
-/* =========================
-   ENVELOPE
-========================= */
+/* ================= ENVELOPE ================= */
 
 .envelope {
 
     position: relative;
 
-    width: 360px;
-    height: 240px;
+    width: min(500px, 90vw);
 
-    margin-top: 25px;
+    height: 320px;
 
     cursor: pointer;
 
     perspective: 1000px;
+
 }
 
-.envBack,
-.envFront {
+.envelope-back,
+.envelope-front {
 
     position: absolute;
 
@@ -597,21 +992,15 @@ button {
 
     background:
         linear-gradient(
-            145deg,
-            #dca7bd,
-            #9b657e
+            135deg,
+            #713149,
+            #4e2134
         );
 
-    box-shadow:
-        0 25px 70px
-        rgba(0,0,0,.45);
 }
 
-.envBack {
-    z-index: 1;
-}
+.envelope-front {
 
-.envFront {
     z-index: 4;
 
     clip-path:
@@ -622,393 +1011,397 @@ button {
             100% 100%,
             0 100%
         );
+
 }
 
-.flap {
+.letter-paper {
 
     position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    background: #c989a5;
-
-    clip-path:
-        polygon(
-            0 0,
-            50% 55%,
-            100% 0
-        );
-
-    transform-origin: top;
-
-    transition:
-        transform .8s ease;
-
-    z-index: 5;
-}
-
-.letterPaper {
-
-    position: absolute;
-
-    left: 20px;
-    right: 20px;
-
-    bottom: 15px;
-
-    min-height: 205px;
-
-    padding: 25px;
-
-    background:
-        #fffafc;
-
-    color: #513a46;
-
-    border-radius: 8px;
 
     z-index: 2;
 
-    text-align: left;
+    left: 7%;
 
-    transform:
-        translateY(45px);
+    top: 10%;
+
+    width: 86%;
+
+    height: 85%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf8,
+            #f5ece2
+        );
+
+    color: #292124;
+
+    border-radius: 5px;
 
     transition:
-        transform .9s ease;
+        transform 1s cubic-bezier(.22,1,.36,1);
 
-    box-shadow:
-        0 15px 40px
-        rgba(0,0,0,.2);
 }
 
-.letterPaper h3 {
+.letter-inner {
 
-    font-family:
-        "Playfair Display",
-        serif;
+    padding: 30px;
 
-    margin-bottom: 12px;
+    line-height: 1.8;
+
+    font-size: 13px;
+
 }
 
-.letterPaper p {
+.letter-top {
 
-    font-size: 11px;
+    color: #b95b78;
 
-    line-height: 1.65;
+    font-size: 25px;
 
-    margin-bottom: 9px;
+    text-align: center;
+
+    margin-bottom: 10px;
+
+}
+
+.letter-inner h3 {
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+
+}
+
+.letter-inner p {
+
+    margin-bottom: 10px;
+
 }
 
 .signature {
 
     margin-top: 15px;
 
-    font-family:
-        "Playfair Display",
-        serif;
+    text-align: right;
 
-    font-weight: 700;
+    font-family: "Playfair Display", serif;
+
 }
 
-.envelope.open .flap {
+.heart-seal {
 
-    transform:
-        rotateX(180deg);
-}
+    position: absolute;
 
-.envelope.open .letterPaper {
+    z-index: 5;
 
-    transform:
-        translateY(-80px);
-}
+    left: 50%;
 
-.tapHint {
+    top: 55%;
 
-    margin-top: 25px;
+    transform: translate(-50%,-50%);
 
-    color: rgba(255,255,255,.45);
+    width: 55px;
 
-    font-size: 11px;
-
-    letter-spacing: 1px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================
-   GALLERY
-========================= */
-
-.gallery {
-
-    width: min(900px, 90vw);
+    height: 55px;
 
     display: grid;
 
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 15px;
-
-    margin-top: 25px;
-}
-
-.photo {
-
-    height: 190px;
-
-    overflow: hidden;
-
-    border-radius: 14px;
-
-    border:
-        1px solid rgba(255,255,255,.1);
-
-    background:
-        rgba(255,255,255,.04);
-
-    cursor: pointer;
-
-    transition:
-        .35s ease;
-}
-
-.photo:hover {
-
-    transform:
-        translateY(-5px)
-        scale(1.02);
-
-    border-color:
-        rgba(255,255,255,.25);
-}
-
-.photo img {
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    display: block;
-}
-
-
-/* =========================
-   VIEWER
-========================= */
-
-#viewer {
-
-    position: fixed;
-
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    background:
-        rgba(5,4,8,.92);
-
-    z-index: 1000;
-
-    padding: 30px;
-}
-
-#viewer.show {
-    display: flex;
-}
-
-#viewerImage {
-
-    max-width: 90vw;
-    max-height: 85vh;
-
-    object-fit: contain;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 30px 100px
-        rgba(0,0,0,.7);
-}
-
-#closeViewer {
-
-    position: absolute;
-
-    top: 20px;
-    right: 25px;
-
-    width: 45px;
-    height: 45px;
+    place-items: center;
 
     border-radius: 50%;
 
-    border: none;
-
-    background:
-        rgba(255,255,255,.08);
-
-    color: white;
-
-    font-size: 28px;
-
-    cursor: pointer;
-}
-
-
-/* =========================
-   VIDEO
-========================= */
-
-.videoContainer {
-
-    width: min(850px, 90vw);
-
-    margin-top: 25px;
-
-    border-radius: 16px;
-
-    overflow: hidden;
-
-    border:
-        1px solid rgba(255,255,255,.12);
-
-    background: black;
+    background: var(--pink);
 
     box-shadow:
-        0 25px 80px
-        rgba(0,0,0,.4);
+        0 0 0 8px rgba(255,120,168,.08),
+        0 0 40px rgba(255,120,168,.35);
+
+    transition: .4s;
+
 }
 
-.videoContainer video {
+.envelope.open .letter-paper {
 
-    display: block;
+    transform:
+        translateY(-215px);
 
-    width: 100%;
+    z-index: 6;
 
-    max-height: 60vh;
+}
+
+.envelope.open .heart-seal {
+
+    opacity: 0;
+
+    transform:
+        translate(-50%,-50%)
+        scale(1.5);
+
 }
 
 
-/* =========================
-   FINAL
-========================= */
+/* ================= VIDEO ================= */
 
-#final {
-    overflow: hidden;
+#videoSection {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
 }
 
-#fireworks {
+.video-intro {
 
-    position: absolute;
+    margin-bottom: 25px;
 
-    inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    pointer-events: none;
 }
 
-.finalContent {
+.video-intro h2 {
+
+    font-size: clamp(40px, 7vw, 65px);
+
+    margin: 10px 0;
+
+}
+
+.video-intro p {
+
+    color: var(--muted);
+
+}
+
+.video-wrapper {
 
     position: relative;
 
-    z-index: 3;
+    width: min(900px, 95vw);
 
-    max-width: 700px;
+    border-radius: 22px;
+
 }
 
-.finalText {
+.video-glow {
 
-    margin-top: 25px;
+    position: absolute;
 
-    color:
-        rgba(255,255,255,.62);
+    inset: -20px;
 
-    font-size: 14px;
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,100,160,.2),
+            transparent 65%
+        );
 
-    line-height: 1.7;
+    filter: blur(25px);
+
 }
 
-.finalText b {
+.video-wrapper video {
 
-    color: white;
-}
+    position: relative;
 
-.end {
+    width: 100%;
 
-    margin-top: 30px;
+    display: block;
 
-    color:
-        rgba(255,255,255,.35);
+    border-radius: 20px;
 
-    font-size: 11px;
+    border: 1px solid var(--border);
 
-    letter-spacing: 2px;
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* ================= FINAL ================= */
 
-@media (max-width: 650px) {
+.final-content {
+
+    position: relative;
+
+    z-index: 10;
+
+}
+
+.final-spark {
+
+    font-size: 35px;
+
+    color: var(--pink);
+
+    animation:
+        sparkleGlow 1.5s infinite;
+
+}
+
+.final-heart {
+
+    font-size: 75px;
+
+    margin: 5px 0 15px;
+
+    animation:
+        heartbeat 1.4s infinite;
+
+}
+
+@keyframes heartbeat {
+
+    50% {
+
+        transform: scale(1.16);
+
+        filter:
+            drop-shadow(
+                0 0 20px rgba(255,100,160,.5)
+            );
+
+    }
+
+}
+
+.final-content h1 {
+
+    font-size: clamp(50px, 9vw, 90px);
+
+    line-height: 1;
+
+    margin: 15px 0;
+
+}
+
+.final-content h2 {
+
+    font-size: 28px;
+
+}
+
+.final-content p {
+
+    color: var(--muted);
+
+    max-width: 520px;
+
+    margin: 18px auto;
+
+    line-height: 2;
+
+}
+
+.final-small {
+
+    font-size: 13px;
+
+}
+
+
+/* ================= FLOATING HEARTS ================= */
+
+.heart {
+
+    position: fixed;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    animation:
+        floatHeart linear forwards;
+
+}
+
+@keyframes floatHeart {
+
+    from {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 1;
+
+    }
+
+    to {
+
+        transform:
+            translateY(-110vh)
+            rotate(40deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* ================= MOBILE ================= */
+
+@media(max-width:650px) {
 
     .screen {
-        padding: 20px;
+
+        padding: 30px 15px;
+
     }
 
-    h1 {
-        font-size: 47px;
+    .boxes-container {
+
+        gap: 12px;
+
     }
 
-    .timer {
-        gap: 6px;
+    .gift-box {
+
+        width: 145px;
+
+        height: 155px;
+
     }
 
-    .timeBox {
-        width: 72px;
-        padding: 14px 5px;
+    .box-icon {
+
+        font-size: 50px;
+
     }
 
-    .timeBox strong {
-        font-size: 25px;
+    .memory-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .memory-card,
+    .memory-card.tall {
+
+        height: 280px;
+
     }
 
     .envelope {
-        width: 310px;
-        height: 210px;
+
+        height: 240px;
+
     }
 
-    .gallery {
-        grid-template-columns:
-            repeat(2, 1fr);
+    .letter-inner {
 
-        gap: 10px;
+        padding: 18px;
+
+        font-size: 11px;
+
     }
 
-    .photo {
-        height: 150px;
+    .envelope.open .letter-paper {
+
+        transform:
+            translateY(-155px);
+
     }
 
-    .letterPaper {
-        padding: 20px;
-    }
-
-    #finalNumber {
-        font-size: 110px;
-    }
 }
