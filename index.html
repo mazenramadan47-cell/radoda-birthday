@@ -20,11 +20,14 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
           rel="stylesheet">
 
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet"
+          href="./style.css">
 
 </head>
 
+
 <body>
+
 
 <!-- =====================================================
      BACKGROUND
@@ -39,12 +42,21 @@
      MUSIC
 ===================================================== -->
 
-<audio id="bgMusic" loop preload="auto">
-    <source src="./music.mp3" type="audio/mpeg">
+<audio id="bgMusic"
+       loop
+       preload="auto">
+
+    <source src="./music.mp3"
+            type="audio/mpeg">
+
 </audio>
 
-<button id="musicBtn" class="music-btn">
+
+<button id="musicBtn"
+        class="music-btn">
+
     ♫
+
 </button>
 
 
@@ -52,7 +64,8 @@
      INTRO
 ===================================================== -->
 
-<section id="intro" class="screen active">
+<section id="intro"
+         class="screen active">
 
     <div class="intro-content">
 
@@ -60,39 +73,76 @@
             A LITTLE SURPRISE
         </div>
 
+
         <h1>
             Something special<br>
             <span>is waiting for you.</span>
         </h1>
 
+
         <p>
             Come back when the clock strikes midnight...
         </p>
+
 
         <div class="date-label">
             31 AUGUST · 12:00 AM
         </div>
 
+
+        <!-- MAIN COUNTDOWN -->
+
         <div class="timer">
 
             <div class="time-box">
-                <strong id="days">00</strong>
-                <small>DAYS</small>
+
+                <strong id="days">
+                    00
+                </strong>
+
+                <small>
+                    DAYS
+                </small>
+
             </div>
 
-            <div class="time-box">
-                <strong id="hours">00</strong>
-                <small>HOURS</small>
-            </div>
 
             <div class="time-box">
-                <strong id="minutes">00</strong>
-                <small>MINUTES</small>
+
+                <strong id="hours">
+                    00
+                </strong>
+
+                <small>
+                    HOURS
+                </small>
+
             </div>
 
+
             <div class="time-box">
-                <strong id="seconds">00</strong>
-                <small>SECONDS</small>
+
+                <strong id="minutes">
+                    00
+                </strong>
+
+                <small>
+                    MINUTES
+                </small>
+
+            </div>
+
+
+            <div class="time-box">
+
+                <strong id="seconds">
+                    00
+                </strong>
+
+                <small>
+                    SECONDS
+                </small>
+
             </div>
 
         </div>
@@ -100,15 +150,21 @@
 
         <!-- 10 → 1 -->
 
-        <div id="tenCountdown" class="ten-countdown">
+        <div id="tenCountdown"
+             class="ten-countdown">
 
-            <span id="count">10</span>
+            <span id="count">
+                10
+            </span>
 
         </div>
 
 
-        <button id="skipBtn" class="glass-btn">
+        <button id="skipBtn"
+                class="glass-btn">
+
             Skip the wait ✨
+
         </button>
 
     </div>
@@ -120,7 +176,8 @@
      WELCOME
 ===================================================== -->
 
-<section id="welcome" class="screen">
+<section id="welcome"
+         class="screen">
 
     <div class="welcome-content">
 
@@ -128,23 +185,33 @@
             ✦
         </div>
 
+
         <div class="eyebrow">
             IT'S MIDNIGHT
         </div>
+
 
         <h1>
             Happy Birthday<br>
             <span>Radoda</span> ❤️
         </h1>
 
+
         <p>
             I made a little something<br>
             just for you.
         </p>
 
-        <button id="startBtn" class="main-btn">
+
+        <button id="startBtn"
+                class="main-btn">
+
             Begin the surprise
-            <span>→</span>
+
+            <span>
+                →
+            </span>
+
         </button>
 
     </div>
@@ -156,7 +223,8 @@
      GIFTS
 ===================================================== -->
 
-<section id="boxes" class="screen">
+<section id="boxes"
+         class="screen">
 
     <div class="section-heading">
 
@@ -164,9 +232,11 @@
             A LITTLE SOMETHING
         </div>
 
+
         <h2>
             Three little surprises.
         </h2>
+
 
         <p>
             Open them all before you continue.
@@ -177,7 +247,9 @@
 
     <div class="boxes-container">
 
-        <button class="gift-box" data-gift="0">
+
+        <button class="gift-box"
+                data-gift="0">
 
             <div class="box-glow"></div>
 
@@ -192,7 +264,8 @@
         </button>
 
 
-        <button class="gift-box" data-gift="1">
+        <button class="gift-box"
+                data-gift="1">
 
             <div class="box-glow"></div>
 
@@ -207,7 +280,8 @@
         </button>
 
 
-        <button class="gift-box" data-gift="2">
+        <button class="gift-box"
+                data-gift="2">
 
             <div class="box-glow"></div>
 
@@ -221,11 +295,15 @@
 
         </button>
 
+
     </div>
 
 
-    <p id="boxHint" class="hint">
+    <p id="boxHint"
+       class="hint">
+
         Explore them all ✨
+
     </p>
 
 
@@ -243,19 +321,24 @@
      GIFT MODAL
 ===================================================== -->
 
-<div id="giftModal" class="modal">
+<div id="giftModal"
+     class="modal">
 
     <div class="modal-content">
+
 
         <button class="close-modal">
             ×
         </button>
 
+
         <div class="modal-sparkle">
             ✦
         </div>
 
+
         <div id="giftContent"></div>
+
 
     </div>
 
@@ -266,7 +349,9 @@
      MEMORIES
 ===================================================== -->
 
-<section id="memories" class="screen">
+<section id="memories"
+         class="screen">
+
 
     <div class="section-heading">
 
@@ -274,9 +359,11 @@
             A FEW MEMORIES
         </div>
 
+
         <h2>
             Moments worth keeping.
         </h2>
+
 
         <p>
             Six little pieces of our story.
@@ -286,6 +373,7 @@
 
 
     <div class="memory-grid">
+
 
         <div class="memory-card">
 
@@ -340,6 +428,7 @@
 
         </div>
 
+
     </div>
 
 
@@ -360,13 +449,16 @@
 <div id="imageViewer"
      class="image-viewer">
 
+
     <button id="closeViewer">
         ×
     </button>
 
+
     <img id="viewerImage"
          src=""
          alt="Memory">
+
 
 </div>
 
@@ -375,7 +467,9 @@
      LETTER
 ===================================================== -->
 
-<section id="letter" class="screen">
+<section id="letter"
+         class="screen">
+
 
     <div class="section-heading">
 
@@ -383,9 +477,11 @@
             A MESSAGE FOR YOU
         </div>
 
+
         <h2>
             A few words from me.
         </h2>
+
 
         <p>
             Tap the envelope when you're ready.
@@ -397,6 +493,7 @@
     <div id="envelope"
          class="envelope">
 
+
         <div class="envelope-back"></div>
 
 
@@ -404,37 +501,47 @@
 
             <div class="letter-inner">
 
+
                 <div class="letter-top">
                     ✦
                 </div>
+
 
                 <h3>
                     Dear Radoda,
                 </h3>
 
-                <p>
-                    I wanted to make something a little different
-                    for your birthday.
-                </p>
 
                 <p>
-                    Something small, but made with a lot of thought
-                    and a lot of love.
+                    I wanted to make something a little
+                    different for your birthday.
                 </p>
 
-                <p>
-                    I hope this new year of your life brings you
-                    beautiful moments, endless reasons to smile,
-                    and everything you've been wishing for.
-                </p>
 
                 <p>
-                    You deserve all the good things coming your way.
+                    Something small, but made with a lot
+                    of thought and a lot of love.
                 </p>
+
+
+                <p>
+                    I hope this new year of your life
+                    brings you beautiful moments, endless
+                    reasons to smile, and everything
+                    you've been wishing for.
+                </p>
+
+
+                <p>
+                    You deserve all the good things
+                    coming your way.
+                </p>
+
 
                 <div class="signature">
                     With love, ❤️
                 </div>
+
 
             </div>
 
@@ -447,6 +554,7 @@
         <div class="heart-seal">
             ♥
         </div>
+
 
     </div>
 
@@ -463,6 +571,7 @@
 
     </button>
 
+
 </section>
 
 
@@ -473,15 +582,18 @@
 <section id="videoSection"
          class="screen">
 
+
     <div class="video-intro">
 
         <div class="chapter">
             ONE LAST THING
         </div>
 
+
         <h2>
             I made this for you.
         </h2>
+
 
         <p>
             Press play when you're ready.
@@ -494,9 +606,8 @@
 
         <div class="video-glow"></div>
 
-        <!-- IMPORTANT:
-             Your actual GitHub file is birthday.mp4
-        -->
+
+        <!-- YOUR ACTUAL FILE IS birthday.mp4 -->
 
         <video id="mainVideo"
                controls
@@ -517,9 +628,13 @@
             class="main-btn">
 
         Finish the surprise
-        <span>✦</span>
+
+        <span>
+            ✦
+        </span>
 
     </button>
+
 
 </section>
 
@@ -531,44 +646,55 @@
 <section id="final"
          class="screen">
 
+
     <div id="hearts"></div>
 
 
     <div class="final-content">
 
+
         <div class="final-spark">
             ✦
         </div>
+
 
         <div class="final-heart">
             ❤️
         </div>
 
+
         <div class="eyebrow">
             ONE LAST THING
         </div>
+
 
         <h1>
             Happy Birthday,<br>
             <span>Radoda</span>
         </h1>
 
+
         <p>
             I hope this little surprise made you smile.
         </p>
 
+
         <p>
             May this year bring you beautiful moments,
-            happy memories, and everything your heart deserves.
+            happy memories, and everything your heart
+            deserves.
         </p>
+
 
         <p class="final-small">
             And I hope I get to be there for many of them. ❤️
         </p>
 
+
         <div class="end">
             Made with love.
         </div>
+
 
         <button id="restartBtn"
                 class="glass-btn">
@@ -577,7 +703,9 @@
 
         </button>
 
+
     </div>
+
 
 </section>
 
