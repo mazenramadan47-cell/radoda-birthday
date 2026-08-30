@@ -1,4 +1,3 @@
-```css
 * {
     box-sizing: border-box;
     margin: 0;
@@ -138,6 +137,12 @@ body {
     z-index: 50;
 
     transition: .5s;
+
+    /* FIX: without this, the hint (fixed + z-index:50) still sits
+       above normal-flow buttons like .mainButton and can swallow
+       clicks intended for them, even after it's visually hidden
+       via opacity:0 in the .hide state below. */
+    pointer-events: none;
 }
 
 #musicHint.hide {
@@ -317,6 +322,11 @@ h2 {
     filter: blur(20px);
 
     pointer-events: none;
+
+    /* FIX: keep the decorative glow behind the text/buttons in this
+       screen. Without a z-index, this absolutely-positioned element
+       paints above the normal-flow heading/timer/date text. */
+    z-index: -1;
 }
 
 .timer {
@@ -478,6 +488,12 @@ button {
         .3s ease;
 
     backdrop-filter: blur(10px);
+
+    /* FIX: guarantee these buttons stay above fixed overlays
+       like #musicHint even if the browser's default stacking
+       order would otherwise put a fixed element on top. */
+    position: relative;
+    z-index: 10;
 }
 
 .mainButton:hover {
@@ -996,4 +1012,3 @@ button {
         font-size: 110px;
     }
 }
-```
