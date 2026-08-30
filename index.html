@@ -20,7 +20,6 @@
 
 <body>
 
-  <!-- Background effects -->
   <div id="stars"></div>
   <div id="shootingStars"></div>
   <div class="hearts"></div>
@@ -32,9 +31,7 @@
 
   <main>
 
-    <!-- =========================
-         COUNTDOWN
-    ========================== -->
+    <!-- COUNTDOWN -->
 
     <section id="countdown" class="screen active">
 
@@ -80,16 +77,22 @@
         31 AUGUST · 12:00 AM
       </div>
 
-      <button id="testBtn" class="testBtn">
+      <!-- TEST BUTTON -->
+
+      <button
+        id="testBtn"
+        class="testBtn"
+        type="button"
+        onclick="skipCountdown()">
+
         ⚡ Skip countdown — TEST
+
       </button>
 
     </section>
 
 
-    <!-- =========================
-         WELCOME
-    ========================== -->
+    <!-- WELCOME -->
 
     <section id="welcome" class="screen">
 
@@ -111,17 +114,19 @@
         id="welcomeText">
       </p>
 
-      <button id="openBtn">
+      <button
+        id="openBtn"
+        type="button">
+
         Open your surprise
         <strong>→</strong>
+
       </button>
 
     </section>
 
 
-    <!-- =========================
-         LETTER
-    ========================== -->
+    <!-- LETTER -->
 
     <section id="letter" class="screen">
 
@@ -167,12 +172,15 @@
       <p
         class="tapHint"
         id="tapHint">
+
         Tap the envelope
+
       </p>
 
       <button
         id="continueBtn"
-        class="hidden">
+        class="hidden"
+        type="button">
 
         Keep going
         <strong>→</strong>
@@ -182,9 +190,7 @@
     </section>
 
 
-    <!-- =========================
-         MEMORIES
-    ========================== -->
+    <!-- MEMORIES -->
 
     <section id="memories" class="screen">
 
@@ -284,7 +290,9 @@
       </div>
 
 
-      <button id="videoBtn">
+      <button
+        id="videoBtn"
+        type="button">
 
         There is one more thing...
         <strong>→</strong>
@@ -294,9 +302,7 @@
     </section>
 
 
-    <!-- =========================
-         VIDEO
-    ========================== -->
+    <!-- VIDEO -->
 
     <section id="videoScreen" class="screen">
 
@@ -333,7 +339,9 @@
       </div>
 
 
-      <button id="finishBtn">
+      <button
+        id="finishBtn"
+        type="button">
 
         Finish the surprise
         <strong>✦</strong>
@@ -343,9 +351,7 @@
     </section>
 
 
-    <!-- =========================
-         FINAL
-    ========================== -->
+    <!-- FINAL -->
 
     <section id="final" class="screen">
 
@@ -394,9 +400,7 @@
   </main>
 
 
-  <!-- =========================
-       MUSIC
-  ========================== -->
+  <!-- MUSIC -->
 
   <audio
     id="music"
