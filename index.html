@@ -1,351 +1,509 @@
-```html
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>For Radoda ❤️</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-    <!-- BACKGROUND -->
-    <div id="stars"></div>
-    <div id="shootingStars"></div>
-
-    <!-- MUSIC -->
-    <div id="musicHint">♫ Tap anywhere for music</div>
-
-    <button id="musicButton">♫</button>
-
-    <main>
-
-        <!-- ================= COUNTDOWN ================= -->
-
-        <section id="countdown" class="screen active">
-
-            <div class="glow"></div>
-
-            <div class="eyebrow">
-                A little surprise is waiting...
-            </div>
-
-            <h1>
-                For <span>Radoda</span> ♥
-            </h1>
-
-            <p class="subtitle">
-                Come back when the clock strikes midnight.
-            </p>
-
-            <div class="timer" id="timer">
-
-                <div class="timeBox">
-                    <strong id="days">00</strong>
-                    <span>DAYS</span>
-                </div>
-
-                <div class="timeBox">
-                    <strong id="hours">00</strong>
-                    <span>HOURS</span>
-                </div>
-
-                <div class="timeBox">
-                    <strong id="minutes">00</strong>
-                    <span>MINUTES</span>
-                </div>
-
-                <div class="timeBox">
-                    <strong id="seconds">00</strong>
-                    <span>SECONDS</span>
-                </div>
-
-            </div>
-
-            <!-- 10 → 1 -->
-            <div id="finalCountdown">
-
-                <div class="countLabel">
-                    Get ready...
-                </div>
-
-                <div id="finalNumber">
-                    10
-                </div>
-
-            </div>
-
-            <div class="date">
-                31 AUGUST · 12:00 AM
-            </div>
-
-            <button id="skipButton" class="skip">
-                Skip countdown
-            </button>
-
-        </section>
-
-
-        <!-- ================= WELCOME ================= -->
-
-        <section id="welcome" class="screen">
-
-            <div class="sparkleBig">✦</div>
-
-            <div class="eyebrow">
-                It's finally midnight...
-            </div>
-
-            <h1>
-                Happy Birthday
-                <br>
-                <span>Radoda</span> ♥
-            </h1>
-
-            <p class="subtitle">
-                I made something small for you...
-                but I hope it means a lot.
-            </p>
-
-            <button id="openButton" class="mainButton">
-                Open your surprise
-                <b>→</b>
-            </button>
-
-        </section>
-
-
-        <!-- ================= LETTER ================= -->
-
-        <section id="letter" class="screen">
-
-            <div class="eyebrow">
-                A message for you
-            </div>
-
-            <div class="envelope" id="envelope">
-
-                <div class="envBack"></div>
-
-                <div class="letterPaper">
-
-                    <h3>Radoda,</h3>
-
-                    <p>
-                        Before you see what I made,
-                        I just want you to know that
-                        this little surprise comes
-                        straight from the heart.
-                    </p>
-
-                    <p>
-                        Some moments are too special
-                        to simply stay inside a camera roll.
-                    </p>
-
-                    <p>
-                        So I put a few of them here...
-                        just for you.
-                    </p>
-
-                    <div class="signature">
-                        With love ♥
-                    </div>
-
-                </div>
-
-                <div class="flap"></div>
-                <div class="envFront"></div>
-
-            </div>
-
-            <p id="tapHint" class="tapHint">
-                Tap the envelope
-            </p>
-
-            <button id="continueButton" class="mainButton hidden">
-                Keep going →
-            </button>
-
-        </section>
-
-
-        <!-- ================= MEMORIES ================= -->
-
-        <section id="memories" class="screen">
-
-            <div class="eyebrow">
-                A few little moments
-            </div>
-
-            <h2>
-                Moments worth keeping ♥
-            </h2>
-
-            <p class="subtitle">
-                Six little pieces of our story.
-            </p>
-
-            <div class="gallery">
-
-                <div class="photo" data-image="01.JPG">
-                    <img src="01.JPG" alt="Memory 1">
-                </div>
-
-                <div class="photo" data-image="02.JPG">
-                    <img src="02.JPG" alt="Memory 2">
-                </div>
-
-                <div class="photo" data-image="03.JPG">
-                    <img src="03.JPG" alt="Memory 3">
-                </div>
-
-                <div class="photo" data-image="04.JPG">
-                    <img src="04.JPG" alt="Memory 4">
-                </div>
-
-                <div class="photo" data-image="05.JPG">
-                    <img src="05.JPG" alt="Memory 5">
-                </div>
-
-                <div class="photo" data-image="06.JPG">
-                    <img src="06.JPG" alt="Memory 6">
-                </div>
-
-            </div>
-
-            <button id="videoButton" class="mainButton">
-                There is one more thing...
-                <b>→</b>
-            </button>
-
-        </section>
-
-
-        <!-- ================= IMAGE VIEWER ================= -->
-
-        <div id="viewer">
-
-            <button id="closeViewer">
-                ×
-            </button>
-
-            <img id="viewerImage" src="" alt="Memory">
-
-        </div>
-
-
-        <!-- ================= VIDEO ================= -->
-
-        <section id="video" class="screen">
-
-            <div class="eyebrow">
-                Something I made especially for you
-            </div>
-
-            <h2>
-                One last little surprise ♥
-            </h2>
-
-            <p class="subtitle">
-                Press play when you're ready.
-            </p>
-
-            <div class="videoContainer">
-
-                <video
-                    id="birthdayVideo"
-                    controls
-                    playsinline
-                    preload="metadata"
-                >
-                    <source src="birthday.mp4" type="video/mp4">
-                    Your browser does not support video.
-                </video>
-
-            </div>
-
-            <button id="finishButton" class="mainButton">
-                Finish the surprise ✦
-            </button>
-
-        </section>
-
-
-        <!-- ================= FINAL ================= -->
-
-        <section id="final" class="screen">
-
-            <canvas id="fireworks"></canvas>
-
-            <div class="finalContent">
-
-                <div class="sparkleBig">
-                    ✦
-                </div>
-
-                <div class="eyebrow">
-                    One last thing...
-                </div>
-
-                <h1>
-                    Happy Birthday,
-                    <br>
-                    <span>Radoda</span> ♥
-                </h1>
-
-                <p class="finalText">
-
-                    I hope this little surprise
-                    made you smile.
-
-                    <br><br>
-
-                    May this year bring you
-                    beautiful moments,
-                    happy memories,
-                    and everything
-                    your heart deserves.
-
-                    <br><br>
-
-                    <b>
-                        And I hope I get to be there
-                        for many of them. ♥
-                    </b>
-
-                </p>
-
-                <div class="end">
-                    Made with love.
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- MUSIC -->
-
-    <audio id="music" loop preload="auto">
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
-```
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("RADODA WEBSITE STARTED");
+
+    /* =========================
+       SCREEN NAVIGATION
+    ========================= */
+
+    const screens = document.querySelectorAll(".screen");
+
+    function show(id) {
+        screens.forEach(function (screen) {
+            screen.classList.remove("active");
+        });
+
+        const target = document.getElementById(id);
+        if (target) {
+            target.classList.add("active");
+        }
+    }
+
+    /* =========================
+       STARS
+    ========================= */
+
+    const stars = document.getElementById("stars");
+
+    if (stars) {
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement("div");
+            star.className = "star";
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+            star.style.animationDelay = Math.random() * 5 + "s";
+            stars.appendChild(star);
+        }
+    }
+
+    /* =========================
+       SHOOTING STARS
+    ========================= */
+
+    const shootingStars = document.getElementById("shootingStars");
+
+    function shootingStar() {
+        if (!shootingStars) return;
+
+        const star = document.createElement("div");
+        star.className = "shooting";
+        star.style.left = (70 + Math.random() * 25) + "%";
+        star.style.top = (Math.random() * 35) + "%";
+
+        shootingStars.appendChild(star);
+
+        setTimeout(function () {
+            star.remove();
+        }, 1300);
+    }
+
+    setInterval(shootingStar, 6000);
+
+    /* =========================
+       MUSIC
+    ========================= */
+
+    const music = document.getElementById("music");
+    const musicHint = document.getElementById("musicHint");
+    const musicButton = document.getElementById("musicButton");
+
+    function startMusic() {
+        if (!music) return;
+
+        music.volume = 0.22;
+
+        music.play()
+            .then(function () {
+                if (musicHint) {
+                    musicHint.classList.add("hide");
+                }
+            })
+            .catch(function () {
+                console.log("Music waiting for user interaction.");
+            });
+    }
+
+    document.addEventListener("click", startMusic, { once: true });
+
+    if (musicButton) {
+        musicButton.addEventListener("click", function (event) {
+            event.stopPropagation();
+
+            // FIX: guard against missing <audio> element
+            if (!music) return;
+
+            if (music.paused) {
+                // FIX: reuse startMusic() so volume is set to 0.22
+                // and musicHint gets hidden even if this button is
+                // the very first click on the page (stopPropagation
+                // above prevents the document-wide click handler
+                // from ever running in that case)
+                startMusic();
+                musicButton.textContent = "♫";
+            } else {
+                music.pause();
+                musicButton.textContent = "♪";
+            }
+        });
+    }
+
+    /* =========================
+       COUNTDOWN
+    ========================= */
+
+    const days = document.getElementById("days");
+    const hours = document.getElementById("hours");
+    const minutes = document.getElementById("minutes");
+    const seconds = document.getElementById("seconds");
+
+    const timer = document.getElementById("timer");
+    const finalCountdown = document.getElementById("finalCountdown");
+    const finalNumber = document.getElementById("finalNumber");
+
+    /*
+       August 31 2026
+       12:00 AM
+    */
+    const target = new Date(2026, 7, 31, 0, 0, 0);
+
+    let countdownFinished = false;
+    let tenStarted = false;
+
+    // FIX: small helper so we don't repeat this logic in
+    // startTenCountdown() and in the skip button handler
+    function closeFinalCountdownUI() {
+        if (finalCountdown) {
+            finalCountdown.classList.remove("show");
+        }
+        if (timer) {
+            timer.style.display = "";
+        }
+    }
+
+    function updateCountdown() {
+        if (countdownFinished) {
+            return;
+        }
+
+        const now = new Date();
+        const difference = target.getTime() - now.getTime();
+
+        if (difference <= 0) {
+            startTenCountdown();
+            return;
+        }
+
+        const total = Math.floor(difference / 1000);
+        const d = Math.floor(total / 86400);
+        const h = Math.floor((total % 86400) / 3600);
+        const m = Math.floor((total % 3600) / 60);
+        const s = total % 60;
+
+        if (days) days.textContent = String(d).padStart(2, "0");
+        if (hours) hours.textContent = String(h).padStart(2, "0");
+        if (minutes) minutes.textContent = String(m).padStart(2, "0");
+        if (seconds) seconds.textContent = String(s).padStart(2, "0");
+    }
+
+    function startTenCountdown() {
+        if (tenStarted) {
+            return;
+        }
+
+        tenStarted = true;
+
+        if (timer) {
+            timer.style.display = "none";
+        }
+
+        if (finalCountdown) {
+            finalCountdown.classList.add("show");
+        }
+
+        let number = 10;
+
+        if (finalNumber) {
+            finalNumber.textContent = number;
+        }
+
+        sparkleBurst();
+
+        const interval = setInterval(function () {
+            number--;
+
+            if (number <= 0) {
+                clearInterval(interval);
+
+                countdownFinished = true;
+
+                // FIX: hide the "10..1" overlay before switching screens,
+                // otherwise it stays visible on top of the welcome screen
+                closeFinalCountdownUI();
+
+                show("welcome");
+                startMusic();
+
+                return;
+            }
+
+            if (finalNumber) {
+                finalNumber.textContent = number;
+
+                /* Restart animation */
+                finalNumber.style.animation = "none";
+                void finalNumber.offsetWidth;
+                finalNumber.style.animation = "numberPop .9s ease";
+            }
+
+            sparkleBurst();
+
+        }, 1000);
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 250);
+
+    /* =========================
+       SKIP
+    ========================= */
+
+    const skipButton = document.getElementById("skipButton");
+
+    if (skipButton) {
+        skipButton.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            countdownFinished = true;
+            tenStarted = true; // FIX: prevent startTenCountdown from firing later
+
+            // FIX: make sure the "10..1" overlay is hidden if it was showing
+            closeFinalCountdownUI();
+
+            show("welcome");
+            startMusic();
+        });
+    }
+
+    /* =========================
+       WELCOME
+    ========================= */
+
+    const openButton = document.getElementById("openButton");
+
+    if (openButton) {
+        openButton.addEventListener("click", function () {
+            sparkleBurst();
+            show("letter");
+        });
+    }
+
+    /* =========================
+       ENVELOPE
+    ========================= */
+
+    const envelope = document.getElementById("envelope");
+    const tapHint = document.getElementById("tapHint");
+    const continueButton = document.getElementById("continueButton");
+
+    if (envelope) {
+        envelope.addEventListener("click", function () {
+            if (envelope.classList.contains("open")) {
+                return;
+            }
+
+            envelope.classList.add("open");
+
+            if (tapHint) {
+                tapHint.textContent = "✦";
+            }
+
+            sparkleBurst();
+
+            setTimeout(function () {
+                if (continueButton) {
+                    continueButton.classList.remove("hidden");
+                }
+            }, 1000);
+        });
+    }
+
+    if (continueButton) {
+        continueButton.addEventListener("click", function () {
+            show("memories");
+        });
+    }
+
+    /* =========================
+       IMAGE VIEWER
+    ========================= */
+
+    const viewer = document.getElementById("viewer");
+    const viewerImage = document.getElementById("viewerImage");
+    const closeViewer = document.getElementById("closeViewer");
+
+    document.querySelectorAll(".photo").forEach(function (photo) {
+        photo.addEventListener("click", function () {
+            const image = photo.querySelector("img");
+
+            if (image && viewer && viewerImage) {
+                viewerImage.src = image.src;
+                viewer.classList.add("show");
+            }
+        });
+    });
+
+    if (closeViewer) {
+        closeViewer.addEventListener("click", function () {
+            // FIX: guard against missing viewer element
+            if (viewer) {
+                viewer.classList.remove("show");
+            }
+        });
+    }
+
+    if (viewer) {
+        viewer.addEventListener("click", function (event) {
+            if (event.target === viewer) {
+                viewer.classList.remove("show");
+            }
+        });
+    }
+
+    /* =========================
+       VIDEO
+    ========================= */
+
+    const videoButton = document.getElementById("videoButton");
+    const finishButton = document.getElementById("finishButton");
+
+    if (videoButton) {
+        videoButton.addEventListener("click", function () {
+            show("video");
+        });
+    }
+
+    if (finishButton) {
+        finishButton.addEventListener("click", function () {
+            show("final");
+            setTimeout(startFireworks, 250);
+        });
+    }
+
+    /* =========================
+       LIGHT SPARKLE BURST
+    ========================= */
+
+    function sparkleBurst() {
+        const symbols = ["✦", "✧", "⋆"];
+
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        /* Small amount only. Soft animation. */
+        for (let i = 0; i < 7; i++) {
+            const particle = document.createElement("div");
+
+            particle.textContent =
+                symbols[Math.floor(Math.random() * symbols.length)];
+
+            particle.style.position = "fixed";
+            particle.style.left = centerX + "px";
+            particle.style.top = centerY + "px";
+            particle.style.zIndex = "99999";
+            particle.style.pointerEvents = "none";
+            particle.style.color = "rgba(255,210,225,.8)";
+            particle.style.fontSize = "12px";
+
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 25 + Math.random() * 40;
+
+            particle.animate(
+                [
+                    {
+                        transform: "translate(-50%,-50%) scale(.2)",
+                        opacity: 0
+                    },
+                    {
+                        transform: "translate(-50%,-50%) scale(1)",
+                        opacity: .8
+                    },
+                    {
+                        transform:
+                            "translate(" +
+                            (Math.cos(angle) * distance) +
+                            "px," +
+                            (Math.sin(angle) * distance) +
+                            "px) scale(.2)",
+                        opacity: 0
+                    }
+                ],
+                {
+                    duration: 650,
+                    easing: "cubic-bezier(.22,1,.36,1)"
+                }
+            );
+
+            document.body.appendChild(particle);
+
+            setTimeout(function () {
+                particle.remove();
+            }, 700);
+        }
+    }
+
+    /* =========================
+       FIREWORKS
+    ========================= */
+
+    const canvas = document.getElementById("fireworks");
+    let ctx = null;
+
+    if (canvas) {
+        ctx = canvas.getContext("2d");
+    }
+
+    let particles = [];
+    let fireworksStarted = false;
+
+    function resizeCanvas() {
+        if (!canvas) return;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    function createFirework() {
+        if (!canvas || !ctx) {
+            return;
+        }
+
+        const x = .2 + Math.random() * .6;
+        const y = .15 + Math.random() * .35;
+
+        for (let i = 0; i < 24; i++) {
+            const angle = (Math.PI * 2 * i) / 24;
+            const speed = .004 + Math.random() * .004;
+
+            particles.push({
+                x: x,
+                y: y,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: 1
+            });
+        }
+    }
+
+    function animateFireworks() {
+        if (!canvas || !ctx) {
+            return;
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles = particles.filter(function (particle) {
+            return particle.life > 0;
+        });
+
+        particles.forEach(function (particle) {
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.vy += .00008;
+            particle.life -= .015;
+
+            ctx.beginPath();
+            ctx.arc(
+                particle.x * canvas.width,
+                particle.y * canvas.height,
+                1.3,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fillStyle = "rgba(242,182,206," + particle.life + ")";
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animateFireworks);
+    }
+
+    function startFireworks() {
+        if (fireworksStarted || !canvas) {
+            return;
+        }
+
+        fireworksStarted = true;
+
+        createFirework();
+        setTimeout(createFirework, 800);
+        setTimeout(createFirework, 1600);
+        setTimeout(createFirework, 2400);
+
+        animateFireworks();
+    }
+
+});
