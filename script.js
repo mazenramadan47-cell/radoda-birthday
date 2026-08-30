@@ -1,8 +1,9 @@
-/* =========================================================
-   GLOBAL
-========================================================= */
+/* =====================================================
+   SCREEN SYSTEM
+===================================================== */
 
-const screens = document.querySelectorAll(".screen");
+const screens =
+    document.querySelectorAll(".screen");
 
 function showScreen(id) {
 
@@ -10,138 +11,58 @@ function showScreen(id) {
         screen.classList.remove("active");
     });
 
-    const target = document.getElementById(id);
-
     setTimeout(() => {
-        target.classList.add("active");
-    }, 80);
 
+        document
+            .getElementById(id)
+            .classList.add("active");
+
+    }, 80);
 }
 
 
-/* =========================================================
-   BACKGROUND PARTICLES
-========================================================= */
+/* =====================================================
+   STAR FIELD
+===================================================== */
 
-const particleContainer =
-    document.getElementById("particles");
+const starField =
+    document.getElementById("starField");
 
-for (let i = 0; i < 55; i++) {
+for (let i = 0; i < 85; i++) {
 
-    const particle =
+    const star =
         document.createElement("div");
 
-    particle.className = "particle";
+    star.className = "star";
 
-    particle.style.left =
-        Math.random() * 100 + "vw";
+    star.style.left =
+        Math.random() * 100 + "%";
 
-    particle.style.animationDuration =
-        7 + Math.random() * 12 + "s";
-
-    particle.style.animationDelay =
-        Math.random() * 10 + "s";
-
-    particle.style.opacity =
-        .15 + Math.random() * .6;
+    star.style.top =
+        Math.random() * 100 + "%";
 
     const size =
-        1 + Math.random() * 3;
+        1 + Math.random() * 2.5;
 
-    particle.style.width = size + "px";
-    particle.style.height = size + "px";
+    star.style.width =
+        size + "px";
 
-    particleContainer.appendChild(particle);
+    star.style.height =
+        size + "px";
 
+    star.style.animationDuration =
+        2.5 + Math.random() * 5 + "s";
+
+    star.style.animationDelay =
+        Math.random() * 6 + "s";
+
+    starField.appendChild(star);
 }
 
 
-/* =========================================================
-   COUNTDOWN
-========================================================= */
-
-let count = 5;
-
-const countElement =
-    document.getElementById("count");
-
-const countdown =
-    setInterval(() => {
-
-        count--;
-
-        if (count <= 0) {
-
-            clearInterval(countdown);
-
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                35
-            );
-
-            showScreen("welcome");
-
-            startMusic();
-
-            return;
-
-        }
-
-        countElement.textContent = count;
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            8
-        );
-
-    }, 1000);
-
-
-/* =========================================================
-   SKIP
-========================================================= */
-
-document
-    .getElementById("skipBtn")
-    .addEventListener("click", () => {
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            40
-        );
-
-        showScreen("welcome");
-
-        startMusic();
-
-    });
-
-
-/* =========================================================
-   START
-========================================================= */
-
-document
-    .getElementById("startBtn")
-    .addEventListener("click", () => {
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            50
-        );
-
-        showScreen("boxes");
-
-    });
-
-
-/* =========================================================
+/* =====================================================
    MUSIC
-========================================================= */
+===================================================== */
 
 const music =
     document.getElementById("bgMusic");
@@ -153,14 +74,14 @@ let musicPlaying = false;
 
 function startMusic() {
 
-    music.volume = .25;
+    music.volume = 0.22;
 
     music.play()
         .then(() => {
 
             musicPlaying = true;
 
-            musicBtn.textContent = "🔊";
+            musicBtn.textContent = "♫";
 
         })
         .catch(() => {});
@@ -175,7 +96,7 @@ musicBtn.addEventListener("click", () => {
 
         musicPlaying = false;
 
-        musicBtn.textContent = "🔇";
+        musicBtn.textContent = "♪";
 
     } else {
 
@@ -183,59 +104,285 @@ musicBtn.addEventListener("click", () => {
 
         musicPlaying = true;
 
-        musicBtn.textContent = "🔊";
+        musicBtn.textContent = "♫";
 
     }
 
 });
 
 
-/* =========================================================
+/* =====================================================
+   REAL DATE COUNTDOWN
+   August 31 — 12:00 AM
+===================================================== */
+
+const dateCounter =
+    document.getElementById("dateCounter");
+
+const finalCountdown =
+    document.getElementById("finalCountdown");
+
+const countElement =
+    document.getElementById("count");
+
+let finalCountdownStarted = false;
+
+function getTargetDate() {
+
+    const now = new Date();
+
+    let target =
+        new Date(
+            now.getFullYear(),
+            7,
+            31,
+            0,
+            0,
+            0,
+            0
+        );
+
+    /*
+        If August 31 has already passed,
+        use next year's August 31.
+    */
+
+    if (now >= target) {
+
+        target =
+            new Date(
+                now.getFullYear() + 1,
+                7,
+                31,
+                0,
+                0,
+                0,
+                0
+            );
+
+    }
+
+    return target;
+}
+
+const targetDate =
+    getTargetDate();
+
+
+function updateDateCounter() {
+
+    if (finalCountdownStarted)
+        return;
+
+    const now =
+        new Date();
+
+    const difference =
+        targetDate - now;
+
+
+    /*
+        When August 31 reaches 00:00
+    */
+
+    if (difference <= 0) {
+
+        startFinalCountdown();
+
+        return;
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+    const hours =
+        Math.floor(
+            (difference /
+                (1000 * 60 * 60)) %
+                24
+        );
+
+    const minutes =
+        Math.floor(
+            (difference /
+                (1000 * 60)) %
+                60
+        );
+
+    const seconds =
+        Math.floor(
+            (difference /
+                1000) %
+                60
+        );
+
+
+    document.getElementById("days")
+        .textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes")
+        .textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds")
+        .textContent =
+        String(seconds).padStart(2, "0");
+
+}
+
+
+updateDateCounter();
+
+setInterval(
+    updateDateCounter,
+    1000
+);
+
+
+/* =====================================================
+   10 → 1 COUNTDOWN
+===================================================== */
+
+function startFinalCountdown() {
+
+    if (finalCountdownStarted)
+        return;
+
+    finalCountdownStarted = true;
+
+    dateCounter.classList.add("hidden");
+
+    finalCountdown.classList.remove("hidden");
+
+    let number = 10;
+
+    countElement.textContent =
+        number;
+
+    startMusic();
+
+
+    const timer =
+        setInterval(() => {
+
+            number--;
+
+            if (number <= 0) {
+
+                clearInterval(timer);
+
+                createBurst(
+                    window.innerWidth / 2,
+                    window.innerHeight / 2,
+                    12
+                );
+
+                showScreen("welcome");
+
+                return;
+            }
+
+            countElement.textContent =
+                number;
+
+        }, 1000);
+
+}
+
+
+/* =====================================================
+   SKIP
+===================================================== */
+
+document
+    .getElementById("skipBtn")
+    .addEventListener("click", () => {
+
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            8
+        );
+
+        showScreen("welcome");
+
+        startMusic();
+
+    });
+
+
+/* =====================================================
+   START
+===================================================== */
+
+document
+    .getElementById("startBtn")
+    .addEventListener("click", () => {
+
+        createBurst(
+            window.innerWidth / 2,
+            window.innerHeight / 2,
+            10
+        );
+
+        showScreen("boxes");
+
+    });
+
+
+/* =====================================================
    GIFT CONTENT
-========================================================= */
+===================================================== */
 
 const gifts = [
 
     `
-        <div style="font-size:65px">✨</div>
+        <div style="font-size:60px">✨</div>
 
-        <h2 style="margin:15px 0">
+        <h2 style="margin:12px 0">
             A little reminder
         </h2>
 
-        <p style="color:#aaa;line-height:2">
-            No matter how ordinary a day feels,
-            sometimes one person can make it
-            feel completely different.
+        <p style="color:#aaa;line-height:1.9">
+            Some people have a way of making
+            ordinary days feel a little more special.
         </p>
     `,
 
     `
-        <div style="font-size:65px">💌</div>
+        <div style="font-size:60px">💌</div>
 
-        <h2 style="margin:15px 0">
+        <h2 style="margin:12px 0">
             A tiny message
         </h2>
 
-        <p style="color:#aaa;line-height:2">
+        <p style="color:#aaa;line-height:1.9">
             You deserve more smiles,
-            more beautiful memories,
+            beautiful memories,
             and a year full of moments
-            you'll never forget.
+            worth remembering.
         </p>
     `,
 
     `
-        <div style="font-size:65px">🌟</div>
+        <div style="font-size:60px">✦</div>
 
-        <h2 style="margin:15px 0">
-            There's more...
+        <h2 style="margin:12px 0">
+            Keep going...
         </h2>
 
-        <p style="color:#aaa;line-height:2">
-            Keep going.
-            The best part of the surprise
-            is still waiting for you.
+        <p style="color:#aaa;line-height:1.9">
+            There is still a little something
+            waiting for you at the end.
         </p>
     `
 
@@ -257,22 +404,23 @@ const closeModal =
 let openedGifts = 0;
 
 
-/* =========================================================
-   GIFT CLICK
-========================================================= */
-
 giftBoxes.forEach(box => {
 
-    box.addEventListener("click", event => {
+    box.addEventListener("click", () => {
 
         const rect =
             box.getBoundingClientRect();
 
+        /*
+            MUCH lighter burst
+        */
+
         createBurst(
             rect.left + rect.width / 2,
             rect.top + rect.height / 2,
-            30
+            7
         );
+
 
         if (!box.classList.contains("opened")) {
 
@@ -282,6 +430,7 @@ giftBoxes.forEach(box => {
 
         }
 
+
         const index =
             box.dataset.gift;
 
@@ -290,9 +439,11 @@ giftBoxes.forEach(box => {
 
         modal.classList.add("show");
 
+
         if (openedGifts === giftBoxes.length) {
 
-            document.getElementById("boxHint")
+            document
+                .getElementById("boxHint")
                 .textContent =
                 "You've found them all ✨";
 
@@ -307,31 +458,33 @@ giftBoxes.forEach(box => {
 });
 
 
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-closeModal.addEventListener("click", () => {
-
-    modal.classList.remove("show");
-
-});
-
-
-modal.addEventListener("click", event => {
-
-    if (event.target === modal) {
+closeModal.addEventListener(
+    "click",
+    () => {
 
         modal.classList.remove("show");
 
     }
+);
 
-});
+
+modal.addEventListener(
+    "click",
+    event => {
+
+        if (event.target === modal) {
+
+            modal.classList.remove("show");
+
+        }
+
+    }
+);
 
 
-/* =========================================================
+/* =====================================================
    MEMORIES
-========================================================= */
+===================================================== */
 
 document
     .querySelectorAll(".memory-card")
@@ -350,12 +503,6 @@ document
                 .getElementById("imageViewer")
                 .classList.add("show");
 
-            createBurst(
-                window.innerWidth / 2,
-                window.innerHeight / 2,
-                25
-            );
-
         });
 
     });
@@ -372,19 +519,13 @@ document
     });
 
 
-/* =========================================================
+/* =====================================================
    NAVIGATION
-========================================================= */
+===================================================== */
 
 document
     .getElementById("toMemories")
     .addEventListener("click", () => {
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            25
-        );
 
         showScreen("memories");
 
@@ -395,44 +536,45 @@ document
     .getElementById("toLetter")
     .addEventListener("click", () => {
 
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            25
-        );
-
         showScreen("letter");
 
     });
 
 
-/* =========================================================
+/* =====================================================
    ENVELOPE
-========================================================= */
+===================================================== */
 
 const envelope =
     document.getElementById("envelope");
 
 envelope.addEventListener("click", () => {
 
-    if (envelope.classList.contains("open"))
+    if (
+        envelope.classList.contains("open")
+    )
         return;
+
 
     const rect =
         envelope.getBoundingClientRect();
 
+
     createBurst(
         rect.left + rect.width / 2,
         rect.top + rect.height / 2,
-        45
+        8
     );
 
+
     envelope.classList.add("open");
+
 
     document
         .getElementById("openLetterHint")
         .textContent =
-        "✨";
+        "✦";
+
 
     setTimeout(() => {
 
@@ -445,19 +587,13 @@ envelope.addEventListener("click", () => {
 });
 
 
-/* =========================================================
+/* =====================================================
    VIDEO
-========================================================= */
+===================================================== */
 
 document
     .getElementById("toVideo")
     .addEventListener("click", () => {
-
-        createBurst(
-            window.innerWidth / 2,
-            window.innerHeight / 2,
-            30
-        );
 
         showScreen("videoSection");
 
@@ -470,35 +606,54 @@ document
 
         showScreen("final");
 
-        setTimeout(() => {
-
-            createHeartExplosion();
-
-        }, 400);
+        setTimeout(
+            createHeartExplosion,
+            350
+        );
 
     });
 
 
-/* =========================================================
-   SPARK BURST
-========================================================= */
+/* =====================================================
+   LIGHT SPARK BURST
+===================================================== */
 
-function createBurst(x, y, amount = 20) {
+function createBurst(
+    x,
+    y,
+    amount = 7
+) {
 
     const symbols = [
         "✦",
         "✧",
-        "✶",
-        "⋆",
-        "•"
+        "⋆"
     ];
 
-    for (let i = 0; i < amount; i++) {
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
 
         const spark =
             document.createElement("div");
 
-        spark.className = "spark";
+        spark.style.position =
+            "fixed";
+
+        spark.style.left =
+            x + "px";
+
+        spark.style.top =
+            y + "px";
+
+        spark.style.zIndex =
+            "6000";
+
+        spark.style.pointerEvents =
+            "none";
 
         spark.textContent =
             symbols[
@@ -508,32 +663,61 @@ function createBurst(x, y, amount = 20) {
                 )
             ];
 
-        spark.style.left = x + "px";
-        spark.style.top = y + "px";
-
-        const angle =
-            Math.random() * Math.PI * 2;
-
-        const distance =
-            50 + Math.random() * 130;
-
-        spark.style.setProperty(
-            "--x",
-            Math.cos(angle) * distance + "px"
-        );
-
-        spark.style.setProperty(
-            "--y",
-            Math.sin(angle) * distance + "px"
-        );
+        spark.style.color =
+            "rgba(255,255,255,.75)";
 
         spark.style.fontSize =
-            10 + Math.random() * 18 + "px";
+            8 + Math.random() * 8 + "px";
+
+
+        const angle =
+            Math.random() *
+            Math.PI * 2;
+
+        const distance =
+            30 + Math.random() * 55;
+
+
+        spark.animate(
+            [
+                {
+                    transform:
+                        "translate(-50%,-50%) scale(.5)",
+                    opacity: 0
+                },
+                {
+                    transform:
+                        "translate(-50%,-50%) scale(1)",
+                    opacity: .8,
+                    offset: .2
+                },
+                {
+                    transform:
+                        `translate(
+                            calc(-50% + ${Math.cos(angle) * distance}px),
+                            calc(-50% + ${Math.sin(angle) * distance}px)
+                        )
+                        scale(.5)`,
+                    opacity: 0
+                }
+            ],
+            {
+                duration:
+                    650 + Math.random() * 250,
+
+                easing:
+                    "cubic-bezier(.22,1,.36,1)"
+            }
+        );
+
 
         document.body.appendChild(spark);
 
+
         setTimeout(() => {
+
             spark.remove();
+
         }, 1000);
 
     }
@@ -541,27 +725,27 @@ function createBurst(x, y, amount = 20) {
 }
 
 
-/* =========================================================
-   FINAL HEART EXPLOSION
-========================================================= */
+/* =====================================================
+   FINAL HEARTS
+===================================================== */
 
 function createHeartExplosion() {
 
     const symbols = [
         "❤️",
         "💕",
-        "💗",
         "✨",
-        "💖",
         "✦"
     ];
 
-    for (let i = 0; i < 45; i++) {
+
+    for (let i = 0; i < 28; i++) {
 
         const heart =
             document.createElement("div");
 
-        heart.className = "heart";
+        heart.className =
+            "heart";
 
         heart.textContent =
             symbols[
@@ -578,14 +762,16 @@ function createHeartExplosion() {
             100 + Math.random() * 10 + "vh";
 
         heart.style.fontSize =
-            14 + Math.random() * 28 + "px";
+            13 + Math.random() * 20 + "px";
 
         heart.style.animationDuration =
-            3 + Math.random() * 4 + "s";
+            4 + Math.random() * 3 + "s";
+
 
         document
             .getElementById("hearts")
             .appendChild(heart);
+
 
         setTimeout(() => {
 
@@ -598,9 +784,9 @@ function createHeartExplosion() {
 }
 
 
-/* =========================================================
+/* =====================================================
    RESTART
-========================================================= */
+===================================================== */
 
 document
     .getElementById("restartBtn")
