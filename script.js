@@ -1,23 +1,30 @@
 ```javascript
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("RADODA SCRIPT LOADED");
+    console.log("RADODA WEBSITE STARTED");
+
 
     /* =========================
-       SCREEN SYSTEM
+       SCREEN NAVIGATION
     ========================= */
 
-    const screens = document.querySelectorAll(".screen");
+    const screens =
+        document.querySelectorAll(".screen");
 
-    function showScreen(id) {
-        screens.forEach(screen => {
+
+    function show(id) {
+
+        screens.forEach(function (screen) {
             screen.classList.remove("active");
         });
 
-        const screen = document.getElementById(id);
 
-        if (screen) {
-            screen.classList.add("active");
+        const target =
+            document.getElementById(id);
+
+
+        if (target) {
+            target.classList.add("active");
         }
     }
 
@@ -26,18 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
        STARS
     ========================= */
 
-    const stars = document.getElementById("stars");
+    const stars =
+        document.getElementById("stars");
+
 
     if (stars) {
 
         for (let i = 0; i < 100; i++) {
 
-            const star = document.createElement("div");
+            const star =
+                document.createElement("div");
 
             star.className = "star";
 
-            star.style.left = Math.random() * 100 + "%";
-            star.style.top = Math.random() * 100 + "%";
+            star.style.left =
+                Math.random() * 100 + "%";
+
+            star.style.top =
+                Math.random() * 100 + "%";
 
             star.style.animationDelay =
                 Math.random() * 5 + "s";
@@ -52,31 +65,42 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const shootingStars =
-        document.getElementById("shootingStars");
+        document.getElementById(
+            "shootingStars"
+        );
 
-    function createShootingStar() {
+
+    function shootingStar() {
 
         if (!shootingStars) return;
+
 
         const star =
             document.createElement("div");
 
-        star.className = "shooting";
+        star.className =
+            "shooting";
 
         star.style.left =
-            70 + Math.random() * 30 + "%";
+            (70 + Math.random() * 25) + "%";
 
         star.style.top =
-            Math.random() * 40 + "%";
+            (Math.random() * 35) + "%";
+
 
         shootingStars.appendChild(star);
 
-        setTimeout(() => {
+
+        setTimeout(function () {
             star.remove();
-        }, 1500);
+        }, 1300);
     }
 
-    setInterval(createShootingStar, 6000);
+
+    setInterval(
+        shootingStar,
+        6000
+    );
 
 
     /* =========================
@@ -87,35 +111,77 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("music");
 
     const musicHint =
-        document.getElementById("musicHint");
+        document.getElementById(
+            "musicHint"
+        );
 
-    let musicStarted = false;
+    const musicButton =
+        document.getElementById(
+            "musicButton"
+        );
+
 
     function startMusic() {
 
-        if (!music || musicStarted) return;
+        if (!music) return;
+
 
         music.volume = 0.22;
 
-        music.play()
-            .then(() => {
 
-                musicStarted = true;
+        music.play()
+            .then(function () {
 
                 if (musicHint) {
-                    musicHint.classList.add("hide");
+                    musicHint.classList.add(
+                        "hide"
+                    );
                 }
 
             })
-            .catch(() => {
-                // Browser autoplay protection.
+            .catch(function () {
+
+                console.log(
+                    "Music waiting for user interaction."
+                );
+
             });
     }
 
+
     document.addEventListener(
         "click",
-        startMusic
+        startMusic,
+        { once: true }
     );
+
+
+    if (musicButton) {
+
+        musicButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.stopPropagation();
+
+
+                if (music.paused) {
+
+                    music.play();
+
+                    musicButton.textContent =
+                        "♫";
+
+                } else {
+
+                    music.pause();
+
+                    musicButton.textContent =
+                        "♪";
+                }
+            }
+        );
+    }
 
 
     /* =========================
@@ -123,33 +189,50 @@ document.addEventListener("DOMContentLoaded", () => {
     ========================= */
 
     const days =
-        document.getElementById("days");
+        document.getElementById(
+            "days"
+        );
 
     const hours =
-        document.getElementById("hours");
+        document.getElementById(
+            "hours"
+        );
 
     const minutes =
-        document.getElementById("minutes");
+        document.getElementById(
+            "minutes"
+        );
 
     const seconds =
-        document.getElementById("seconds");
+        document.getElementById(
+            "seconds"
+        );
+
 
     const timer =
-        document.getElementById("timer");
+        document.getElementById(
+            "timer"
+        );
+
 
     const finalCountdown =
-        document.getElementById("finalCountdown");
+        document.getElementById(
+            "finalCountdown"
+        );
+
 
     const finalNumber =
-        document.getElementById("finalNumber");
+        document.getElementById(
+            "finalNumber"
+        );
 
 
     /*
-       August 31, 2026
+       August 31 2026
        12:00 AM
     */
 
-    const targetDate =
+    const target =
         new Date(
             2026,
             7,
@@ -160,30 +243,39 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-    let countdownFinished = false;
-    let tenSecondStarted = false;
+    let countdownFinished =
+        false;
+
+    let tenStarted =
+        false;
 
 
     function updateCountdown() {
 
-        if (countdownFinished) return;
+        if (countdownFinished) {
+            return;
+        }
 
-        const now = new Date();
+
+        const now =
+            new Date();
+
 
         const difference =
-            targetDate.getTime() -
+            target.getTime()
+            -
             now.getTime();
 
 
         if (difference <= 0) {
 
-            startTenSecondCountdown();
+            startTenCountdown();
 
             return;
         }
 
 
-        const totalSeconds =
+        const total =
             Math.floor(
                 difference / 1000
             );
@@ -191,37 +283,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const d =
             Math.floor(
-                totalSeconds / 86400
+                total / 86400
             );
 
 
         const h =
             Math.floor(
-                (totalSeconds % 86400) / 3600
+                (total % 86400) / 3600
             );
 
 
         const m =
             Math.floor(
-                (totalSeconds % 3600) / 60
+                (total % 3600) / 60
             );
 
 
         const s =
-            totalSeconds % 60;
+            total % 60;
 
 
         if (days)
             days.textContent =
                 String(d).padStart(2, "0");
 
+
         if (hours)
             hours.textContent =
                 String(h).padStart(2, "0");
 
+
         if (minutes)
             minutes.textContent =
                 String(m).padStart(2, "0");
+
 
         if (seconds)
             seconds.textContent =
@@ -229,20 +324,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    function startTenSecondCountdown() {
+    function startTenCountdown() {
 
-        if (tenSecondStarted) return;
+        if (tenStarted) {
+            return;
+        }
 
-        tenSecondStarted = true;
+
+        tenStarted = true;
 
 
         if (timer) {
-            timer.style.display = "none";
+            timer.style.display =
+                "none";
         }
 
 
         if (finalCountdown) {
-            finalCountdown.classList.add("show");
+            finalCountdown.classList.add(
+                "show"
+            );
         }
 
 
@@ -250,40 +351,69 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         if (finalNumber) {
-            finalNumber.textContent = number;
+            finalNumber.textContent =
+                number;
         }
 
 
+        sparkleBurst();
+
+
         const interval =
-            setInterval(() => {
+            setInterval(function () {
 
                 number--;
 
 
                 if (number <= 0) {
 
-                    clearInterval(interval);
+                    clearInterval(
+                        interval
+                    );
 
-                    countdownFinished = true;
 
-                    showScreen("welcome");
+                    countdownFinished =
+                        true;
+
+
+                    show("welcome");
+
 
                     startMusic();
+
 
                     return;
                 }
 
 
                 if (finalNumber) {
+
                     finalNumber.textContent =
                         number;
+
+                    /*
+                       Restart animation
+                    */
+
+                    finalNumber.style.animation =
+                        "none";
+
+                    void finalNumber.offsetWidth;
+
+                    finalNumber.style.animation =
+                        "numberPop .9s ease";
                 }
+
+
+                sparkleBurst();
+
 
             }, 1000);
     }
 
 
     updateCountdown();
+
 
     setInterval(
         updateCountdown,
@@ -292,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       SKIP BUTTON
+       SKIP
     ========================= */
 
     const skipButton =
@@ -305,23 +435,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         skipButton.addEventListener(
             "click",
-            (event) => {
+            function (event) {
 
                 event.preventDefault();
                 event.stopPropagation();
 
-                countdownFinished = true;
 
-                showScreen("welcome");
+                countdownFinished =
+                    true;
+
+
+                show("welcome");
+
 
                 startMusic();
+
             }
         );
     }
 
 
     /* =========================
-       WELCOME BUTTON
+       WELCOME
     ========================= */
 
     const openButton =
@@ -334,11 +469,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         openButton.addEventListener(
             "click",
-            () => {
+            function () {
 
                 sparkleBurst();
 
-                showScreen("letter");
+                show("letter");
+
             }
         );
     }
@@ -353,10 +489,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "envelope"
         );
 
+
     const tapHint =
         document.getElementById(
             "tapHint"
         );
+
 
     const continueButton =
         document.getElementById(
@@ -368,7 +506,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         envelope.addEventListener(
             "click",
-            () => {
+            function () {
 
                 if (
                     envelope.classList.contains(
@@ -385,23 +523,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 if (tapHint) {
-                    tapHint.textContent = "✦";
+
+                    tapHint.textContent =
+                        "✦";
                 }
 
 
                 sparkleBurst();
 
 
-                setTimeout(() => {
+                setTimeout(
+                    function () {
 
-                    if (continueButton) {
+                        if (continueButton) {
 
-                        continueButton.classList.remove(
-                            "hidden"
-                        );
-                    }
+                            continueButton.classList.remove(
+                                "hidden"
+                            );
+                        }
 
-                }, 900);
+                    },
+                    1000
+                );
+
             }
         );
     }
@@ -411,9 +555,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         continueButton.addEventListener(
             "click",
-            () => {
+            function () {
 
-                showScreen("memories");
+                show("memories");
 
             }
         );
@@ -429,10 +573,12 @@ document.addEventListener("DOMContentLoaded", () => {
             "viewer"
         );
 
+
     const viewerImage =
         document.getElementById(
             "viewerImage"
         );
+
 
     const closeViewer =
         document.getElementById(
@@ -442,29 +588,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document
         .querySelectorAll(".photo")
-        .forEach(photo => {
+        .forEach(function (photo) {
 
             photo.addEventListener(
                 "click",
-                () => {
+                function () {
 
                     const image =
                         photo.querySelector(
                             "img"
                         );
 
-                    if (!image || !viewer) {
-                        return;
-                    }
 
-                    if (viewerImage) {
+                    if (
+                        image &&
+                        viewer &&
+                        viewerImage
+                    ) {
+
                         viewerImage.src =
                             image.src;
-                    }
 
-                    viewer.classList.add(
-                        "show"
-                    );
+                        viewer.classList.add(
+                            "show"
+                        );
+                    }
                 }
             );
         });
@@ -474,11 +622,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         closeViewer.addEventListener(
             "click",
-            () => {
+            function () {
 
                 viewer.classList.remove(
                     "show"
                 );
+
             }
         );
     }
@@ -488,7 +637,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         viewer.addEventListener(
             "click",
-            event => {
+            function (event) {
 
                 if (
                     event.target === viewer
@@ -498,6 +647,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         "show"
                     );
                 }
+
             }
         );
     }
@@ -512,6 +662,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "videoButton"
         );
 
+
     const finishButton =
         document.getElementById(
             "finishButton"
@@ -522,11 +673,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         videoButton.addEventListener(
             "click",
-            () => {
+            function () {
 
-                showScreen(
-                    "videoScreen"
-                );
+                show("video");
+
             }
         );
     }
@@ -536,21 +686,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
         finishButton.addEventListener(
             "click",
-            () => {
+            function () {
 
-                showScreen("final");
+                show("final");
 
                 setTimeout(
                     startFireworks,
-                    200
+                    250
                 );
+
             }
         );
     }
 
 
     /* =========================
-       SPARKLE BURST
+       LIGHT SPARKLE BURST
     ========================= */
 
     function sparkleBurst() {
@@ -562,16 +713,22 @@ document.addEventListener("DOMContentLoaded", () => {
         ];
 
 
-        const x =
+        const centerX =
             window.innerWidth / 2;
 
-        const y =
+
+        const centerY =
             window.innerHeight / 2;
 
 
+        /*
+           Small amount only.
+           Soft animation.
+        */
+
         for (
             let i = 0;
-            i < 8;
+            i < 7;
             i++
         ) {
 
@@ -593,23 +750,29 @@ document.addEventListener("DOMContentLoaded", () => {
             particle.style.position =
                 "fixed";
 
+
             particle.style.left =
-                x + "px";
+                centerX + "px";
+
 
             particle.style.top =
-                y + "px";
+                centerY + "px";
+
 
             particle.style.zIndex =
                 "99999";
 
+
             particle.style.pointerEvents =
                 "none";
 
+
             particle.style.color =
-                "rgba(255,255,255,.8)";
+                "rgba(255,210,225,.8)";
+
 
             particle.style.fontSize =
-                "11px";
+                "12px";
 
 
             const angle =
@@ -630,7 +793,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     {
                         transform:
-                            "translate(-50%,-50%) scale(.3)",
+                            "translate(-50%,-50%) scale(.2)",
 
                         opacity: 0
                     },
@@ -645,12 +808,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     {
                         transform:
                             "translate(" +
-                            Math.cos(angle) *
-                            distance +
+                            (
+                                Math.cos(angle) *
+                                distance
+                            ) +
                             "px," +
-                            Math.sin(angle) *
-                            distance +
-                            "px) scale(.3)",
+                            (
+                                Math.sin(angle) *
+                                distance
+                            ) +
+                            "px) scale(.2)",
 
                         opacity: 0
                     }
@@ -658,7 +825,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 ],
 
                 {
-                    duration: 700,
+                    duration: 650,
 
                     easing:
                         "cubic-bezier(.22,1,.36,1)"
@@ -672,8 +839,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             setTimeout(
-                () => particle.remove(),
-                800
+                function () {
+                    particle.remove();
+                },
+                700
             );
         }
     }
@@ -696,18 +865,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         ctx =
             canvas.getContext("2d");
-
     }
 
 
     let particles = [];
 
-    let fireworksRunning = false;
+
+    let fireworksStarted =
+        false;
 
 
     function resizeCanvas() {
 
         if (!canvas) return;
+
 
         canvas.width =
             window.innerWidth;
@@ -728,19 +899,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function createFirework() {
 
-        if (!canvas || !ctx) return;
+        if (!canvas || !ctx) {
+            return;
+        }
 
 
         const x =
-            0.15 +
+            .2 +
             Math.random() *
-            0.7;
+            .6;
 
 
         const y =
-            0.15 +
+            .15 +
             Math.random() *
-            0.4;
+            .35;
 
 
         for (
@@ -750,22 +923,24 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
 
             const angle =
-                Math.PI *
-                2 *
-                i /
-                24;
+                (
+                    Math.PI *
+                    2 *
+                    i
+                ) / 24;
 
 
             const speed =
-                .006 +
+                .004 +
                 Math.random() *
-                .006;
+                .004;
 
 
             particles.push({
 
-                x,
-                y,
+                x: x,
+
+                y: y,
 
                 vx:
                     Math.cos(angle) *
@@ -799,25 +974,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
         particles =
             particles.filter(
-                particle =>
-                    particle.life > 0
+                function (particle) {
+
+                    return particle.life > 0;
+
+                }
             );
 
 
         particles.forEach(
-            particle => {
+            function (particle) {
 
                 particle.x +=
                     particle.vx;
 
+
                 particle.y +=
                     particle.vy;
 
+
                 particle.vy +=
-                    .0001;
+                    .00008;
+
 
                 particle.life -=
-                    .018;
+                    .015;
 
 
                 ctx.beginPath();
@@ -831,7 +1012,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     particle.y *
                         canvas.height,
 
-                    1.2,
+                    1.3,
 
                     0,
 
@@ -841,7 +1022,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
                 ctx.fillStyle =
-                    "rgba(255,170,200," +
+                    "rgba(242,182,206," +
                     particle.life +
                     ")";
 
@@ -861,14 +1042,14 @@ document.addEventListener("DOMContentLoaded", () => {
     function startFireworks() {
 
         if (
-            fireworksRunning ||
+            fireworksStarted ||
             !canvas
         ) {
             return;
         }
 
 
-        fireworksRunning = true;
+        fireworksStarted = true;
 
 
         createFirework();
@@ -883,6 +1064,12 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(
             createFirework,
             1600
+        );
+
+
+        setTimeout(
+            createFirework,
+            2400
         );
 
 
